@@ -7,7 +7,7 @@ Kacper and Drwalin Game
 
 int main()
 {
-  pritf("%s","The Worst Game Ever Will Be Created In Here");
+  printf("%s","The Worst Game Ever Will Be Created In Here");
 
 
 
