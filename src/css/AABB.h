@@ -1,5 +1,8 @@
 
-#pragma once
+#ifndef AABB_H
+#define AABB_H
+
+#include "../Includer.h"
 
 class AABB
 {
@@ -68,5 +71,5 @@ public:
 	~AABBint();
 };
 
-
+#endif
 
