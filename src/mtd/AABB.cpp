@@ -1,37 +1,38 @@
 
 #pragma once
 
-void DrawDebug() const;////////////////////////////////////////////////////////////////////////////////////////////////////////////
+void AABB::DrawDebug( const float r, const float g, const float b, clonst float a ) const;////////////////////////////////////////////////////////////////////////////////////////////////////////////
+AABB AABB::GetRotated( const Quat& quat ) const
 
-inline float GetVolume() const
+inline float AABB::GetVolume() const
 {
 	Vector a = max-min;
 	return abs( a[0] * a[1] * a[2] );
 }
 
-inline AABB & AABB::operator = ( const AABB src )
+inline AABB & AABB::operator = ( const AABB& src )
 {
 	min = src.min;
 	max = src.max;
 	return *this;
 }
 
-inline AABB AABB::operator + ( const AABB src ) const
+inline AABB AABB::operator + ( const AABB& src ) const
 {
 	return AABB( Math::Min(min,src.min), Math::Max(max,src.max) );
 }
 
-inline AABB AABB::operator + ( const Vector src ) const
+inline AABB AABB::operator + ( const Vector& src ) const
 {
 	return AABB( min+src, max+src );
 }
 
-inline AABB AABB::operator - ( const Vector src ) const
+inline AABB AABB::operator - ( const Vector& src ) const
 {
 	return AABB( min-src, max-src );
 }
 
-inline bool AABB::IsPointInsie( const Vector p ) const
+inline bool AABB::IsPointInsie( const Vector& p ) const
 {
 	if( p >= min )
 		if( p <= max )
@@ -39,7 +40,7 @@ inline bool AABB::IsPointInsie( const Vector p ) const
 	return false;
 }
 
-inline bool AABB::SharedPart( const AABB a, const AABB b, AABB & dst )
+inline bool AABB::SharedPart( const AABB& a, const AABB& b, AABB& dst )
 {
 	if( a.max > b.min )
 	{
@@ -53,7 +54,7 @@ inline bool AABB::SharedPart( const AABB a, const AABB b, AABB & dst )
 	return false;
 }
 
-inline bool AABB::SharedPart( const AABB src, AABB & dst ) const
+inline bool AABB::SharedPart( const AABB& src, AABB& dst ) const
 {
 	if( max > src.min )
 	{
@@ -88,7 +89,7 @@ inline Vector AABB::GetCenter() const
 }
 
 
-inline void AABB::AddPoint( const Vector point )
+inline void AABB::AddPoint( const Vector& point )
 {
 	if( point[0] < min[0] )				min[0] = point[0];
 	else if( point[0] > max[0] )		max[0] = point[0];
@@ -98,17 +99,17 @@ inline void AABB::AddPoint( const Vector point )
 	else if( point[2] > max[2] )		max[2] = point[2];
 }
 
-inline void AABB::SetMin( const Vector min_ )
+inline void AABB::SetMin( const Vector& min_ )
 {
 	min = min_;
 }
 
-inline void AABB::SetMax( const Vector max_ )
+inline void AABB::SetMax( const Vector& max_ )
 {
 	max = max_;
 }
 
-inline void AABB::Set( const Vector min_, const Vector max_ )
+inline void AABB::Set( const Vector& min_, const Vector& max_ )
 {
 	min = min_;
 	max = max_;
@@ -120,7 +121,7 @@ AABB::AABB()
 	max.Set( 0.0f, 0.0f, 0.0f );
 }
 
-AABB::AABB( const Vector min_, const Vector max_ )
+AABB::AABB( const Vector& min_, const Vector& max_ )
 {
 	min = min_;
 	max = max_;
@@ -134,18 +135,18 @@ AABB::~AABB()
 
 
 
-inline AABBint & AABBint::operator = ( const AABBint src )
+inline AABBint & AABBint::operator = ( const AABBint& src )
 {
 	strcpy( this, &src, sizeof(AABBint) );
 	return *this;
 }
 
-inline bool AABBint::operator == ( const AABBint src ) const
+inline bool AABBint::operator == ( const AABBint& src ) const
 {
 	return memcmp( this, &src, sizeof(AABBint) ) == 0;
 }
 
-inline bool AABBint::operator != ( const AABBint src ) const
+inline bool AABBint::operator != ( const AABBint& src ) const
 {
 	return memcmp( this, &src, sizeof(AABBint) ) != 0;
 }
@@ -212,7 +213,7 @@ inline void AABBint::SetMaxZ( const long long int val )
 }
 
 
-AABBint::AABBint( const AABB src, const AABB scale, const long long int size )
+AABBint::AABBint( const AABB& src, const AABB& scale, const long long int size )
 {
 	Vector scale_ = scale.GetSize();
 	scale_ = Vector( ((float)(size))/scale_[0], ((float)(size))/scale_[1], ((float)(size))/scale_[2] );

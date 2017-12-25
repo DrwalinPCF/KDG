@@ -1,30 +1,31 @@
 
 #pragma once
 
+template < class T >
 class Collider
 {
 private:
 	
-	World * world;
+	Game * game;
 	
-	Octtree < std::map < Actor*, bool > > octtree;
-	std::map < Actor*, bool > outsideActors;
-	std::map < Actor*, AABBint > actorAABB;
+	Octtree < std::map < T*, bool > > octtree;
+	std::map < T*, bool > outsideObject;
+	std::map < T*, AABBint > objectAABB;
 	
 	AABB aabb;
 	
 public:
 	
-	void AddActor( const Actor * actor );
-	void DestroyActor( const Actor * actor );
-	void GetActor( const AABB aabb, std::map < Actor *, bool > & actors ) const;		// std::map actors - must be empty
-	void GetActor( const AABB aabb, std::map < Actor *, AABB > & actors ) const;		// std::map actors - must be empty
+	void AddObject( const T * object, const AABB& aabbObject );
+	void RemoveObject( const T * object );
+	void GetObject( const AABB& aabb, std::map < T *, bool >& objects ) const;		// std::map actors - must be empty
+	void GetObject( const AABB& aabb, std::map < T *, AABB >& objects ) const;		// std::map actors - must be empty
 	
 	void Clear();
 	
 	AABB GetAABB() const;
 	Vector GetSize() const;
-	void Init( const AABB aabb, const int levels, const World * world );
+	void Init( const AABB& aabb, const int levels, const Game * game );
 	
 	void Destroy();
 	

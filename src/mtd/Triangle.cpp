@@ -4,6 +4,21 @@
 
 #include "../css/Triangle.h"
 
+inline Triangle Triangle::GetRotated( const Quat& rotation ) const
+{
+	return Triangle( rotation*pointA, rotation*pointB, rotation*pointC );
+}
+
+inline Triangle Triangle::GetMoved( const Vector& possition ) const
+{
+	return Triangle( possition+pointA, possition+pointB, possition+pointC );
+}
+
+inline Triangle Triangle::GetTranslated( const Vector& possition, const Quat& rotation ) const
+{
+	return Triangle( possition+rotation*pointA, possition+rotation*pointB, possition+rotation*pointC );
+}
+
 inline bool Triangle::operator == ( const Triangle& other ) const
 {
 	return (pointA==other.pointA) && (pointB==other.pointB) && (pointC==other.pointC);
