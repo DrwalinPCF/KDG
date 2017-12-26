@@ -1,0 +1,13 @@
+Copyright (C) 2018 Marek Zalewski and Kacper Orzeszko
+
+1. Only Marek Zalewski and Kacper Orzeszko can
+distribute, redistribute or use all source code.
+
+2. Only Marek Zalewski and Kacper Orzeszko are
+authorized to sign an agreement with any one,
+to agreed them to use source code.
+
+3. Not all of source code belong to Marek Zalewski
+and Kacper Orzeszko, information about source code
+belongings are included in headline of all files.
+

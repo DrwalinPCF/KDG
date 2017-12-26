@@ -1,0 +1,11 @@
+Copyright (C) 2018 Marek Zalewski and Kacper Orzeszko
+
+1. Only Marek Zalewski and Kacper Orzeszko can
+distribute or redistribute Software and any media.
+
+2. In no event will the authors be held liable for
+any damages arising from the use of this software.
+
+3. Only Marek Zalewski and Kacper Orzeszko are
+authorized to sign an agreement with any one,
+to agreed them to distribute any of binaries.

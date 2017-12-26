@@ -1,0 +1,17 @@
+Copyright (C) 2018 Marek Zalewski and Kacper Orzeszko
+
+1. Any of plots belongs to Marek Zalewski and Kacper Orzeszko.
+
+2. All of characters, places and items are
+generated or invented randomly. Any simillarity
+to real things are random and not planned.
+
+3. Copying, distributing or redistributing of
+content of "release/media" folder are permitted
+only to Marek Zalewski and Kacper Orzeszko.
+
+3. Only Marek Zalewski and Kacper Orzeszko are
+authorized to sign an agreement with any one,
+to agreed them to distribute, redistribute or use
+content of "release/media" folder in other programs
+or projects.
