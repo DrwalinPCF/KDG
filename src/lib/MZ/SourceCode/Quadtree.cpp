@@ -17,9 +17,10 @@
 	3.	This notice may not be removed or altered from any source distribution.
 */
 
-#pragma once
+#ifndef QUADTREE_CPP
+#define QUADTREE_CPP
 
-#include "Quadtree.h"
+#include "../SourceHeader/Quadtree.h"
 
 template < class T >
 void QuadtreeNode<T>::Destroy()
@@ -317,4 +318,5 @@ Quadtree<T>::~Quadtree()
 	lvl = 0;
 }
 
+#endif
 

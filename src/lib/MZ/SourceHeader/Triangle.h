@@ -20,7 +20,9 @@
 #ifndef TRIANGLE_H
 #define TRIANGLE_H
 
-#include "..\Includer.h"
+#include "Vector.h"
+#include "Quat.h"
+#include "AABB.h"
 
 class Triangle
 {

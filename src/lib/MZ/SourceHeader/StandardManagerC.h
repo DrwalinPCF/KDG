@@ -44,5 +44,8 @@ void GetEqualPart( std::map < T, T2 > & dst, std::map < T, T2 > & src_a, std::ma
 template < class T, class T2 >
 void MapPushBack( std::map < T, T2 > & dst, std::map < T, T2 > & src );
 
+template < class T, class T2 >
+void SumSortedVectorWithMapKeys( std::vector < T > & dst, std::map < T, T2 > & src );
+
 #endif
 

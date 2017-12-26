@@ -17,7 +17,8 @@
 	3.	This notice may not be removed or altered from any source distribution.
 */
 
-#pragma once
+#ifndef MATH_CPP
+#define MATH_CPP
 
 float Math::Min( const float a, const float b )
 {
@@ -109,5 +110,5 @@ static float Math::Clamp( const float a, const float min, const float max )
 	return ( a < min ) ? min : ( ( a > max ) ? max : a );
 }
 
-
+#endif
 

@@ -20,7 +20,9 @@
 #ifndef QUAT_H
 #define QUAT_H
 
-#include "../Includer.h"
+#include "cmath"
+
+#include "Vector.cpp"
 
 struct Quat
 {

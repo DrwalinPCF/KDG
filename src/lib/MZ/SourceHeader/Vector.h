@@ -20,7 +20,7 @@
 #ifndef VECTOR_H
 #define VECTOR_H
 
-#include "../Includer.h"
+#include "cmath"
 
 class Vector
 {

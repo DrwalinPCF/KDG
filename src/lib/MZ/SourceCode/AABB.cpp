@@ -17,10 +17,12 @@
 	3.	This notice may not be removed or altered from any source distribution.
 */
 
-#pragma once
+#ifndef AABB_CPP
+#define AABB_CPP
 
-void AABB::DrawDebug( const float r, const float g, const float b, clonst float a ) const;////////////////////////////////////////////////////////////////////////////////////////////////////////////
-AABB AABB::GetRotated( const Quat& quat ) const
+#include "../SourceHeader/AABB.h"
+
+AABB AABB::GetRotated( const Quat& quat ) const////////////////////////////////////////////////////////////////////////////////////////////
 
 inline float AABB::GetVolume() const
 {
@@ -257,5 +259,5 @@ AABBint::~AABBint()
 	memset( max, 0, sizeof(max) );
 }
 
-
+#endif
 

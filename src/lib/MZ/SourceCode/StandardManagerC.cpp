@@ -128,5 +128,46 @@ void MapPushBack( std::map < T, T2 > & dst, std::map < T, T2 > & src )
 		dst[it->first] = it->second;
 }
 
+template < class T, class T2 >
+void SumSortedVectorWithMapKeys( std::vector < T > & dst, std::map < T, T2 > & src )
+{
+	int srcS = src.size();
+	int i = 0, j = 0;
+	auto it = src.begin();
+	BEGIN_1:
+	{
+		if( it != src.end() )
+		{
+		BEGIN_2:
+			if( i < dst.size() )
+			{
+				if( it->first == dst[i] )
+				{
+					++i;
+					*it++;
+					++j;
+					goto BEGIN_1;
+				}
+				else if( it->first < dst[i] )
+				{
+					dst.insert( dst.begin() + i, it->first );
+					++i;
+					*it++;
+					++j;
+					goto BEGIN_1;
+				}
+				++i;
+				goto BEGIN_2;
+			}
+			
+			i = dst.size();
+			dst.resize( i + srcS - j );
+			for( ; it != src.end(); *it++, ++i )
+				dst[i] = it->first;
+			return;
+		}
+	}
+}
+
 #endif
 

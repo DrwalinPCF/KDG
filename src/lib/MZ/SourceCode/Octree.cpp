@@ -17,7 +17,10 @@
 	3.	This notice may not be removed or altered from any source distribution.
 */
 
-#include "Octree.h"
+#ifndef OCTREE_CPP
+#define OCTREE_CPP
+
+#include "../SourceHeader/Octree.h"
 
 template < class T >
 inline void OcttreeNode<T>::Destroy()
@@ -604,4 +607,5 @@ Octtree<T>::~Octtree()
 	lvl = 0;
 }
 
+#endif
 

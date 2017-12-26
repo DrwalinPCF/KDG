@@ -17,7 +17,12 @@
 	3.	This notice may not be removed or altered from any source distribution.
 */
 
-#pragma once
+#ifndef MATH_H
+#define MATH_H
+
+#include "cmath"
+#include "Vector.h"
+#include "Quat.h"
 
 class Math
 {
@@ -40,5 +45,5 @@ public:
 	static float Clamp( const float a, const float min, const float max );
 };
 
-
+#endif
 

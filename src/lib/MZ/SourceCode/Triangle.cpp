@@ -20,7 +20,7 @@
 #ifndef TRIANGLE_H
 #define TRIANGLE_H
 
-#include "../css/Triangle.h"
+#include "../SourceHeader/Triangle.h"
 
 inline Triangle Triangle::GetRotated( const Quat& rotation ) const
 {

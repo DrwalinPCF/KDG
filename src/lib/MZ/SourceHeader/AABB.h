@@ -20,7 +20,8 @@
 #ifndef AABB_H
 #define AABB_H
 
-#include "../Includer.h"
+#include "Vector.h"
+#include "Quat.h"
 
 class AABB
 {
@@ -31,8 +32,6 @@ private:
 public:
 	
 	AABB GetRotated( const Quat& quat ) const;
-	
-	void DrawDebug( const float r, const float g, const float b, clonst float a ) const;
 	
 	inline float GetVolume() const;
 	

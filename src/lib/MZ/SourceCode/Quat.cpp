@@ -20,7 +20,7 @@
 #ifndef QUAT_CPP
 #define QUAT_CPP
 
-#include "../css/Quat
+#include "../SourceHeader/Quat.h"
 
 inline float& Quat::operator[]( const int id )
 {
