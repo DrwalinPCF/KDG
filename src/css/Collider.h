@@ -18,8 +18,9 @@ public:
 	
 	void AddObject( const T * object, const AABB& aabbObject );
 	void RemoveObject( const T * object );
-	void GetObject( const AABB& aabb, std::map < T *, bool >& objects ) const;		// std::map actors - must be empty
-	void GetObject( const AABB& aabb, std::map < T *, AABB >& objects ) const;		// std::map actors - must be empty
+	void GetObject( const AABB& aabb, std::map < T *, bool >& objects ) const;		// std::map objects - must be empty
+	void GetObject( const AABB& aabb, std::map < T *, AABB >& objects ) const;		// std::map objects - must be empty
+	void GetObject( const AABB& aabb, std::string < T* >& objects ) const;
 	
 	void Clear();
 	

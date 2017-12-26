@@ -27,7 +27,7 @@ void Collider::AddObject( const T * object, const AABB& aabbObject )
 		long long int pos[3];
 		for( pos[0] = aabb.GetMinX(); pos[0] <= aabb.GetMaxX(); ++pos[0] )
 		{
-			for( pos[1] = aabb.GetMinY(); pos[1] <= aabb.GetMaxY(); ++pos[0] )
+			for( pos[1] = aabb.GetMinY(); pos[1] <= aabb.GetMaxY(); ++pos[1] )
 			{
 				for( pos[2] = aabb.GetMinZ(); pos[2] <= aabb.GetMaxZ(); ++pos[2] )
 				{
@@ -57,7 +57,7 @@ void Collider::DestroyActor( const T * object )
 			long long int pos[3];
 			for( pos[0] = aabb.GetMinX(); pos[0] <= aabb.GetMaxX(); ++pos[0] )
 			{
-				for( pos[1] = aabb.GetMinY(); pos[1] <= aabb.GetMaxY(); ++pos10] )
+				for( pos[1] = aabb.GetMinY(); pos[1] <= aabb.GetMaxY(); ++pos[1] )
 				{
 					for( pos[2] = aabb.GetMinZ(); pos[2] <= aabb.GetMaxZ(); ++pos[2] )
 					{
@@ -82,7 +82,7 @@ void Collider::GetActor( const AABB& aabbSrc, std::map < Actor *, bool >& object
 		long long int pos[3];
 		for( pos[0] = aabb.GetMinX(); pos[0] <= aabb.GetMaxX(); ++pos[0] )
 		{
-			for( pos[1] = aabb.GetMinY(); pos[1] <= aabb.GetMaxY(); ++pos10] )
+			for( pos[1] = aabb.GetMinY(); pos[1] <= aabb.GetMaxY(); ++pos[1] )
 			{
 				for( pos[2] = aabb.GetMinZ(); pos[2] <= aabb.GetMaxZ(); ++pos[2] )
 				{
@@ -110,7 +110,7 @@ void Collider::GetActor( const AABB& aabbSrc, std::map < Actor *, AABB >& object
 		long long int pos[3];
 		for( pos[0] = aabb.GetMinX(); pos[0] <= aabb.GetMaxX(); ++pos[0] )
 		{
-			for( pos[1] = aabb.GetMinY(); pos[1] <= aabb.GetMaxY(); ++pos10] )
+			for( pos[1] = aabb.GetMinY(); pos[1] <= aabb.GetMaxY(); ++pos[1] )
 			{
 				for( pos[2] = aabb.GetMinZ(); pos[2] <= aabb.GetMaxZ(); ++pos[2] )
 				{
@@ -120,6 +120,28 @@ void Collider::GetActor( const AABB& aabbSrc, std::map < Actor *, AABB >& object
 				}
 			}
 		}
+	}
+}
+
+void Collider::GetObject( const AABB& aabb, std::string < T* >& objects ) const
+{
+	if( outsideObjects.size() > 0 )
+	{
+		for( auto it = outsideObjects.begin(); it != outsideObjects.end(); *it++ )
+			objects.insert[it->first] = objectAABB.find[it->first];
+	}
+	
+	AABB dst;
+	
+	if( AABB::SharedPart( this->aabb, aabbSrc, dst ) )
+	{
+		AABBint aabb( dst, this->aabb, octtree.GetSpaceSizeAxes() );
+		
+		long long int pos[3];
+		for( pos[0] = aabb.GetMinX(); pos[0] <= aabb.GetMaxX(); ++pos[0] )
+			for( pos[1] = aabb.GetMinY(); pos[1] <= aabb.GetMaxY(); ++pos[1] )
+				for( pos[2] = aabb.GetMinZ(); pos[2] <= aabb.GetMaxZ(); ++pos[2] )
+					SumSortedVectorWithMapKeys < T*, bool > ( objects, octtree.GetConst( pos[0], pos[1], pos[2] ) );
 	}
 }
 
