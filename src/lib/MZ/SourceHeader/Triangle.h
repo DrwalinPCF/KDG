@@ -38,6 +38,8 @@ public:
 	inline Triangle GetMoved( const Vector& possition ) const;
 	inline Triangle GetTranslated( const Vector& possition, const Quat& rotation ) const;
 	
+	inline AABB GetAABB() const;
+	
 	inline bool operator == ( const Triangle& other ) const;
 	inline bool operator != ( const Triangle& other ) const;
 	

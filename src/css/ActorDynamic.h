@@ -39,7 +39,7 @@ public:
 	
 	
 	
-	void Update( float deltaTime );
+	void Update( const float deltaTime );
 	
 	inline bool GetMovability() const;
 	inline void SetMovability( const bool src );

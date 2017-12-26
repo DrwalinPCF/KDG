@@ -22,7 +22,19 @@
 
 #include "../SourceHeader/AABB.h"
 
-AABB AABB::GetRotated( const Quat& quat ) const////////////////////////////////////////////////////////////////////////////////////////////
+AABB AABB::GetRotated( const Quat& quat ) const
+{
+	Vector v = quat*min;
+	AABB aabb( v, v );
+	aabb.AddPoint( quat*Vector(min[0],min[1],max[2]) );
+	aabb.AddPoint( quat*Vector(min[0],max[1],min[2]) );
+	aabb.AddPoint( quat*Vector(max[0],min[1],min[2]) );
+	aabb.AddPoint( quat*Vector(max[0],min[1],max[2]) );
+	aabb.AddPoint( quat*Vector(max[0],max[1],min[2]) );
+	aabb.AddPoint( quat*Vector(min[0],max[1],max[2]) );
+	aabb.AddPoint( quat*Vector(max[0],max[1],max[2]) );
+	return aabb;
+}
 
 inline float AABB::GetVolume() const
 {

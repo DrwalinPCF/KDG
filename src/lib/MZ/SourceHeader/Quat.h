@@ -54,8 +54,11 @@ public:
 	inline void ClampAngle( const float maxAngle );
 	inline void SetAngle( const float angle );
 	
+	inline Quat& FromEuler( const Vector& rotator );
+	
 	Quat( const Quat& src_a, const Quat& src_b );
 	Quat( const Vector& axis, const float angle );
+	Quat( const Vector& rotator );		// from euler
 	Quat();
 	Quat( const float a, const float b, const float c, const float d );
 };

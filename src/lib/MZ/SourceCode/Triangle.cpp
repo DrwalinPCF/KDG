@@ -37,6 +37,14 @@ inline Triangle Triangle::GetTranslated( const Vector& possition, const Quat& ro
 	return Triangle( possition+rotation*pointA, possition+rotation*pointB, possition+rotation*pointC );
 }
 
+inline AABB Triangle::GetAABB() const
+{
+	AABB aabb( pointA, pointA );
+	aabb.AddPoint( pointB );
+	aabb.AddPoint( pointC );
+	return aabb;
+}
+
 inline bool Triangle::operator == ( const Triangle& other ) const
 {
 	return (pointA==other.pointA) && (pointB==other.pointB) && (pointC==other.pointC);

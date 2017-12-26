@@ -5,18 +5,17 @@
 // Namespaces:
 
 namespace Math;
+namespace CollisionManager;
 
 // Classes:
 
 class Game;
-class World;
-class Actor;
 class ActorDynamic;
 class ActorStatic;
-class Collision;
+class CollisionManager;
 class NavMesh;
-class Math;
 class Collider;
+class PhysicsMesh;
 
 // Functions:
 

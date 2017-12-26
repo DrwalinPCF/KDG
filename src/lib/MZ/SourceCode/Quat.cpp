@@ -220,6 +220,11 @@ inline void Quat::SetAngle( const float angle )
 	*this = Quat( GetAxis(), angle );
 }
 
+inline Quat& Quat::FromEuler( const Vector& rotator )
+{
+	return Quat( Vector( 1.0f, 0.0f, 0.0f ), rotator[0] ) * Quat( Vector( 0.0f, 1.0f, 0.0f ), rotator[1] ) * Quat( Vector( 0.0f, 0.0f, 1.0f ), rotator[2] );
+}
+
 Quat::Quat( const Quat& src_a, const Quat& src_b )
 {
 	*this = src_a.Inversed() * src_b;
@@ -236,6 +241,12 @@ Quat::Quat( const Vector& axis, const float angle )
 	y = axis_[1] * ang;
 	z = axis_[2] * ang;
 	Normalize();
+}
+
+Quat::Quat( const Vector& rotator )
+{
+	*this = Quat( Vector( 1.0f, 0.0f, 0.0f ), rotator[0] ) * Quat( Vector( 0.0f, 1.0f, 0.0f ), rotator[1] ) * Quat( Vector( 0.0f, 0.0f, 1.0f ), rotator[2] );
+	return *this;
 }
 
 Quat::Quat()
