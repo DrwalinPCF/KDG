@@ -5,7 +5,6 @@
 // Namespaces:
 
 namespace Math;
-namespace CollisionManager;
 
 // Classes:
 

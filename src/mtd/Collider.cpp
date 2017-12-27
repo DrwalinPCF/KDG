@@ -144,7 +144,7 @@ void Collider::GetActor( const AABB& aabbSrc, std::map < Actor *, AABB >& object
 	}
 }
 
-void Collider::GetObject( const AABB& aabb, std::string < T* >& objects ) const
+void Collider::GetObject( const AABB& aabb, std::vector < T* >& objects ) const
 {
 	if( outsideObjects.size() > 0 )
 	{
@@ -183,23 +183,20 @@ Vector Collider::GetSize() const
 	return aabb.GetSize();
 }
 
-void Collider::Init( const AABB& aabb, const int levels, const Game * game )
+void Collider::Init( const AABB& aabb, const int levels )
 {
 	this->aabb = aabb;
 	octtree.Init( levels, std::map < T*, bool >() );
-	this->game = game;
 }
 
 void Collider::Destroy()
 {
 	Clear();
-	game = NULL;
 	aabb.Set( Vector( 0, 0, 0 ), Vector( 0, 0, 0 ) );
 }
 
 Collider::Collider()
 {
-	game = NULL;
 	aabb.Set( Vector( -1000, -1000, -1000 ), Vector( 1000, 1000, 1000 ) );
 }
 

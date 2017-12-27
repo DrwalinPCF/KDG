@@ -10,38 +10,63 @@ private:
 	
 	std::string name;
 	
+	std::map < std::string, ActorDynamic* > actorDynamic;
 	std::map < std::string, PhysicsMesh* > physicsMesh;
 	std::map < std::string, ActorStatic* > actorStatic;
-	std::map < std::string, ActorDynamic* > actorDynamic;
 	
-	Collider < ActorStatic* > colliderStatic;
-	Collider < ActorDynamic* > colliderDynamic;
+	Collider < ActorStatic* > colliderActorStatic;
+	Collider < ActorDynamic* > colliderActorDynamic;
 	
-	float deltaTime;
+	float timeScale;
+	float deltaTime;	// deltaTime = real_deltaTime * timeScale
 	
 	bool debug;
 	
-	Vector gravity;
+	float gravityAcceleration;	// in y-axis
+	
+	float averageFPS;
+	int framesCounter;
+	int timeFromLastResetFrameCounter;
 	
 public:
+	
+	void SetTimeScale( const float value );
+	float GetDeltaTime() const;
 	
 	
 	void DrawMapDebug() const;
 	void DrawCharactersDebug() const;
 	void DrawDebug() const;
 	
-	void DrawLight();
-	void DrawParticle();
-	void DrawMap();
-	void DrawCharacters();
-	void Draw();
-	
 	void Renderer();
 	
 	
-	//void UpdateLight();
+	
+	inline void GetActorDynamic( const AABB& aabb, std::vector < ActorDynamic* >& objects ) const;
+	inline void GetActorStatic( const AABB& aabb, std::vector < ActorStatic* >& objects ) const;
+	
+	ActorDynamic * SpawnActorDynamic( const std::string& name );
+	PhysicsMesh * SpawnPhysicsMesh( const std::string& name );
+	ActorStatic * SpawnActorStatic( const std::string& name );
+	
+	ActorDynamic * GetActorDynamic( const std::string& name ) const;
+	PhysicsMesh * GetPhysicsMesh( const std::string& name ) const;
+	ActorStatic * GetActorStatic( const std::string& name ) const;
+	
+	void DestroyActorDynamic( const std::string& name );
+	void DestroyPhysicsMesh( const std::string& name );
+	void DestroyActorStatic( const std::string& name );
+	
+	
+	
+	
+	bool RayTrace( const Vector& begin, const Vector& end, const int rayTraceChannel, ActorDynamic** dstDynamic, ActorStatic** dstStatic, Vector& point, float& distance ) const;		// dstDynamic = NULL || dstStatic = NULL
+	
+	
+	
+	void UpdateColliderActorStatic( ActorStatic * actor );
 	void UpdateNavMesh();
-	void UpdateColliders();
+	void UpdateColliderActorDynamic();
 	void UpdatePhysics();		// collision and physics
 	
 	

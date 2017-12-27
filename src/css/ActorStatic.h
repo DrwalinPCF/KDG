@@ -27,16 +27,20 @@ public:
 	
 	friend class CollisionManager;
 	
+	void SetGame( const Game * game );
+	void SetName( const std::string& name );
+	
 	void DrawDebug() const;
 	
-	inline void SetPhysicsMesh( const PhysicsMesh * mesh );
+	inline void SetPhysicsMesh( const PhysicsMesh * mesh );		// updates AABB and game->
 	inline PhysicsMesh * GetPhysicsMesh() const;
 	
 	inline Vector GetPos() const;
 	inline Quat GetRotation() const;
 	
 	inline Move( const Vector& move );
-	inline Rotate( const Quat& rotation );
+	inline Rotate( const Vector& rotator );
+	inline Rotate( const Quat& rotator );
 	
 	inline void SetPos( const Vector& pos );
 	inline void SetRotation( const Vector& rotation );

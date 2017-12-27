@@ -33,6 +33,9 @@ public:
 	
 	friend class CollisionManager;
 	
+	void SetGame( const Game * game );
+	void SetName( const std::string& name );
+	
 	inline AABB GetAABB() const;
 	
 	

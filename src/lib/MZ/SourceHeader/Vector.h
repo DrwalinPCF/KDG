@@ -24,11 +24,9 @@
 
 class Vector
 {
-private:
+public:
 	
 	float x, y, z;
-	
-public:
 	
 	friend class Quat;
 	

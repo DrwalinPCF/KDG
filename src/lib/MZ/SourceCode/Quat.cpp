@@ -222,7 +222,35 @@ inline void Quat::SetAngle( const float angle )
 
 inline Quat& Quat::FromEuler( const Vector& rotator )
 {
-	return Quat( Vector( 1.0f, 0.0f, 0.0f ), rotator[0] ) * Quat( Vector( 0.0f, 1.0f, 0.0f ), rotator[1] ) * Quat( Vector( 0.0f, 0.0f, 1.0f ), rotator[2] );
+	float cy = cos(yaw * 0.5);
+	float sy = sin(yaw * 0.5);
+	float cr = cos(roll * 0.5);
+	float sr = sin(roll * 0.5);
+	float cp = cos(pitch * 0.5);
+	float sp = sin(pitch * 0.5);
+
+	w = cy * cr * cp + sy * sr * sp;
+	x = cy * sr * cp - sy * cr * sp;
+	y = cy * cr * sp + sy * sr * cp;
+	z = sy * cr * cp - cy * sr * sp;
+	
+	return *this;
+}
+
+inline Vector Quat::GetEuler() const
+{
+	Vector dst;
+	dst.x = atan2( 2.0f * ( w * x + y * z ), 1.0f - 2.0f * ( x * x + y * y ) );
+	
+	float temp = 2.0f * ( w * y - z * x );
+	if( fabs( temp ) >= 1.0f )
+		dst.y = copysign( M_PI / 2.0f, temp );
+	else
+		dst.y = asin(temp);
+	
+	dst.z = atan2( 2.0f * ( w * z + x * y ), 1.0f - 2.0f * ( y * y + z * z ) );
+	
+	return dst * ( 180.0f / M_PI );
 }
 
 Quat::Quat( const Quat& src_a, const Quat& src_b )
@@ -245,8 +273,7 @@ Quat::Quat( const Vector& axis, const float angle )
 
 Quat::Quat( const Vector& rotator )
 {
-	*this = Quat( Vector( 1.0f, 0.0f, 0.0f ), rotator[0] ) * Quat( Vector( 0.0f, 1.0f, 0.0f ), rotator[1] ) * Quat( Vector( 0.0f, 0.0f, 1.0f ), rotator[2] );
-	return *this;
+	FromEuler( rotator );
 }
 
 Quat::Quat()
