@@ -15,6 +15,7 @@ private:
 	PhysicsMesh * physicsMesh;
 	
 	Vector pos;
+	Vector scale;
 	Quat rotation;
 	
 	bool visible;
@@ -32,17 +33,23 @@ public:
 	
 	void DrawDebug() const;
 	
-	inline void SetPhysicsMesh( const PhysicsMesh * mesh );		// updates AABB and game->
+	inline void UpdateColliderAndAABB();
+	
+	inline void SetPhysicsMesh( const PhysicsMesh * mesh );
 	inline PhysicsMesh * GetPhysicsMesh() const;
 	
+	inline AABB ConvertAABBIntoPhysicsMeshAABB( const AABB& aabb );
+	
 	inline Vector GetPos() const;
+	inline Vector GetScale() const;
 	inline Quat GetRotation() const;
 	
 	inline Move( const Vector& move );
-	inline Rotate( const Vector& rotator );
 	inline Rotate( const Quat& rotator );
+	inline Rotate( const Vector& rotator );
 	
 	inline void SetPos( const Vector& pos );
+	inline void SetScale( const Vector& scale );
 	inline void SetRotation( const Vector& rotation );
 	
 	inline AABB GetAABB() const;

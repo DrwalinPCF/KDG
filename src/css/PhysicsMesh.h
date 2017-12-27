@@ -25,9 +25,9 @@ public:
 	void SetGame( const Game * game );
 	void SetName( const std::string& name );
 	
-	int LoadFromFile( const std::string& name, const std::string& type, const std::string& fileName, const int typeVersion = -1 /*newest*/ );
-	inline bool AccessTriangle( const int id, Triangle& dst );
-	inline bool AccessTriangle( const AABB& aabb, const Quat& aabbRotation, std::map<Triangle>& dst );
+	int LoadFromFile( const std::string& name, const std::string& type, const std::string& fileName, const int typeVersion = -1 /*newest*/ );		// update collider
+	bool AccessTriangle( const int id, Triangle& dst );
+	void AccessTriangle( const AABB& aabb, std::vector < Triangle >& dst );
 	
 	PhysicsMesh();
 	~PhysicsMesh();
