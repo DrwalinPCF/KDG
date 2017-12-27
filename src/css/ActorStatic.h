@@ -1,6 +1,6 @@
 
 #ifndef ACTOR_STATIC_H
-#defien ACTOR_STATIC_H
+#define ACTOR_STATIC_H
 
 #include "../Includer.h"
 
