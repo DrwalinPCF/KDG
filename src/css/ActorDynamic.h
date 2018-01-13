@@ -4,13 +4,9 @@
 
 #include "../Includer.h"
 
-class ActorDynamic
+class ActorDynamic : public Actor
 {
 private:
-	
-	Game * game;
-	
-	std::string name;
 	
 	Vector pos;
 	Vector size;	// half size from pos to all sides
@@ -25,16 +21,8 @@ private:
 	Vector bforce;
 	
 	bool movability;
-	bool visible;
-	int rayTraceChannel;
-	int collisionChannel;
 	
 public:
-	
-	friend class CollisionManager;
-	
-	void SetGame( const Game * game );
-	void SetName( const std::string& name );
 	
 	inline AABB GetAABB() const;
 	
@@ -42,22 +30,7 @@ public:
 	
 	
 	
-	void Update( const float deltaTime );
-	
-	inline bool GetMovability() const;
-	inline void SetMovability( const bool src );
-	
-	inline bool GetVisible() const;
-	inline void SetVisible( const bool src );
-	
-	inline int GetRayTraceChannel() const;
-	inline int GetCollisionChannel() const;
-	
-	inline void SetRayTraceChannel( const int src );
-	inline void SetCollisionChannel( const int src );
-	
-	inline bool AvailableOnRayTraceChannel( const int other ) const;
-	inline bool AvailableOnCollisionChannel( const int other ) const;
+	virtual void Update( const float deltaTime )=0;
 	
 	ActorDynamic();
 	~ActorDyanmic();

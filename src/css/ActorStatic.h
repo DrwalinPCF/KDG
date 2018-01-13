@@ -4,7 +4,7 @@
 
 #include "../Includer.h"
 
-class ActorStatic
+class ActorStatic : public Actor
 {
 private:
 	
@@ -25,11 +25,6 @@ private:
 	AABB aabb;
 	
 public:
-	
-	friend class CollisionManager;
-	
-	void SetGame( const Game * game );
-	void SetName( const std::string& name );
 	
 	void DrawDebug() const;
 	
@@ -53,18 +48,6 @@ public:
 	inline void SetRotation( const Vector& rotation );
 	
 	inline AABB GetAABB() const;
-	
-	inline bool GetVisible() const;
-	inline void SetVisible( const bool src );
-	
-	inline int GetRayTraceChannel() const;
-	inline int GetCollisionChannel() const;
-	
-	inline void SetRayTraceChannel( const int src );
-	inline void SetCollisionChannel( const int src );
-	
-	inline bool AvailableOnRayTraceChannel( const int other ) const;
-	inline bool AvailableOnCollisionChannel( const int other ) const;
 	
 	ActorStatic();
 	~ActorStatic();
