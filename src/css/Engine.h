@@ -28,8 +28,8 @@ private:
 	
 public:
 	
-	void SetTimeScale( const float value );
-	float GetDeltaTime() const;
+	inline void SetTimeScale( const float value );
+	inline float GetDeltaTime() const;
 	
 	
 	void DrawCharactersDebug() const;
@@ -42,13 +42,13 @@ public:
 	inline void GetActor( const AABB& aabb, std::vector < Actor* >& objects ) const;
 	
 	PhysicsMesh * LoadPhysicsMesh( const std::string& name, const std::string& fileName, const int fileFormatVersion = -1 );
-	int SpawnActor( const Actor* object );
+	int SpawnActor( const Actor* object, const std::string& name );
 	
-	PhysicsMesh * GetPhysicsMesh( const std::string& name ) const;
-	ActorStatic * GetActor( const std::string& name ) const;
+	inline PhysicsMesh * GetPhysicsMesh( const std::string& name ) const;
+	inline ActorStatic * GetActor( const std::string& name ) const;
 	
-	void DestroyPhysicsMesh( const std::string& name );
-	void DestroyActor( const std::string& name );
+	inline void DestroyPhysicsMesh( const std::string& name );
+	inline void DestroyActor( const std::string& name );
 	
 	
 	

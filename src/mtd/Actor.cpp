@@ -10,14 +10,14 @@ AABB Actor::GetAABB() const
 }
 
 
-inline Vector Actor::GetPos() const
+inline Vector Actor::GetPossition() const
 {
-	return pos;
+	return possition;
 }
 
-inline Vector Actor::GetScale() const
+inline Vector Actor::GetSize() const
 {
-	return scale;
+	return size;
 }
 
 inline Quat Actor::GetRotation() const
@@ -27,7 +27,7 @@ inline Quat Actor::GetRotation() const
 
 inline void Actor::Move( const Vector& val )
 {
-	pos += val;
+	possition += val;
 }
 
 inline void Actor::Rotate( const Quat& val )
@@ -35,14 +35,14 @@ inline void Actor::Rotate( const Quat& val )
 	rotation *= val;
 }
 
-inline void Actor::SetPos( const Vector& val )
+inline void Actor::SetPossition( const Vector& val )
 {
-	pos = val;
+	possition = val;
 }
 
-inline void Actor::SetScale( const Vector& val )
+inline void Actor::SetSize( const Vector& val )
 {
-	scale = val;
+	size = val;
 }
 
 inline void Actor::SetRotation( const Quat& val )
@@ -81,17 +81,17 @@ inline void Actor::SetCollisionChannel( const int val )
 	collisionChannel = val;
 }
 
-inline static bool Actor::IsChannelsOverlapping( const int channelA, const int channelB )
+inline bool Actor::IsChannelsOverlapping( const int channelA, const int channelB )
 {
 	return bool( channelA & channelB );
 }
 
-inline static bool Actor::IsRayTraceChannelsOverlap( const Actor * actorA, const Actor * actorB )
+inline bool Actor::IsRayTraceChannelsOverlap( const Actor * actorA, const Actor * actorB )
 {
 	return bool( actorA->rayTraceChannel & actorB->rayTraceChannel );
 }
 
-inline static bool Actor::IsCollisionChannelsOverlap( const Actor * actorA, const Actor * actorB )
+inline bool Actor::IsCollisionChannelsOverlap( const Actor * actorA, const Actor * actorB )
 {
 	return bool( actorA->collisionChannel & actorB->collisionChannel );
 }
@@ -101,6 +101,24 @@ void Actor::Init( const Engine * engine, const std::string & name )
 {
 	this->engine = engine;
 	this->name = name;
+}
+
+Actor::Actor()
+{
+	size.Set( 1.0f, 1.0f, 1.0f );
+	visibility = true;
+	rayTraceChannel = 1;
+	collisionChannel = 1;
+}
+
+Actor::~Actor()
+{
+	engine = NULL;
+	name = "";
+	
+	visibility = false;
+	rayTraceChannel = 0;
+	collisionChannel = 0;
 }
 
 #endif

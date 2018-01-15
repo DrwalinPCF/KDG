@@ -27,19 +27,20 @@
 namespace Math
 {
 	const float pi = 3.14159265359f;
-	float Min( const float a, const float b );
-	float Max( const float a, const float b );
-	Vector Min( const Vector& a, const Vector& b );
-	Vector Max( const Vector& a, const Vector& b );
-	float Abs( const float a );
-	unsigned long long int Log( const unsigned long long int base, const unsigned long long int a );
-	float Log( const float base, const float a );							// returns not the best approximation: abs(log(base,a) - Math::Log(base,a)) <~ 0.2
-	float Interpolate( const float a, const float b, const float t );		// 0 <= t <= 1, sin
-	Vector Interpolate( const Vector& a, const Vector& b, const float t );		// 0 <= t <= 1, sin
-	Vecotr GetForwardVector( const Vector& rotator );
-	Vecotr GetLeftVector( const Vector& rotator );
-	Vecotr GetUpVector( const Vector& rotator );
-	float Clamp( const float a, const float min, const float max );
+	inline float Min( const float a, const float b );
+	inline float Max( const float a, const float b );
+	inline Vector Min( const Vector& a, const Vector& b );
+	inline Vector Max( const Vector& a, const Vector& b );
+	inline float Abs( const float a );
+	inline unsigned long long int Log( const unsigned long long int base, const unsigned long long int a );
+	inline float Log( const float base, const float a );							// returns not the best approximation: abs(log(base,a) - Math::Log(base,a)) <~ 0.2
+	inline float Interpolate( const float a, const float b, const float t );		// 0 <= t <= 1, sin
+	inline Vector Interpolate( const Vector& a, const Vector& b, const float t );		// 0 <= t <= 1, sin
+	inline Vecotr GetForwardVector( const Vector& rotator );
+	inline Vecotr GetLeftVector( const Vector& rotator );
+	inline Vecotr GetUpVector( const Vector& rotator );
+	inline float Clamp( const float a, const float min, const float max );
+	inline float Sqrt( const float a );
 };
 
 #endif

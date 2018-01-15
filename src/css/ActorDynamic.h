@@ -8,30 +8,43 @@ class ActorDynamic : public Actor
 {
 private:
 	
-	Vector bpos;
-	Vector bsize;
-	
-	Vector vel;
+	Vector linearVelocity;
+	Quat angularVelocity;
 	Vector force;
 	
-	Vector bvel;
-	Vector bforce;
+	Vector bPossition;
+	Vector bSize;
+	Quat bRotation;
+	
+	Vector bLinearVelocity;
+	Quat bAngularVelocity;
+	Vector bForce;
+	
+	float angularDamping;
+	float linearDamping;
+	
+	float mass;
 	
 	bool movability;
-	bool rotationability;
+	bool rotationAbility;
 	
 public:
 	
-	virtual void UpdateAABB() override;
-	
 	void SetMovability( const bool val );
-	void SetRotationability( const bool val );
+	void SetRotationAbility( const bool val );
+	void SetMass( const float val );
+	void SetLinearDamping( const float val );
+	void SetAngularDamping( const float val );
 	
 	bool GetMovability() const;
-	bool GetRotationability() const;
+	bool GetRotationAbility() const;
+	float GetMass() const;
+	float GetLinearDamping() const;
+	float GetAngularDamping() const;
 	
+	void AddForce( const Vector& point, const Vector& force );
 	
-	virtual void Update( const float deltaTime )=0;
+	virtual void Update( const float deltaTime ) override;
 	
 	ActorDynamic();
 	~ActorDyanmic();

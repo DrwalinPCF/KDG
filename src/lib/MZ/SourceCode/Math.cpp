@@ -24,32 +24,32 @@
 
 namespace Math
 {
-	float Min( const float a, const float b )
+	inline float Min( const float a, const float b )
 	{
 		return ( a < b ) ? a : b;
 	}
 	
-	float Max( const float a, const float b )
+	inline float Max( const float a, const float b )
 	{
 		return ( a > b ) ? a : b;
 	}
 	
-	Vector Min( const Vector& a, const Vector& b )
+	inline Vector Min( const Vector& a, const Vector& b )
 	{
 		return Vector( Math::Min(a[0],b[0]), Math::Min(a[1],b[1]), Math::Min(a[2],b[2]) );
 	}
 	
-	Vector Max( const Vector& a, const Vector& b )
+	inline Vector Max( const Vector& a, const Vector& b )
 	{
 		return Vector( Math::Max(a[0],b[0]), Math::Max(a[1],b[1]), Math::Max(a[2],b[2]) );
 	}
 	
-	float Abs( const float a )
+	inline float Abs( const float a )
 	{
 		return ( a < 0.0f ) ? -a : a;
 	}
 	
-	unsigned long long int Log( const unsigned long long int base, const unsigned long long int a )
+	inline unsigned long long int Log( const unsigned long long int base, const unsigned long long int a )
 	{
 		unsigned long long int val = a, dst = 0;
 		
@@ -61,7 +61,7 @@ namespace Math
 		return dst;
 	}
 	
-	float Log( const float base, const float a )
+	inline float Log( const float base, const float a )
 	{
 		if( base <= 0.0f )
 			return 0.0f;
@@ -77,36 +77,41 @@ namespace Math
 		return dst + pow( val, val );
 	}
 	
-	float Interpolate( const float a, const float b, const float t )
+	inline float Interpolate( const float a, const float b, const float t )
 	{
 		float mult = cos(t*Math::pi*0.5f);
 		return ( a * mult ) + ( b * ( 1.0f - mult ) );
 	}
 	
-	Vector Interpolate( const Vector& a, const Vector& b, const float t )
+	inline Vector Interpolate( const Vector& a, const Vector& b, const float t )
 	{
 		float mult = cos(t*Math::pi*0.5f);
 		return ( a * mult ) + ( b * ( 1.0f - mult ) );
 	}
 	
-	Vecotr GetForwardVector( const Vector& rotator )
+	inline Vecotr GetForwardVector( const Vector& rotator )
 	{
 		return Quat( rotator ) * Vector( 0.0f, 0.0f, 1.0f );
 	}
 	
-	Vecotr GetLeftVector( const Vector& rotator )
+	inline Vecotr GetLeftVector( const Vector& rotator )
 	{
 		return Quat( rotator ) * Vector( 1.0f, 0.0f, 0.0f );
 	}
 	
-	Vecotr GetUpVector( const Vector& rotator )
+	inline Vecotr GetUpVector( const Vector& rotator )
 	{
 		return Quat( rotator ) * Vector( 0.0f, 1.0f, 0.0f );
 	}
 	
-	float Clamp( const float a, const float min, const float max )
+	inline float Clamp( const float a, const float min, const float max )
 	{
 		return ( a < min ) ? min : ( ( a > max ) ? max : a );
+	}
+	
+	inline float Sqrt( const float a )
+	{
+		return sqrt( a );
 	}
 };
 

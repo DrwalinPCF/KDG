@@ -4,15 +4,17 @@
 
 #include "../css/Engine.h"
 
-void Engine::SetTimeScale( const float value )
+inline void Engine::SetTimeScale( const float value )
 {
 	if( value > 0.0001f && value < 1000.0f )
-		timeScale = value;;
+		timeScale = value;
+	else
+		timeScale = 1.0f;
 }
 
-float Engine::GetDeltaTime() const
+inline float Engine::GetDeltaTime() const
 {
-	return deltaTime;
+	return deltaTime*timeScale;
 }
 
 
@@ -22,14 +24,15 @@ inline void Engine::GetActor( const AABB& aabb, std::vector < Actor* >& objects 
 }
 
 
-int Engine::SpawnActor( const Actor* object )
+int Engine::SpawnActor( const Actor* object, const std::string& name )
 {
 	if( object )
 	{
-		auto it = actor.find( object->GetName() );
+		auto it = actor.find( name );
 		if( it == actor.end() )
 		{
-			actor[object->GetName()] = object;
+			object->Init( this, name );
+			actor[name] = object;
 			return 0;
 		}
 		return 1;	// object with this name already exist
@@ -62,7 +65,7 @@ PhysicsMesh * Engine::LoadPhysicsMesh( const std::string& name, const std::strin
 }
 
 
-PhysicsMesh * Engine::GetPhysicsMesh( const std::string& name ) const
+inline PhysicsMesh * Engine::GetPhysicsMesh( const std::string& name ) const
 {
 	auto it = physicsMesh.find( name );
 	if( it != physicsMesh.end() )
@@ -70,7 +73,7 @@ PhysicsMesh * Engine::GetPhysicsMesh( const std::string& name ) const
 	return NULL;
 }
 
-Actor * Engine::GetActor( const std::string& name ) const
+inline Actor * Engine::GetActor( const std::string& name ) const
 {
 	auto it = actor.find( name );
 	if( it != actor.end() )
@@ -79,7 +82,7 @@ Actor * Engine::GetActor( const std::string& name ) const
 }
 
 
-void Engine::DestroyPhysicsMesh( const std::string& name )
+inline void Engine::DestroyPhysicsMesh( const std::string& name )
 {
 	auto it = physicsMesh.find( name );
 	if( it != physicsMesh.end() )
@@ -89,7 +92,7 @@ void Engine::DestroyPhysicsMesh( const std::string& name )
 	}
 }
 
-void Engine::DestroyActor( const std::string& name )
+inline void Engine::DestroyActor( const std::string& name )
 {
 	auto it = actor.find( name );
 	if( it != actor.end() )
