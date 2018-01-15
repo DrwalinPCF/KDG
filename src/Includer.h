@@ -48,16 +48,21 @@
 
 #include "Macro.h"
 #include "Declarator.h"
+#include "func/Debug.h"
 
 #include "css/PhysicsMesh.h"
+
+#include "css/Actor.h"
 #include "css/ActorStatic.h"
 #include "css/ActorDynamic.h"
 
 #include "css/NavMesh.h"
 
+#include "css/InputManager.h"
+
 #include "css/CollisionManager.h"
 #include "css/Collider.h"
-#include "css/Game.h"
+#include "css/Engine.h"
 
 
 

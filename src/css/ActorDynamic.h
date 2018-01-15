@@ -4,8 +4,6 @@
 
 #include "../Includer.h"
 
-#include "Actor.h"
-
 class ActorDynamic : public Actor
 {
 private:

@@ -1,6 +1,6 @@
 
-#ifndef GAME_CPP
-#define GAME_CPP
+#ifndef ENGINE_CPP
+#define ENGINE_CPP
 
 #include "../css/Game.h"
 
