@@ -258,9 +258,9 @@ void NavMeshParent::AddNode( const Vector point )
 
 void NavMeshParent::Update( const int count );/////////////////////////////////////////////////////////////////////////////////////////////////////
 
-void NavMeshParent::Init( const float acceptableDistanceAsOneNode, const float maximumDistanceNodeConnection, const World * world, const std::string name )
+void NavMeshParent::Init( const float acceptableDistanceAsOneNode, const float maximumDistanceNodeConnection, const Engine * engine, const std::string name )
 {
-	this->world = world
+	this->engine = engine;
 	this->name = name;
 	if( acceptableDistanceAsOneNode != 0.0f )
 	{
@@ -272,7 +272,7 @@ void NavMeshParent::Init( const float acceptableDistanceAsOneNode, const float m
 
 void NavMeshParent::Destroy()
 {
-	world = NULL;
+	engine = NULL;
 	name = "";
 	scale = 0.0f;
 	maxConnectionLength = 0.f;
@@ -285,7 +285,7 @@ void NavMeshParent::Destroy()
 NavMeshParent::NavMeshParent()
 {
 	name = "";
-	world = NULL;
+	engine = NULL;
 	
 	scale = 1.0f;
 	maxConnectionLength = 10.0f;
@@ -453,17 +453,17 @@ NavMeshPath NavMesh::FindAnyPath()
 	return path;
 }
 
-void NavMesh::Init( const NavMeshParent * parent, std::map < NavMeshLinkTypes, bool > & connectionAvailable, const World * world )
+void NavMesh::Init( const NavMeshParent * parent, std::map < NavMeshLinkTypes, bool > & connectionAvailable, const Engine * engine )
 {
 	this->parent = parent;
 	this->connectionAvailable = connectionAvailable;
-	this->world = world;
+	this->engine = engine;
 }
 
 void NavMesh::Destroy()
 {
 	name = "";
-	world = NULL;
+	engine = NULL;
 	parent = NULL;
 	connectionAvailable.clear();
 	excludeSpace.clear();
@@ -483,7 +483,7 @@ NavMeshPath NavMesh::GetPath( bool & exist = false ) const
 NavMesh::NavMesh()
 {
 	name = "";
-	world = NULL;
+	engine = NULL;
 	parent = NULL;
 	
 	begin.Set( 0.0f, 0.0f, 0.0f );

@@ -8,12 +8,14 @@ class Actor
 {
 private:
 	
-	Game * game;
+	Engine * engine;
 	std::string name;
 	
 	Vector pos;
 	Quat rotation;
 	Vector scale;
+	
+	AABB aabb;
 	
 	bool visibility;
 	int rayTraceChannel;
@@ -22,7 +24,8 @@ private:
 public:
 	
 	virtual void DrawDebug()=0 const;
-	virtual void GetAABB()=0 const;
+	virtual void UpdateAABB()=0;
+	AABB GetAABB() const;
 	
 	
 	inline Vector GetPos() const;
@@ -51,7 +54,7 @@ public:
 	inline static bool IsCollisionChannelsOverlap( const Actor * actorA, const Actor * actorB );
 	
 	
-	void Init( const Game * game, const std::string & name );
+	void Init( const Engine * engine, const std::string & name );
 };
 
 #endif

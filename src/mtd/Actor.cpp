@@ -4,17 +4,51 @@
 
 #include "../css/Actor.h"
 
-inline Vector Actor::GetPos() const;
-inline Vector Actor::GetScale() const;
-inline Quat Actor::GetRotation() const;
+AABB Actor::GetAABB() const
+{
+	return AABB;
+}
 
-inline void Actor::Move( const Vector& val );
-inline void Actor::Rotate( const Quat& val );
 
-inline void Actor::SetPos( const Vector& val );
-inline void Actor::SetScale( const Vector& val );
-inline void Actor::SetRotation( const Quat& val );
+inline Vector Actor::GetPos() const
+{
+	return pos;
+}
 
+inline Vector Actor::GetScale() const
+{
+	return scale;
+}
+
+inline Quat Actor::GetRotation() const
+{
+	return rotation;
+}
+
+inline void Actor::Move( const Vector& val )
+{
+	pos += val;
+}
+
+inline void Actor::Rotate( const Quat& val )
+{
+	rotation *= val;
+}
+
+inline void Actor::SetPos( const Vector& val )
+{
+	pos = val;
+}
+
+inline void Actor::SetScale( const Vector& val )
+{
+	scale = val;
+}
+
+inline void Actor::SetRotation( const Quat& val )
+{
+	rotation = val;
+}
 
 
 inline bool Actor::IsVisible() const
@@ -63,9 +97,9 @@ inline static bool Actor::IsCollisionChannelsOverlap( const Actor * actorA, cons
 }
 
 
-void Actor::Init( const Game * game, const std::string & name )
+void Actor::Init( const Engine * engine, const std::string & name )
 {
-	this->game = game;
+	this->engine = engine;
 	this->name = name;
 }
 

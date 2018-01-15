@@ -8,15 +8,16 @@ class CollisionManager
 {
 private:
 	
-	static Game * game = NULL;
+	static Engine * engine = NULL;
 	
 	static void Collision( ActorDynamic * actorA, ActorDynamic * actorB );
 	static void Collision( ActorDynamic * actor, ActorStatic * terrain );
+	static inline void Collision( Actor * actorA, Actor * actorB );
 	
 public:
 	
-	static void SetGame( Game * game );
-	static void Collision( ActorDynamic * actor );
+	static inline void SetEngine( Engine * Engine );
+	static inline void Collision( Actor * actor );
 };
 
 #endif

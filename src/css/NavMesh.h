@@ -147,7 +147,7 @@ public:
 private:
 	
 	std::string name;
-	World * world;
+	Engine * engine;
 	
 	std::map < BaseNode, Node* > nodes;
 	
@@ -167,7 +167,7 @@ public:
 	void AddNode( const Vector point );
 	void Update( const int count );
 	
-	void Init( const float acceptableDistanceAsOneNode, const float maxConnectionLength, const World * world, const std::string name );
+	void Init( const float acceptableDistanceAsOneNode, const float maxConnectionLength, const Engine * engine, const std::string name );
 	void Destroy();
 	
 	NavMeshParent();
@@ -179,7 +179,7 @@ class NavMesh
 private:
 	
 	std::string name;
-	World * world;
+	Engine * engine;
 	NavMeshParent * parent;
 	
 	std::map < NavMeshLinkTypes, bool > connectionAvailable;		// types
@@ -220,7 +220,7 @@ public:
 	NavMeshPath FindBestPath();
 	NavMeshPath FindAnyPath();
 	
-	void Init( const NavMeshParent * parent, std::map < NavMeshLinkTypes, bool > & connectionAvailable, const World * world );
+	void Init( const NavMeshParent * parent, std::map < NavMeshLinkTypes, bool > & connectionAvailable, const Engine * engine );
 	
 	void Destroy();
 	

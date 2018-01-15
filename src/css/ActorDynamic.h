@@ -4,12 +4,11 @@
 
 #include "../Includer.h"
 
+#include "Actor.h"
+
 class ActorDynamic : public Actor
 {
 private:
-	
-	Vector pos;
-	Vector size;	// half size from pos to all sides
 	
 	Vector bpos;
 	Vector bsize;
@@ -21,13 +20,17 @@ private:
 	Vector bforce;
 	
 	bool movability;
+	bool rotationability;
 	
 public:
 	
-	inline AABB GetAABB() const;
+	virtual void UpdateAABB() override;
 	
+	void SetMovability( const bool val );
+	void SetRotationability( const bool val );
 	
-	
+	bool GetMovability() const;
+	bool GetRotationability() const;
 	
 	
 	virtual void Update( const float deltaTime )=0;
