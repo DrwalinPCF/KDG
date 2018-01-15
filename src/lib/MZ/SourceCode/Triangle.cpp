@@ -17,8 +17,8 @@
 	3.	This notice may not be removed or altered from any source distribution.
 */
 
-#ifndef TRIANGLE_H
-#define TRIANGLE_H
+#ifndef TRIANGLE_CPP
+#define TRIANGLE_CPP
 
 #include "../SourceHeader/Triangle.h"
 

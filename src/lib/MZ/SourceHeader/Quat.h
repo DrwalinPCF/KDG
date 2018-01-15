@@ -22,7 +22,7 @@
 
 #include "cmath"
 
-#include "Vector.cpp"
+#include "Vector.h"
 
 struct Quat
 {

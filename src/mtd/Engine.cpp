@@ -2,7 +2,7 @@
 #ifndef ENGINE_CPP
 #define ENGINE_CPP
 
-#include "../css/Game.h"
+#include "../css/Engine.h"
 
 void Engine::SetTimeScale( const float value )
 {

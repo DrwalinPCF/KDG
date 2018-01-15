@@ -1,6 +1,6 @@
 
 #ifndef PHYSICS_MESH_H
-#defin PHYSICS_MESH_H
+#define PHYSICS_MESH_H
 
 #include "../Includer.h"
 
