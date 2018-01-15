@@ -24,7 +24,7 @@
 
 // Node:
 
-void Node::RemoveNode( const Node * src )
+void Node::RemoveNode( Node * src )
 {
 	auto nodeByPointer = nodesByPointer.find( src );
 	if( nodeByPointer != nodesByPointer.end() )
@@ -70,17 +70,17 @@ Node::~Node()
 
 bool BaseNode::operator < ( BaseNode src )
 {
-	return strcmp( this, &src, sizeof(BaseNode) ) < 0;
+	return memcmp( this, &src, sizeof(BaseNode) ) < 0;
 }
 
 bool BaseNode::operator > ( BaseNode src )
 {
-	return strcmp( this, &src, sizeof(BaseNode) ) > 0;
+	return memcmp( this, &src, sizeof(BaseNode) ) > 0;
 }
 
 bool BaseNode::operator == ( BaseNode src )
 {
-	return strcmp( this, &src, sizeof(BaseNode) ) == 0;
+	return memcmp( this, &src, sizeof(BaseNode) ) == 0;
 }
 
 BaseNode::BaseNode()
@@ -94,11 +94,6 @@ BaseNode::BaseNode( const Vector pos, const float scale )
 	x = temp[0];
 	y = temp[1];
 	z = temp[2];
-}
-
-BaseNode::BaseNode( const BaseNode src )
-{
-	x = y = z = 0;
 }
 
 
@@ -127,7 +122,7 @@ inline bool NavMeshPath::GetNextNodeExistement() const
 	return path.size() > currentNode && currentNode >= 0;
 }
 
-inline void SetCurrentNode( const int id )
+inline void NavMeshPath::SetCurrentNode( const int id )
 {
 	if( id < 0 )
 		currentNode = 0;
@@ -137,7 +132,7 @@ inline void SetCurrentNode( const int id )
 		currentNode = id;
 }
 
-inline int GetCurrentNodeId() const
+inline int NavMeshPath::GetCurrentNodeId() const
 {
 	return currentNode;
 }
@@ -198,7 +193,7 @@ NavMeshPathFinderVetrtex::~NavMeshPathFinderVetrtex()
 
 // NavMeshVertexToCheck:
 
-VertexToCheck::VertexToCheck()
+NavMeshVertexToCheck::NavMeshVertexToCheck()
 {
 	distanceToDestiny = 0.0f;
 	pathLength = 0.0f;
@@ -206,7 +201,7 @@ VertexToCheck::VertexToCheck()
 	cameFrom = NULL;
 }
 
-VertexToCheck::~VertexToCheck()
+NavMeshVertexToCheck::~NavMeshVertexToCheck()
 {
 	distanceToDestiny = 0.0f;
 	pathLength = 0.0f;
@@ -223,7 +218,7 @@ bool NavMeshVertexToCheckCompare( NavMeshVertexToCheck a, NavMeshVertexToCheck b
 
 // NavMeshParent:
 
-void NavMeshParent::DrawDebug() const;////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//void NavMeshParent::DrawDebug() const;////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 inline Node * NavMeshParent::GetNode( const BaseNode pos ) const
 {
@@ -232,35 +227,35 @@ inline Node * NavMeshParent::GetNode( const BaseNode pos ) const
 		return it->second;
 }
 
-inline Node * NavMeshParent::GetNode( const Vector pos ) const;
+inline Node * NavMeshParent::GetNode( const Vector pos ) const
 {
 	BaseNode tempPos( pos, scale );
 	auto it = nodes.find( tempPos );
 	if( it != nodes.end() )
 		return it->second;
 	Node * temp = new Node;
-	Node->pos = pos;
+	temp->pos = pos;
 	nodes[tempPos] = temp;
 	return temp;
 }
 
 void NavMeshParent::AddNode( const Vector point )
 {
-	BaseNode tempPos( pos, scale );
+	BaseNode tempPos( point, scale );
 	auto it = nodes.find( tempPos );
 	if( it == nodes.end() )
 	{
 		Node * temp = new Node;
-		Node->pos = pos;
+		temp->pos = point;
 		nodes[tempPos] = temp;
 	}
 }
 
-void NavMeshParent::Update( const int count );/////////////////////////////////////////////////////////////////////////////////////////////////////
+//void NavMeshParent::Update( const int count );/////////////////////////////////////////////////////////////////////////////////////////////////////
 
 void NavMeshParent::Init( const float acceptableDistanceAsOneNode, const float maximumDistanceNodeConnection, const Engine * engine, const std::string name )
 {
-	this->engine = engine;
+	this->engine = (Engine*)engine;
 	this->name = name;
 	if( acceptableDistanceAsOneNode != 0.0f )
 	{
@@ -278,7 +273,7 @@ void NavMeshParent::Destroy()
 	maxConnectionLength = 0.f;
 	maxConnectionLengthSquare = 0.0f;
 	for( auto it = nodes.begin(); it != nodes.end(); *it++ )
-		delete nodes->second;
+		delete it->second;
 	nodes.clear();
 }
 
@@ -309,8 +304,8 @@ inline void NavMesh::AddVertexToCheck( const Node * node, const Node * cameFrom,
 		verticesToCheck.back().distanceToDestiny = tmp.Dot( tmp );
 	}
 	verticesToCheck.back().pathLength = ( node->pos - cameFrom->pos ).Length() + pathLength;
-	verticesToCheck.back().node = node;
-	verticesToCheck.back().cameFrom = cameFrom;
+	verticesToCheck.back().node = (Node*)node;
+	verticesToCheck.back().cameFrom = (Node*)cameFrom;
 }
 
 inline bool NavMesh::GetNextNodeToCheck( NavMeshVertexToCheck & dst )
@@ -328,7 +323,7 @@ inline bool NavMesh::GetNextNodeToCheck( NavMeshVertexToCheck & dst )
 	}
 	return false;
 }
-
+/*
 inline int NavMesh::IsNodeEnable( const Node * node ) const
 {
 	for( int i = 0; i < excludeSpace.size(); ++i )
@@ -336,7 +331,7 @@ inline int NavMesh::IsNodeEnable( const Node * node ) const
 		if( excludeSpace[i].IsPointInsie( node->pos ) )
 	}
 }
-
+*/
 int NavMesh::UpdateIteration();////////////////
 {
 	NavMeshVertexToCheck vertex;

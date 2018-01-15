@@ -4,7 +4,7 @@
 
 #include "../Includer.h"
 
-class Game
+class Engine
 {
 private:
 	
@@ -13,7 +13,7 @@ private:
 	std::map < std::string, PhysicsMesh* > physicsMesh;
 	std::map < std::string, Actor* > actors;
 	
-	Collider < Actor* > colliderActor;
+	Collider < Actor > colliderActor;
 	
 	float timeScale;
 	float deltaTime;	// deltaTime = real_deltaTime * timeScale
@@ -70,8 +70,8 @@ public:
 	void Init( int * argc, char *** argv );
 	void MainLoop();
 	
-	Game();
-	~Game();
+	Engine();
+	~Engine();
 };
 
 #endif

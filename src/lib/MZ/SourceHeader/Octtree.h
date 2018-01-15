@@ -24,11 +24,13 @@
 #include <cstring>
 #include <cstdio>
 
+#include "Vector.h"
+
 typedef long long int octtreePosDataType;
 #define OCTTREE_PRINTF_SPECIFIER %lld
 
 template < class T >
-struct OcttreeNode
+class OcttreeNode
 {
 public:
 	OcttreeNode<T> * node[2][2][2];
@@ -45,7 +47,7 @@ public:
 };
 
 template < class T >
-struct Octtree
+class Octtree
 {
 public:
 	OcttreeNode<T> node;

@@ -3,6 +3,8 @@
 #define ENGINE_CPP
 
 #include "../css/Engine.h"
+#include "Collider.cpp"
+#include "../lib/MZ/SourceCode/Octtree.cpp"
 
 inline void Engine::SetTimeScale( const float value )
 {

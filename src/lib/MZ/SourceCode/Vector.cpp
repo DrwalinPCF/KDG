@@ -197,7 +197,7 @@ inline float Vector::Dot( const Vector& src ) const
 	return x*src.x + y*src.y + z*src.z;
 }
 
-inline float Vector::Lenght() const
+inline float Vector::Length() const
 {
 	return sqrtf( x*x + y*y + z*z );
 }
@@ -225,7 +225,7 @@ inline Vector& Vector::CreateVector( const Vector& src1, const Vector& src2 )
 	return *this;
 }
 
-inline void Vector::SetLenght( const float dst )
+inline void Vector::SetLength( const float dst )
 {
 	float mul = dst/Length();
 	x /= mul;
@@ -235,8 +235,8 @@ inline void Vector::SetLenght( const float dst )
 
 inline void Vector::GoToVector( const Vector& dst, const float velocity )
 {
-	float vec = dst - (*this);
-	float distance = vec.Lenght();
+	Vector vec = dst - (*this);
+	float distance = vec.Length();
 	
 	if( distance > velocity )
 		(*this) = dst;
@@ -246,10 +246,10 @@ inline void Vector::GoToVector( const Vector& dst, const float velocity )
 	}
 }
 
-inline void Vector::GoToLenght( const float dst, const float velocity )
+inline void Vector::GoToLength( const float dst, const float velocity )
 {
-	float lenght = Lenght();
-	float distance = dst - lenght;
+	float length = Length();
+	float distance = dst - length;
 	if( distance > velocity || distance < -velocity )
 	{
 		(*this) = (*this) * ( ( length + ( (distance<0.0f) ? -velocity : velocity ) ) / length );

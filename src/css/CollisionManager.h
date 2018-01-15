@@ -4,20 +4,21 @@
 
 #include "../Includer.h"
 
-class CollisionManager
+namespace CollisionManager
 {
-private:
+// private:
 	
-	static Engine * engine = NULL;
+	Engine * engine = NULL;
 	
-	static void Collision( ActorDynamic * actorA, ActorDynamic * actorB );
-	static void Collision( ActorDynamic * actor, ActorStatic * terrain );
-	static inline void Collision( Actor * actorA, Actor * actorB );
+	void Collision( ActorDynamic * actorA, ActorDynamic * actorB );
+	void Collision( ActorDynamic * actor, ActorStatic * terrain );
+	inline void Collision( Actor * actorA, Actor * actorB );
 	
-public:
+// public:
 	
-	static inline void SetEngine( Engine * Engine );
-	static inline void Collision( Actor * actor );
+	inline void SetEngine( Engine * Engine );
+	inline void Collision( Actor * actor );
+	
 };
 
 #endif

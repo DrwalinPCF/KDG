@@ -47,7 +47,7 @@ public:
 	virtual void Update( const float deltaTime ) override;
 	
 	ActorDynamic();
-	~ActorDyanmic();
+	~ActorDynamic();
 };
 
 #endif

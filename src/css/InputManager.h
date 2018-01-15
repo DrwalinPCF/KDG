@@ -30,7 +30,7 @@ public:
 	static long long int GetKeyCode( const std::string keyName );
 	static std::string GetKeyName( const long long int id );
 	
-	static int GetKeyState( const long long int id, const in type );
+	static int GetKeyState( const long long int id, const int type );
 };
 
 #endif

@@ -22,6 +22,10 @@
 
 #include "../SourceHeader/Quat.h"
 
+#ifndef M_PI
+#define M_PI 3.141596f
+#endif
+
 inline float& Quat::operator[]( const int id )
 {
 	switch( id )
@@ -54,16 +58,16 @@ inline Quat Quat::operator * ( const Quat& src ) const
 		).Normalized();
 }
 
-inline Quat& Quat::operator *= ( const Quat& src ) const
+inline Quat& Quat::operator *= ( const Quat& src )
 {
 	Quat dst(
 		w*src.x + x*src.w + y*src.z - z*src.y,
 		w*src.y + y*src.w + z*src.x - x*src.z,
 		w*src.z + z*src.w + x*src.y - y*src.x,
 		w*src.w - x*src.x - y*src.y - z*src.z
-		).Normalized();
-	(*this) = dst;
-	return *this;
+		);
+	memcpy( this, &dst, sizeof(Quat) );
+	return Normalize();
 }
 
 inline Vector Quat::operator * ( const Vector& src ) const
@@ -158,7 +162,7 @@ inline Quat& Quat::Inverse()
 	return *this;
 }
 
-inline bool Quat::IsOpposite( const Quat& src )
+inline bool Quat::IsOpposite( const Quat& src ) const
 {
 	Vector axisThis = GetAxis(), axisSrc = src.GetAxis();
 	float angleThis = GetAngle(), angleSrc = src.GetAngle();
@@ -169,7 +173,7 @@ inline bool Quat::IsOpposite( const Quat& src )
 	return ( angleOpposite && !axesOpposite ) || ( !angleOpposite && axesOpposite );
 }
 
-inline Quat Quat::Slerp( const Quat& dst, const float time )
+inline Quat Quat::Slerp( const Quat& dst, const float time ) const
 {
 	float cosOmega = x*dst.x + y*dst.y + z*dst.z + w*dst.w;
 	Quat mid = dst;
@@ -222,6 +226,10 @@ inline void Quat::SetAngle( const float angle )
 
 inline Quat& Quat::FromEuler( const Vector& rotator )
 {
+	float yaw = rotator.x;			////
+	float roll = rotator.y;			////
+	float pitch = rotator.z;		////
+	
 	float cy = cos(yaw * 0.5);
 	float sy = sin(yaw * 0.5);
 	float cr = cos(roll * 0.5);

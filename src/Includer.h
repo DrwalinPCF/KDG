@@ -18,13 +18,14 @@
 #include <thread>
 #include <queue>
 #include <map>
+#include <algorithm>
 
 // Marek Zalewski's libraries:
 
 #include "lib/MZ/SourceHeader/GetSthFromString.h"
 #include "lib/MZ/SourceHeader/StandardManagerC.h"
 #include "lib/MZ/SourceHeader/Quadtree.h"
-#include "lib/MZ/SourceHeader/Octree.h"
+#include "lib/MZ/SourceHeader/Octtree.h"
 #include "lib/MZ/SourceHeader/Math.h"
 #include "lib/MZ/SourceHeader/Vector.h"
 #include "lib/MZ/SourceHeader/VMatrix.h"
@@ -50,6 +51,9 @@
 #include "Declarator.h"
 #include "func/Debug.h"
 
+#include "css/Collider.h"
+
+
 #include "css/PhysicsMesh.h"
 
 #include "css/Actor.h"
@@ -61,7 +65,6 @@
 #include "css/InputManager.h"
 
 #include "css/CollisionManager.h"
-#include "css/Collider.h"
 #include "css/Engine.h"
 
 

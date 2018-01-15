@@ -23,7 +23,7 @@ private:
 	
 public:
 	
-	virtual void DrawDebug()=0 const;
+	virtual void DrawDebug() const=0;
 	virtual void UpdateAABB()=0;
 	
 	AABB GetAABB() const;

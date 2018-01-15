@@ -36,9 +36,9 @@ namespace Math
 	inline float Log( const float base, const float a );							// returns not the best approximation: abs(log(base,a) - Math::Log(base,a)) <~ 0.2
 	inline float Interpolate( const float a, const float b, const float t );		// 0 <= t <= 1, sin
 	inline Vector Interpolate( const Vector& a, const Vector& b, const float t );		// 0 <= t <= 1, sin
-	inline Vecotr GetForwardVector( const Vector& rotator );
-	inline Vecotr GetLeftVector( const Vector& rotator );
-	inline Vecotr GetUpVector( const Vector& rotator );
+	inline Vector GetForwardVector( const Vector& rotator );
+	inline Vector GetLeftVector( const Vector& rotator );
+	inline Vector GetUpVector( const Vector& rotator );
 	inline float Clamp( const float a, const float min, const float max );
 	inline float Sqrt( const float a );
 };

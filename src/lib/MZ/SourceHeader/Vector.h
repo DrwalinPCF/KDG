@@ -20,7 +20,8 @@
 #ifndef VECTOR_H
 #define VECTOR_H
 
-#include "cmath"
+#include <cmath>
+#include <cstring>
 
 class Vector
 {
@@ -61,14 +62,14 @@ public:
 	
 	inline Vector Cross( const Vector& src ) const;
 	inline float Dot( const Vector& src ) const;
-	inline float Lenght() const;
+	inline float Length() const;
 	inline Vector Versor() const;
 	inline Vector& Normalize();
 	inline Vector& CreateVector( const Vector& src1, const Vector& src2 );
 	
-	inline void SetLenght( const float dst );
+	inline void SetLength( const float dst );
 	inline void GoToVector( const Vector& dst, const float velocity );
-	inline void GoToLenght( const float dst, const float velocity );
+	inline void GoToLength( const float dst, const float velocity );
 	
 	Vector();
 	Vector( const float x, const float y, const float z );

@@ -57,67 +57,59 @@ inline bool Triangle::operator != ( const Triangle& other ) const
 
 inline bool Triangle::IsTotalOutsideBox( const AABB& box ) const
 {
-	if( pointA[0] > box.GetMax()[0] && pointB[0] > box.GetMax()[0] && pointC[0] > box.GetMax()[0] )	return true;
-	if( pointA[1] > box.GetMax()[1] && pointB[1] > box.GetMax()[1] && pointC[1] > box.GetMax()[1] ) return true;
-	if( pointA[2] > box.GetMax()[2] && pointB[2] > box.GetMax()[2] && pointC[2] > box.GetMax()[2] ) return true;
-	if( pointA[0] < box.GetMin()[0] && pointB[0] < box.GetMin()[0] && pointC[0] < box.GetMin()[0] ) return true;
-	if( pointA[1] < box.GetMin()[1] && pointB[1] < box.GetMin()[1] && pointC[1] < box.GetMin()[1] ) return true;
-	if( pointA[2] < box.GetMin()[2] && pointB[2] < box.GetMin()[2] && pointC[2] < box.GetMin()[2] ) return true;
+	if( pointA.x > box.GetMax().x && pointB.x > box.GetMax().x && pointC.x > box.GetMax().x )	return true;
+	if( pointA.y > box.GetMax().y && pointB.y > box.GetMax().y && pointC.y > box.GetMax().y ) return true;
+	if( pointA.z > box.GetMax().z && pointB.z > box.GetMax().z && pointC.z > box.GetMax().z ) return true;
+	if( pointA.x < box.GetMin().x && pointB.x < box.GetMin().x && pointC.x < box.GetMin().x ) return true;
+	if( pointA.y < box.GetMin().y && pointB.y < box.GetMin().y && pointC.y < box.GetMin().y ) return true;
+	if( pointA.z < box.GetMin().z && pointB.z < box.GetMin().z && pointC.z < box.GetMin().z ) return true;
 	return false;
-	/*
-	return ((pointA[0] > box.GetMax()[0] && pointB[0] > box.GetMax()[0] && pointC[0] > box.GetMax()[0]) ||
-			(pointA[1] > box.GetMax()[1] && pointB[1] > box.GetMax()[1] && pointC[1] > box.GetMax()[1]) ||
-			(pointA[2] > box.GetMax()[2] && pointB[2] > box.GetMax()[2] && pointC[2] > box.GetMax()[2]) ||
-			(pointA[0] < box.GetMin()[0] && pointB[0] < box.GetMin()[0] && pointC[0] < box.GetMin()[0]) ||
-			(pointA[1] < box.GetMin()[1] && pointB[1] < box.GetMin()[1] && pointC[1] < box.GetMin()[1]) ||
-			(pointA[2] < box.GetMin()[2] && pointB[2] < box.GetMin()[2] && pointC[2] < box.GetMin()[2]));
-	*/
 }
 
 inline Vector Triangle::GetClosestPoint( const Vector& point ) const
 {
-	Vector ab = vertex[1] - vertex[0];
-	Vector ac = vertex[2] - vertex[0];
-	Vector ap = p - vertex[0];
+	Vector ab = pointB - pointA;
+	Vector ac = pointC - pointA;
+	Vector ap = point - pointA;
 	float d1 = ab.Dot(ap);
 	float d2 = ac.Dot(ap);
 	if (d1 <= 0.0f && d2 <= 0.0f)
-		return vertex[0];
+		return pointA;
 	
-	Vector bp = p - vertex[1];
+	Vector bp = point - pointB;
 	float d3 = ab.Dot(bp);
 	float d4 = ac.Dot(bp);
 	if (d3 >= 0.0f && d4 <= d3)
-		return vertex[1];
+		return pointB;
 	
 	float vc = (d1*d4) - (d3*d2);
 	if( vc <= 0.0f && d1 >= 0.0f && d3 <= 0.0f )
 	{
 		float v = d1 / (d1 - d3);
-		return vertex[0] + (v * ab);
+		return pointA + (ab * v);
 	}
 	
-	Vector cp = p - vertex[2];
+	Vector cp = point - pointC;
 	float d5 = ab.Dot(cp);
 	float d6 = ac.Dot(cp);
 	if (d6 >= 0.0f && d5 <= d6)
-		return vertex[2];
+		return pointC;
 	float vb = (d5*d2) - (d1*d6);
 	if( vb <= 0.0f && d2 >= 0.0f && d6 <= 0.0f )
 	{
 		float w = d2 / (d2 - d6);
-		return vertex[0] + (ac * w);
+		return pointA + (ac * w);
 	}
 	float va =( d3*d6) - (d5*d4);
 	if( va <= 0.0f && (d4 - d3) >= 0.0f && (d5 - d6) >= 0.0f )
 	{
 		float w = (d4 - d3) / ((d4 - d3) + (d5 - d6));
-		return vertex[1] + ((vertex[2] - vertex[1]) * w);
+		return pointB + ((pointC - pointB) * w);
 	}
 	float denom = 1.0f / (va + vb + vc);
 	float v = vb * denom;
 	float w = vc * denom;
-	return vertex[0] + (ab * v) + (ac * w);
+	return pointA + (ab * v) + (ac * w);
 }
 
 inline bool Triangle::IsPointInside( const Vector& point ) const
@@ -125,14 +117,15 @@ inline bool Triangle::IsPointInside( const Vector& point ) const
 	Vector ab = pointB - pointA;
 	Vector ac = pointA - pointC;
 	Vector cb = pointC - pointB;
+	Vector normal = ab && ac;
 	
 	Vector _ab = normal && ab;
 	Vector _ac = normal && ac;
 	Vector _cb = normal && cb;
 	
-	if( _ab.Dot( p - pointA ) * _ab.Dot( cb ) >= 0.0f )
-		if( _ac.Dot( p - pointA ) * _ac.Dot( ab ) >= 0.0f )
-			if( _cb.Dot( p - pointC ) * _cb.Dot( ac ) >= 0.0f )
+	if( _ab.Dot( point - pointA ) * _ab.Dot( cb ) >= 0.0f )
+		if( _ac.Dot( point - pointA ) * _ac.Dot( ab ) >= 0.0f )
+			if( _cb.Dot( point - pointC ) * _cb.Dot( ac ) >= 0.0f )
 				return true;
 	return false;
 	
@@ -194,7 +187,7 @@ inline bool Triangle::GetIntersectionWithLine( const Vector& begin, const Vector
 	return false;
 }
 
-inline bool Triangle::GetIntersectionOfPlaneWithLine( const Vector& begin, const Vector& end, Vector& intersection )
+inline bool Triangle::GetIntersectionOfPlaneWithLine( const Vector& begin, const Vector& end, Vector& intersection ) const
 {
 	Vector normal = GetNormal();
 	Vector direction = end - begin;
@@ -229,7 +222,7 @@ inline bool Triangle::IsFrontFacing( const Vector& direction ) const
 
 inline float Triangle::GetArea() const
 {
-	return ( (pointB - pointA) && (pointC - pointA).GetLength() ) * 0.5f;
+	return ( (pointB - pointA) && (pointC - pointA) ).Length() * 0.5f;
 }
 
 inline void Triangle::Set( const Vector& a, const Vector& b, const Vector& c )
@@ -244,11 +237,11 @@ inline bool Triangle::IsOnSameSide( const Vector& p1, const Vector& p2, const Ve
 	Vector bminusa = b - a;
 	Vector cp1 = bminusa && (p1-a);
 	Vector cp2 = bminusa && (p2-a);
-	float res = cp1 && cp2;
+	float res = cp1.Dot( cp2 );
 	if( res < 0.0f )
 	{
 		cp1 = bminusa.Versor() && ((p1-a).Versor());
-		if( cp1[0] > -ROUNDING_ERROR && cp1[0] < ROUNDING_ERROR && cp1[0] > -ROUNDING_ERROR && cp1[0] < ROUNDING_ERROR && cp1[0] > -ROUNDING_ERROR && cp1[0] < ROUNDING_ERROR )
+		if( cp1.x > -ROUNDING_ERROR && cp1.x < ROUNDING_ERROR && cp1.y > -ROUNDING_ERROR && cp1.y < ROUNDING_ERROR && cp1.z > -ROUNDING_ERROR && cp1.z < ROUNDING_ERROR )
 			return true;
 		return false;
 	}

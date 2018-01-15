@@ -20,6 +20,8 @@
 #ifndef GET_STH_FROM_STRING_H
 #define GET_STH_FROM_STRING_H
 
+#include <cstring>
+
 #ifndef NULL
 #define NULL 0
 #endif

@@ -10,15 +10,13 @@ private:
 	
 	std::string name;
 	
-	Octree < int > octree;
+	Octtree < int > octree;
 	std::vector < Triangle > triangle;
 	AABB aabb;
 	
-	Collider < int > collider;	// contains triangles id
+	Collider < Triangle > collider;	// contains triangles id
 	
 public:
-	
-	friend class CollisionManager;
 	
 	void SetName( const std::string& name );
 	

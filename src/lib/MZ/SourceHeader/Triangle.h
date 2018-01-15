@@ -24,6 +24,8 @@
 #include "Quat.h"
 #include "AABB.h"
 
+#define ROUNDING_ERROR 0.00001f
+
 class Triangle
 {
 private:
@@ -48,8 +50,8 @@ public:
 	inline Vector GetClosestPoint( const Vector& point ) const;
 	
 	inline bool IsPointInside( const Vector& point ) const;		// if point is inside, then point is in the volume of infinite length which perpendicular cross section is triangle, volume edges are parall to each other; using unnormalized vectors
-	inline bool GetIntersectionWithLine( const Line& line, Vector& intersection ) const;
-	inline bool GetIntersectionOfPlaneWithLine( const Vector& begin, const Vector& end, Vector& intersection );		// using unnormalized vectors
+	inline bool GetIntersectionWithLine( const Vector& begin, const Vector& end, Vector& intersection ) const;
+	inline bool GetIntersectionOfPlaneWithLine( const Vector& begin, const Vector& end, Vector& intersection ) const;		// using unnormalized vectors
 	
 	inline Vector GetNormal() const;
 	inline Vector GetNormalFast() const;

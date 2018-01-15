@@ -62,7 +62,7 @@ inline VMatrix VMatrix::SetMatrix( const float** src )
 	return *this;
 }
 
-inline VMatrix VMatrix::InitEmpty()
+inline VMatrix& VMatrix::InitEmpty()
 {
 	SetMatrix(
 		1.0f, 0.0f, 0.0f, 0.0f,
@@ -72,12 +72,12 @@ inline VMatrix VMatrix::InitEmpty()
 	return *this;
 }
 
-inline VMatrix VMatrix::operator += ( const Vector &src )
+inline VMatrix& VMatrix::operator += ( const Vector &src )
 {
 	VMatrix out;
-	out.m[0][3] += src.vector[0];
-	out.m[1][3] += src.vector[1];
-	out.m[2][3] += src.vector[2];
+	out.m[0][3] += src.x;
+	out.m[1][3] += src.y;
+	out.m[2][3] += src.z;
 	return out;
 }
 
@@ -134,12 +134,12 @@ inline VMatrix& VMatrix::operator *= ( const VMatrix &src )
 	return *this;
 }
 
-inline VMatrix VMatrix::operator * ( const Vector &src ) const
+inline Vector VMatrix::operator * ( const Vector &src ) const
 {
 	Vector out;
-	out.vector[0] = (m[0][0]*src.vector[0]) + (m[0][1]*src.vector[1]) + (m[0][2]*src.vector[2]) + m[0][3];
-	out.vector[1] = (m[1][0]*src.vector[0]) + (m[1][1]*src.vector[1]) + (m[1][2]*src.vector[2]) + m[1][3];
-	out.vector[2] = (m[2][0]*src.vector[0]) + (m[2][1]*src.vector[1]) + (m[2][2]*src.vector[2]) + m[2][3];
+	out.x = (m[0][0]*src.x) + (m[0][1]*src.y) + (m[0][2]*src.z) + m[0][3];
+	out.y = (m[1][0]*src.x) + (m[1][1]*src.y) + (m[1][2]*src.z) + m[1][3];
+	out.z = (m[2][0]*src.x) + (m[2][1]*src.y) + (m[2][2]*src.z) + m[2][3];
 	return out;
 }
 
@@ -165,9 +165,9 @@ inline VMatrix& VMatrix::operator *= ( const float src )
 inline VMatrix& VMatrix::Translate( const Vector& src )
 {
 	VMatrix out;
-	out.SetMatrix( 1.0f, 0.0f, 0.0f, src[0],
-		0.0f, 1.0f, 0.0f, src[1],
-		0.0f, 0.0f, 1.0f, src[2],
+	out.SetMatrix( 1.0f, 0.0f, 0.0f, src.x,
+		0.0f, 1.0f, 0.0f, src.y,
+		0.0f, 0.0f, 1.0f, src.z,
 		0.0f, 0.0f, 0.0f, 1.0f );
 	
 	(*this) = (*this) * out;
@@ -210,9 +210,9 @@ inline VMatrix& VMatrix::RotateZ( const float angle )
 inline VMatrix& VMatrix::Scale( const Vector& src )
 {
 	VMatrix out;
-	out.SetMatrix( src[0],   0.0f,   0.0f,   0.0f,
-		 0.0f, src[1],   0.0f,   0.0f,
-		 0.0f,   0.0f, src[2],   0.0f,
+	out.SetMatrix( src.x,   0.0f,   0.0f,   0.0f,
+		 0.0f, src.y,   0.0f,   0.0f,
+		 0.0f,   0.0f, src.z,   0.0f,
 		 0.0f,   0.0f,   0.0f,   1.0f );
 	(*this) *= out;
 	return *this;
@@ -347,19 +347,19 @@ inline VMatrix VMatrix::GetReverse() const
 	return out;
 }
 
-inline Vector VMatrix::GetVertex( const Vector& src )
+inline Vector VMatrix::GetVertex( const Vector& src ) const
 {
 	Vector out;
-	out.vector[0] = (m[0][0]*src.vector[0]) + (m[0][1]*src.vector[1]) + (m[0][2]*src.vector[2]) + m[0][3];
-	out.vector[1] = (m[1][0]*src.vector[0]) + (m[1][1]*src.vector[1]) + (m[1][2]*src.vector[2]) + m[1][3];
-	out.vector[2] = (m[2][0]*src.vector[0]) + (m[2][1]*src.vector[1]) + (m[2][2]*src.vector[2]) + m[2][3];
+	out.x = (m[0][0]*src.x) + (m[0][1]*src.y) + (m[0][2]*src.z) + m[0][3];
+	out.y = (m[1][0]*src.x) + (m[1][1]*src.y) + (m[1][2]*src.z) + m[1][3];
+	out.z = (m[2][0]*src.x) + (m[2][1]*src.y) + (m[2][2]*src.z) + m[2][3];
 	return out;
 }
 
 //   http://www.naukowiec.org/wzory/matematyka/macierz-odwrotna-4x4_628.html
-inline Vector GetVertexBack( const Vector& src )
+inline Vector VMatrix::GetVertexBack( const Vector& src ) const
 {
-	return ((*this).GetReverse()).GetVertex( src );
+	return this->GetReverse().GetVertex( src );
 }
 
 #endif

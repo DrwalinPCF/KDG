@@ -17,8 +17,8 @@
 	3.	This notice may not be removed or altered from any source distribution.
 */
 
-#ifndef OCTREE_CPP
-#define OCTREE_CPP
+#ifndef OCTTREE_CPP
+#define OCTTREE_CPP
 
 #include "../SourceHeader/Octree.h"
 

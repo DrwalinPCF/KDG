@@ -32,6 +32,16 @@ enum NavMeshLinkTypes
 	JUMP
 };
 
+class Node;
+class BaseNode;
+class NavMeshPath;
+class NavMeshPathFinderVetrtex;
+class NavMeshVertexToCheck;
+class NavMeshParent;
+class NavMesh;
+
+bool NavMeshVertexToCheckCompare( NavMeshVertexToCheck a, NavMeshVertexToCheck b );
+
 class Node
 {
 private:
@@ -48,10 +58,10 @@ public:
 	friend class NavMesh;
 	friend class NavMeshParent;
 	
-	void RemoveNode( const Node * src );
+	void RemoveNode( Node * src );
 	void Destroy();
 	
-	void AddNode( const Node * src, const NavMeshLinkTypes type );
+	void AddNode( Node * src, const NavMeshLinkTypes type );
 	
 	Node();
 	~Node();
@@ -74,7 +84,6 @@ public:
 	
 	BaseNode();
 	BaseNode( const Vector pos, const float scale );
-	BaseNode( const BaseNode src );
 };
 
 class NavMeshPath
@@ -94,8 +103,8 @@ public:
 	inline Vector GetCurrentNode() const;
 	inline Vector GetNextNode();		// return path[currentNode++];
 	inline bool GetNextNodeExistement() const;
-	inline int SetCurrentNode( const int id );
-	inline void GetCurrentNodeId() const;
+	inline void SetCurrentNode( const int id );
+	inline int GetCurrentNodeId() const;
 	inline bool DoesPathExist() const;
 	inline float GetLength() const;
 	
@@ -131,12 +140,11 @@ private:
 public:
 	
 	friend class NavMesh;
-	friend NavMeshVertexToCheckCompare;
+	friend bool NavMeshVertexToCheckCompare( NavMeshVertexToCheck a, NavMeshVertexToCheck b );
 	
-	VertexToCheck();
-	~VertexToCheck();
+	NavMeshVertexToCheck();
+	~NavMeshVertexToCheck();
 };
-bool NavMeshVertexToCheckCompare( NavMeshVertexToCheck a, NavMeshVertexToCheck b );
 
 class NavMeshParent
 {
@@ -224,7 +232,7 @@ public:
 	
 	void Destroy();
 	
-	NavMeshPath GetPath( bool & exist = false ) const;		// argument - setted on true if path does exist
+	NavMeshPath GetPath( bool & exist ) const;		// argument - setted on true if path does exist
 	
 	NavMesh();
 	~NavMesh();

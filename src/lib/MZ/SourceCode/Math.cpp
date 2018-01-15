@@ -36,12 +36,12 @@ namespace Math
 	
 	inline Vector Min( const Vector& a, const Vector& b )
 	{
-		return Vector( Math::Min(a[0],b[0]), Math::Min(a[1],b[1]), Math::Min(a[2],b[2]) );
+		return Vector( Math::Min(a.x,b.x), Math::Min(a.y,b.y), Math::Min(a.z,b.z) );
 	}
 	
 	inline Vector Max( const Vector& a, const Vector& b )
 	{
-		return Vector( Math::Max(a[0],b[0]), Math::Max(a[1],b[1]), Math::Max(a[2],b[2]) );
+		return Vector( Math::Max(a.x,b.x), Math::Max(a.y,b.y), Math::Max(a.z,b.z) );
 	}
 	
 	inline float Abs( const float a )
@@ -71,7 +71,7 @@ namespace Math
 		while( val > base )
 		{
 			val /= base;
-			dst += 1.0f
+			dst += 1.0f;
 		}
 		val /= base;
 		return dst + pow( val, val );
@@ -89,17 +89,17 @@ namespace Math
 		return ( a * mult ) + ( b * ( 1.0f - mult ) );
 	}
 	
-	inline Vecotr GetForwardVector( const Vector& rotator )
+	inline Vector GetForwardVector( const Vector& rotator )
 	{
 		return Quat( rotator ) * Vector( 0.0f, 0.0f, 1.0f );
 	}
 	
-	inline Vecotr GetLeftVector( const Vector& rotator )
+	inline Vector GetLeftVector( const Vector& rotator )
 	{
 		return Quat( rotator ) * Vector( 1.0f, 0.0f, 0.0f );
 	}
 	
-	inline Vecotr GetUpVector( const Vector& rotator )
+	inline Vector GetUpVector( const Vector& rotator )
 	{
 		return Quat( rotator ) * Vector( 0.0f, 1.0f, 0.0f );
 	}

@@ -24,7 +24,7 @@
 
 #include "Vector.h"
 
-struct Quat
+class Quat
 {
 private:
 	
@@ -36,7 +36,7 @@ public:
 	
 	inline Quat & operator = ( const Quat& src );
 	inline Quat operator * ( const Quat& src ) const;
-	inline Quat& operator *= ( const Quat& src ) const;
+	inline Quat& operator *= ( const Quat& src );
 	inline Vector operator * ( const Vector& src ) const;
 	inline Quat operator - () const;
 	
@@ -48,9 +48,9 @@ public:
 	
 	inline Quat Inversed() const;
 	inline Quat& Inverse();
-	inline bool IsOpposite( const Quat& src );
+	inline bool IsOpposite( const Quat& src ) const;
 	
-	inline Quat Slerp( const Quat& dst, const float time );
+	inline Quat Slerp( const Quat& dst, const float time ) const;
 	inline void ClampAngle( const float maxAngle );
 	inline void SetAngle( const float angle );
 	

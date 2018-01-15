@@ -26,20 +26,20 @@ AABB AABB::GetRotated( const Quat& quat ) const
 {
 	Vector v = quat*min;
 	AABB aabb( v, v );
-	aabb.AddPoint( quat*Vector(min[0],min[1],max[2]) );
-	aabb.AddPoint( quat*Vector(min[0],max[1],min[2]) );
-	aabb.AddPoint( quat*Vector(max[0],min[1],min[2]) );
-	aabb.AddPoint( quat*Vector(max[0],min[1],max[2]) );
-	aabb.AddPoint( quat*Vector(max[0],max[1],min[2]) );
-	aabb.AddPoint( quat*Vector(min[0],max[1],max[2]) );
-	aabb.AddPoint( quat*Vector(max[0],max[1],max[2]) );
+	aabb.AddPoint( quat*Vector(min.x,min.y,max.z) );
+	aabb.AddPoint( quat*Vector(min.x,max.y,min.z) );
+	aabb.AddPoint( quat*Vector(max.x,min.y,min.z) );
+	aabb.AddPoint( quat*Vector(max.x,min.y,max.z) );
+	aabb.AddPoint( quat*Vector(max.x,max.y,min.z) );
+	aabb.AddPoint( quat*Vector(min.x,max.y,max.z) );
+	aabb.AddPoint( quat*Vector(max.x,max.y,max.z) );
 	return aabb;
 }
 
 inline float AABB::GetVolume() const
 {
 	Vector a = max-min;
-	return abs( a[0] * a[1] * a[2] );
+	return abs( a.x * a.y * a.z );
 }
 
 inline AABB & AABB::operator = ( const AABB& src )
@@ -123,12 +123,12 @@ inline Vector AABB::GetCenter() const
 
 inline void AABB::AddPoint( const Vector& point )
 {
-	if( point[0] < min[0] )				min[0] = point[0];
-	else if( point[0] > max[0] )		max[0] = point[0];
-	if( point[1] < min[1] )				min[1] = point[1];
-	else if( point[1] > max[1] )		max[1] = point[1];
-	if( point[2] < min[2] )				min[2] = point[2];
-	else if( point[2] > max[2] )		max[2] = point[2];
+	if( point.x < min.x )				min.x = point.x;
+	else if( point.x > max.x )		max.x = point.x;
+	if( point.y < min.y )				min.y = point.y;
+	else if( point.y > max.y )		max.y = point.y;
+	if( point.z < min.z )				min.z = point.z;
+	else if( point.z > max.z )		max.z = point.z;
 }
 
 inline void AABB::SetMin( const Vector& min_ )
@@ -167,9 +167,14 @@ AABB::~AABB()
 
 
 
+
+
+
+
+
 inline AABBint & AABBint::operator = ( const AABBint& src )
 {
-	strcpy( this, &src, sizeof(AABBint) );
+	memcpy( this, &src, sizeof(AABBint) );
 	return *this;
 }
 
@@ -248,15 +253,15 @@ inline void AABBint::SetMaxZ( const long long int val )
 AABBint::AABBint( const AABB& src, const AABB& scale, const long long int size )
 {
 	Vector scale_ = scale.GetSize();
-	scale_ = Vector( ((float)(size))/scale_[0], ((float)(size))/scale_[1], ((float)(size))/scale_[2] );
+	scale_ = Vector( ((float)(size))/scale_.x, ((float)(size))/scale_[1], ((float)(size))/scale_[2] );
 	AABB temp = src-scale.GetMin();
-	temp.Set( temp.GetMin()*scale_ );
-	min[0] = src.GetMinX();
-	min[1] = src.GetMinY();
-	min[2] = src.GetMinZ();
-	max[0] = src.GetMaxX();
-	max[1] = src.GetMaxY();
-	max[2] = src.GetMaxZ();
+	temp.Set( temp.GetMin()*scale_, temp.GetMax()*scale_ );
+	min[0] = src.GetMin().x;
+	min[1] = src.GetMin().y;
+	min[2] = src.GetMin().z;
+	max[0] = src.GetMax().x;
+	max[1] = src.GetMax().y;
+	max[2] = src.GetMax().z;
 }
 
 AABBint::AABBint()
