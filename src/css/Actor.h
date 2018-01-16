@@ -6,7 +6,7 @@
 
 class Actor
 {
-private:
+protected:
 	
 	Engine * engine;
 	std::string name;
@@ -26,7 +26,7 @@ public:
 	virtual void DrawDebug() const=0;
 	virtual void UpdateAABB()=0;
 	
-	AABB GetAABB() const;
+	inline AABB GetAABB() const;
 	
 	
 	inline Vector GetPossition() const;
@@ -57,10 +57,10 @@ public:
 	
 	virtual void Update( const float deltaTime )=0;
 	
-	void Init( const Engine * engine, const std::string & name );
+	inline void Init( const Engine * engine, const std::string & name );
 	
 	Actor();
-	~Actor();
+	virtual ~Actor();
 };
 
 #endif

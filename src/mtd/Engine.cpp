@@ -30,11 +30,11 @@ int Engine::SpawnActor( const Actor* object, const std::string& name )
 {
 	if( object )
 	{
-		auto it = actor.find( name );
-		if( it == actor.end() )
+		auto it = actors.find( name );
+		if( it == actors.end() )
 		{
-			object->Init( this, name );
-			actor[name] = object;
+			((Actor*)object)->Init( this, name );
+			actors[name] = (Actor*)object;
 			return 0;
 		}
 		return 1;	// object with this name already exist
@@ -42,7 +42,7 @@ int Engine::SpawnActor( const Actor* object, const std::string& name )
 	return -1;		// given object does not exist
 }
 
-PhysicsMesh * Engine::LoadPhysicsMesh( const std::string& name, const std::string& fileName, const int fileFormatVersion = -1 )
+PhysicsMesh * Engine::LoadPhysicsMesh( const std::string& name, const std::string& fileName, const int fileFormatVersion )
 {
 	auto it = physicsMesh.find( name );
 	if( it == physicsMesh.end() )
@@ -50,7 +50,6 @@ PhysicsMesh * Engine::LoadPhysicsMesh( const std::string& name, const std::strin
 		PhysicsMesh * temp = new PhysicsMesh;
 		if( temp )
 		{
-			temp->SetGame( this );
 			temp->SetName( name );
 			if( temp->LoadFromFile( fileName, fileFormatVersion ) )
 			{
@@ -77,8 +76,8 @@ inline PhysicsMesh * Engine::GetPhysicsMesh( const std::string& name ) const
 
 inline Actor * Engine::GetActor( const std::string& name ) const
 {
-	auto it = actor.find( name );
-	if( it != actor.end() )
+	auto it = actors.find( name );
+	if( it != actors.end() )
 		return it->second;
 	return NULL;
 }
@@ -96,33 +95,36 @@ inline void Engine::DestroyPhysicsMesh( const std::string& name )
 
 inline void Engine::DestroyActor( const std::string& name )
 {
-	auto it = actor.find( name );
-	if( it != actor.end() )
+	auto it = actors.find( name );
+	if( it != actors.end() )
 	{
 		colliderActor.RemoveObject( it->second );
 		delete it->second;
-		actor.erase( it );
+		actors.erase( it );
 	}
 }
 
 
 
 
-
-void Engine::UpdateColliderActorStatic( ActorStatic * object )
+void Engine::UpdateColliderActorStatic( Actor * object )
 {
-	colliderActorStatic.AddObject( object, object->GetAABB() );
+	if( !object )
+		return;
+	if( !(dynamic_cast < ActorStatic * > ( object )) )
+		return;
+	colliderActor.AddObject( object, object->GetAABB() );
 }
 
 void Engine::UpdateColliderActorDynamic()
 {
-	Vector vtemp;
-	float ftemp;
-	ActorDynamic * object;
-	for( auto it = actor.begin(); it != actor.end(); *it++ )
+	//Vector vtemp;
+	//float ftemp;
+	//ActorDynamic * object;
+	for( auto it = actors.begin(); it != actors.end(); *it++ )
 	{
-		object = dynamic_cast < ActorDynamic* >( it->second );
-		if( object )
+		//object = dynamic_cast < ActorDynamic* >( it->second );
+		if( dynamic_cast < ActorDynamic* >( it->second ) )
 		{
 			colliderActor.AddObject( it->second, it->second->GetAABB() );
 		}

@@ -3,6 +3,7 @@
 #define ACTOR_STATIC_H
 
 #include "../Includer.h"
+#include "Actor.h"
 
 class ActorStatic : public Actor
 {
@@ -20,8 +21,10 @@ public:
 	
 	inline void GetTriangles( const AABB& aabb, std::vector < Triangle >& triangles ) const;
 	
+	virtual void Update( const float deltaTime ) override;
+	
 	ActorStatic();
-	~ActorStatic();
+	virtual ~ActorStatic();
 };
 
 #endif

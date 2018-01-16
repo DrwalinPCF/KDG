@@ -55,8 +55,9 @@
 #include "css/PhysicsMesh.h"
 
 #include "css/Actor.h"
-#include "css/ActorStatic.h"
-#include "css/ActorDynamic.h"
+//#include "css/ActorStatic.h"
+//#include "css/ActorDynamic.h"
+//#include "css/ActorOBB.h"
 
 #include "css/NavMesh.h"
 

@@ -4,9 +4,9 @@
 
 #include "../css/Actor.h"
 
-AABB Actor::GetAABB() const
+inline AABB Actor::GetAABB() const
 {
-	return AABB;
+	return aabb;
 }
 
 
@@ -97,9 +97,9 @@ inline bool Actor::IsCollisionChannelsOverlap( const Actor * actorA, const Actor
 }
 
 
-void Actor::Init( const Engine * engine, const std::string & name )
+inline void Actor::Init( const Engine * engine, const std::string & name )
 {
-	this->engine = engine;
+	this->engine = (Engine*)engine;
 	this->name = name;
 }
 

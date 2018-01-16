@@ -3,10 +3,11 @@
 #define ACTOR_DYNAMIC_H
 
 #include "../Includer.h"
+#include "Actor.h"
 
 class ActorDynamic : public Actor
 {
-private:
+protected:
 	
 	Vector linearVelocity;
 	Quat angularVelocity;
@@ -30,24 +31,40 @@ private:
 	
 public:
 	
-	void SetMovability( const bool val );
-	void SetRotationAbility( const bool val );
-	void SetMass( const float val );
-	void SetLinearDamping( const float val );
-	void SetAngularDamping( const float val );
 	
-	bool GetMovability() const;
-	bool GetRotationAbility() const;
-	float GetMass() const;
-	float GetLinearDamping() const;
-	float GetAngularDamping() const;
+	inline void SetLinearVelocity( const Vector& val );
+	inline void SetAngularVelocity( const Quat& val );
+	inline void SetForce( const Vector& val );
+	
+	inline void AddLinearVelocity( const Vector& val );
+	inline void AddAngularVelocity( const Quat& val );
+	inline void AddForce( const Vector& val );
+	
+	inline Vector GetSetLinearVelocity() const;
+	inline Quat GetAngularVelocity() const;
+	inline Vector GetForce() const;
+	
+	
+	inline void GetAxes( Vector& x, Vector& y, Vector& z ) const;
+	
+	inline void SetMovability( const bool val );
+	inline void SetRotationAbility( const bool val );
+	inline void SetMass( const float val );
+	inline void SetLinearDamping( const float val );
+	inline void SetAngularDamping( const float val );
+	
+	inline bool GetMovability() const;
+	inline bool GetRotationAbility() const;
+	inline float GetMass() const;
+	inline float GetLinearDamping() const;
+	inline float GetAngularDamping() const;
 	
 	void AddForce( const Vector& point, const Vector& force );
 	
 	virtual void Update( const float deltaTime ) override;
 	
 	ActorDynamic();
-	~ActorDynamic();
+	virtual ~ActorDynamic();
 };
 
 #endif

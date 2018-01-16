@@ -4,17 +4,82 @@
 
 #include "../css/ActorDynamic.h"
 
-void ActorDynamic::SetMovability( const bool val )
+inline void ActorDynamic::SetLinearVelocity( const Vector& val )
+{
+	linearVelocity = val;
+}
+
+inline void ActorDynamic::SetAngularVelocity( const Quat& val )
+{
+	float angle_velocity = angularVelocity.GetAngle();
+	if( angle_velocity > 85.0f )
+		angle_velocity = 85.0f;
+	else
+	{
+		angularVelocity = val;
+		return;
+	}
+	angularVelocity = Quat( angularVelocity.GetAxis(), angle_velocity );
+}
+
+inline void ActorDynamic::SetForce( const Vector& val )
+{
+	force = val;
+}
+
+inline void ActorDynamic::AddLinearVelocity( const Vector& val )
+{
+	linearVelocity += val;
+}
+
+inline void ActorDynamic::AddAngularVelocity( const Quat& val )
+{
+	float angle_val = val.GetAngle();
+	if( angle_val > 85.0f )
+		angle_val = 85.0f;
+	SetAngularVelocity( angularVelocity * Quat( val.GetAxis(), angle_val ) );
+}
+
+inline void ActorDynamic::AddForce( const Vector& val )
+{
+	force += val;
+}
+
+inline Vector ActorDynamic::GetSetLinearVelocity() const
+{
+	return linearVelocity;
+}
+
+inline Quat ActorDynamic::GetAngularVelocity() const
+{
+	return angularVelocity;
+}
+
+inline Vector ActorDynamic::GetForce() const
+{
+	return force;
+}
+
+
+inline void ActorDynamic::GetAxes( Vector& x, Vector& y, Vector& z ) const
+{
+	x = rotation * Vector( size.x, 0.0f, 0.0f );
+	y = rotation * Vector( 0.0f, size.y, 0.0f );
+	z = rotation * Vector( 0.0f, 0.0f, size.z );
+}
+
+
+inline void ActorDynamic::SetMovability( const bool val )
 {
 	movability = val;
 }
 
-void ActorDynamic::SetRotationAbility( const bool val )
+inline void ActorDynamic::SetRotationAbility( const bool val )
 {
 	rotationAbility = val;
 }
 
-void ActorDynamic::SetMass( const float val )
+inline void ActorDynamic::SetMass( const float val )
 {
 	if( val == 0.0f )
 		mass = 1.0f;
@@ -24,7 +89,7 @@ void ActorDynamic::SetMass( const float val )
 		mass = val;
 }
 
-void ActorDynamic::SetLinearDamping( const float val )
+inline void ActorDynamic::SetLinearDamping( const float val )
 {
 	if( val == 0.0f )
 		linearDamping = 1.0f;
@@ -34,7 +99,7 @@ void ActorDynamic::SetLinearDamping( const float val )
 		linearDamping = val;
 }
 
-void ActorDynamic::SetAngularDamping( const float val )
+inline void ActorDynamic::SetAngularDamping( const float val )
 {
 	if( val == 0.0f )
 		angularDamping = 1.0f;
@@ -44,27 +109,27 @@ void ActorDynamic::SetAngularDamping( const float val )
 		angularDamping = val;
 }
 
-bool ActorDynamic::GetMovability() const
+inline bool ActorDynamic::GetMovability() const
 {
 	return movability;
 }
 
-bool ActorDynamic::GetRotationAbility() const
+inline bool ActorDynamic::GetRotationAbility() const
 {
 	return rotationAbility;
 }
 
-float ActorDynamic::GetMass() const
+inline float ActorDynamic::GetMass() const
 {
 	return mass;
 }
 
-float ActorDynamic::GetLinearDamping() const
+inline float ActorDynamic::GetLinearDamping() const
 {
 	return linearDamping;
 }
 
-float ActorDynamic::GetAngularDamping() const
+inline float ActorDynamic::GetAngularDamping() const
 {
 	return angularDamping;
 }
@@ -83,11 +148,11 @@ void ActorDynamic::AddForce( const Vector& point, const Vector& force )
 	Vector parallel = r * r.Dot( force );
 	
 	this->force += parallel;
-	float angle = (force - parralel).Length() * engine->GetDeltaTime() / this->mass;
-	angularVelocity *= Quat( r && force, angle > 90.0f ? 90.0f : angle );
+	float angle = (force - parallel).Length() * engine->GetDeltaTime() / this->mass;
+	AddAngularVelocity( Quat( r && force, angle > 85.0f ? 85.0f : angle ) );
 }
 
-virtual void ActorDynamic::Update( const float deltaTime ) override
+void ActorDynamic::Update( const float deltaTime )
 {
 	bPossition = possition;
 	bSize = size;
@@ -120,17 +185,11 @@ virtual void ActorDynamic::Update( const float deltaTime ) override
 					angle_velocity = 0.0f;
 				else if( angle_velocity > angular_damping_vel )
 					angle_velocity -= angular_damping_vel;
-				else
-					angle_velocity += angular_damping_vel;
-				if( angle_velocity > 90.0f )
-					angle_velocity = 90.0f;
-				else if( angle_velocity < -90.0f )
-					angle_velocity = -90.0f;
 			}
 			
 			Vector velocity_axis = angularVelocity.GetAxis();
-			rotation *= Quat( velocity_axis, angle_velocity * deltaTime );
 			angularVelocity = Quat( velocity_axis, angle_velocity );
+			rotation *= Quat( velocity_axis, angle_velocity * deltaTime );
 		}
 		
 		force.Set( 0.0f, 0.0f, 0.0f );
@@ -148,7 +207,7 @@ ActorDynamic::ActorDynamic()
 	linearDamping = 0.1f;
 }
 
-ActorDynamic::~ActorDyanmic()
+ActorDynamic::~ActorDynamic()
 {
 	movability = false;
 	rotationAbility = false;

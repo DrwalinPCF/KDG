@@ -41,11 +41,11 @@ public:
 	
 	inline void GetActor( const AABB& aabb, std::vector < Actor* >& objects ) const;
 	
-	PhysicsMesh * LoadPhysicsMesh( const std::string& name, const std::string& fileName, const int fileFormatVersion = -1 );
+	PhysicsMesh * LoadPhysicsMesh( const std::string& name, const std::string& fileName, const int fileFormatVersion );
 	int SpawnActor( const Actor* object, const std::string& name );
 	
 	inline PhysicsMesh * GetPhysicsMesh( const std::string& name ) const;
-	inline ActorStatic * GetActor( const std::string& name ) const;
+	inline Actor * GetActor( const std::string& name ) const;
 	
 	inline void DestroyPhysicsMesh( const std::string& name );
 	inline void DestroyActor( const std::string& name );
@@ -58,7 +58,7 @@ public:
 	
 	
 	
-	void UpdateColliderActorStatic( Actor * actor );
+	void UpdateColliderActorStatic( Actor * object );
 	void UpdateNavMesh();
 	void UpdateColliderActorDynamic();
 	void UpdatePhysics();		// collision and physics

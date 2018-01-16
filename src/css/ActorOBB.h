@@ -2,6 +2,7 @@
 #ifndef ACTOR_OBB_H
 #define ACTOR_OBB_H
 
+#include "ActorDynamic.h"
 #include "../Includer.h"
 
 class ActorOBB : public ActorDynamic
@@ -12,7 +13,7 @@ private:
 	
 public:
 	
-	virtual void DrawDebug() override;
+	virtual void DrawDebug() const override;
 	virtual void UpdateAABB() override;
 	
 	
@@ -21,7 +22,7 @@ public:
 	virtual void Update( const float deltaTime ) override;
 	
 	ActorOBB();
-	~ActorOBB();
+	virtual ~ActorOBB();
 };
 
 #endif

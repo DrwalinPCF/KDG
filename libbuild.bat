@@ -2,7 +2,7 @@
 
 ::SOIL2 libfrary;
 
-g++ %1 -c "Libraries\soil2\include\SOIL2.c" -std=c++11 -m32 -O3 -o "bin/SOIL2.o"
+g++ %1 -c "Libraries\soil2\include\etc1_utils.c" -std=c++11 -m32 -O3 -o "bin/etc1_utils.o"
 g++ %1 -c "Libraries\soil2\include\image_DXT.c" -std=c++11 -m32 -O3 -o "bin/image_DXT.o"
 g++ %1 -c "Libraries\soil2\include\image_helper.c" -std=c++11 -m32 -O3 -o "bin/image_helper.o"
 g++ %1 -c "Libraries\soil2\include\SOIL2.c" -std=c++11 -m32 -O3 -o "bin/SOIL2.o"

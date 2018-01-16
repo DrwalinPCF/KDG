@@ -22,26 +22,27 @@
 
 #include "../css/Collider.h"
 
-void Collider::AddObject( const T * object, const AABB& aabbObject )
+template < class T >
+void Collider<T>::AddObject( const T * object, const AABB& aabbObject )
 {
 	if( object == NULL )
 		return;
 	
 	AABBint aabbi( aabbObject, this->aabb, octtree.GetSpaceSizeAxes() );
 	
-	auto it = objectAABB.find( actor );
+	auto it = objectAABB.find( object );
 	if( it != objectAABB.end() )
 	{
 		if( it->second == aabb )
 			return;
-		DestroyObject( actor );
+		RemoveObject( object );
 	}
 	
-	objectAABB[actor] = aabbi;
+	objectAABB[object] = aabbi;
 	
 	if( octtree.PosNotEnable( aabbi.GetMinX(), aabbi.GetMinY(), aabbi.GetMinZ() ) || octtree.PosNotEnable( aabbi.GetMaxX(), aabbi.GetMaxY(), aabbi.GetMaxZ() ) )
 	{
-		outsideObjects[object] = true;
+		outsideObject[object] = true;
 	}
 	else
 	{
@@ -59,7 +60,8 @@ void Collider::AddObject( const T * object, const AABB& aabbObject )
 	}
 }
 
-void Collider::DestroyActor( const T * object )
+template < class T >
+void Collider<T>::RemoveObject( const T * object )
 {
 	if( object == NULL )
 		return;
@@ -71,7 +73,7 @@ void Collider::DestroyActor( const T * object )
 		
 		if( octtree.PosNotEnable( aabbi.GetMinX(), aabbi.GetMinY(), aabbi.GetMinZ() ) || octtree.PosNotEnable( aabbi.GetMaxX(), aabbi.GetMaxY(), aabbi.GetMaxZ() ) )
 		{
-			outsideObjects.erase( object );
+			outsideObject.erase( object );
 		}
 		else
 		{
@@ -90,10 +92,11 @@ void Collider::DestroyActor( const T * object )
 	}
 }
 
-void Collider::GetActor( const AABB& aabbSrc, std::map < Actor *, bool >& objects ) const
+template < class T >
+void Collider<T>::GetObject( const AABB& aabbSrc, std::map < T *, bool >& objects ) const
 {
-	if( outsideObjects.size() > 0 )
-		actors.insert( outsideObjects );
+	if( outsideObject.size() > 0 )
+		objects.insert( outsideObject );
 	
 	AABB dst;
 	if( AABB::SharedPart( this->aabb, aabbSrc, dst ) )
@@ -114,11 +117,12 @@ void Collider::GetActor( const AABB& aabbSrc, std::map < Actor *, bool >& object
 	}
 }
 
-void Collider::GetActor( const AABB& aabbSrc, std::map < Actor *, AABB >& objects ) const
+template < class T >
+void Collider<T>::GetObject( const AABB& aabbSrc, std::map < T *, AABB >& objects ) const
 {
-	if( outsideObjects.size() > 0 )
+	if( outsideObject.size() > 0 )
 	{
-		for( auto it = outsideObjects.begin(); it != outsideObjects.end(); *it++ )
+		for( auto it = outsideObject.begin(); it != outsideObject.end(); *it++ )
 			objects.insert[it->first] = objectAABB.find[it->first];
 	}
 	
@@ -144,17 +148,15 @@ void Collider::GetActor( const AABB& aabbSrc, std::map < Actor *, AABB >& object
 	}
 }
 
-void Collider::GetObject( const AABB& aabb, std::vector < T* >& objects ) const
+template < class T >
+void Collider<T>::GetObject( const AABB& aabb, std::vector < T* >& objects ) const
 {
-	if( outsideObjects.size() > 0 )
-	{
-		for( auto it = outsideObjects.begin(); it != outsideObjects.end(); *it++ )
-			objects.insert[it->first] = objectAABB.find[it->first];
-	}
+	if( outsideObject.size() > 0 )
+		SumSortedVectorWithMapKeys < T*, bool > ( objects, outsideObject );
 	
 	AABB dst;
 	
-	if( AABB::SharedPart( this->aabb, aabbSrc, dst ) )
+	if( AABB::SharedPart( this->aabb, aabb, dst ) )
 	{
 		AABBint aabbi( dst, this->aabb, octtree.GetSpaceSizeAxes() );
 		
@@ -166,41 +168,48 @@ void Collider::GetObject( const AABB& aabb, std::vector < T* >& objects ) const
 	}
 }
 
-void Collider::Clear()
+template < class T >
+void Collider<T>::Clear()
 {
 	octtree.Clear();
-	outsideObjects.clear();
+	outsideObject.clear();
 	objectAABB.clear();
 }
 
-AABB Collider::GetAABB() const
+template < class T >
+AABB Collider<T>::GetAABB() const
 {
 	return aabb;
 }
 
-Vector Collider::GetSize() const
+template < class T >
+Vector Collider<T>::GetSize() const
 {
 	return aabb.GetSize();
 }
 
-void Collider::Init( const AABB& aabb, const int levels )
+template < class T >
+void Collider<T>::Init( const AABB& aabb, const int levels )
 {
 	this->aabb = aabb;
 	octtree.Init( levels, std::map < T*, bool >() );
 }
 
-void Collider::Destroy()
+template < class T >
+void Collider<T>::Destroy()
 {
 	Clear();
 	aabb.Set( Vector( 0, 0, 0 ), Vector( 0, 0, 0 ) );
 }
 
-Collider::Collider()
+template < class T >
+Collider<T>::Collider()
 {
 	aabb.Set( Vector( -1000, -1000, -1000 ), Vector( 1000, 1000, 1000 ) );
 }
 
-Collider::~Collider()
+template < class T >
+Collider<T>::~Collider()
 {
 	Destroy();
 }

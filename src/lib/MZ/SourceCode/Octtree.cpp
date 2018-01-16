@@ -20,7 +20,7 @@
 #ifndef OCTTREE_CPP
 #define OCTTREE_CPP
 
-#include "../SourceHeader/Octree.h"
+#include "../SourceHeader/Octtree.h"
 
 template < class T >
 inline void OcttreeNode<T>::Destroy()
