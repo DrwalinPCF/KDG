@@ -64,6 +64,16 @@ inline AABB AABB::operator - ( const Vector& src ) const
 	return AABB( min-src, max-src );
 }
 
+inline AABB AABB::operator * ( const Vector& src ) const
+{
+	return AABB( min*src, max*src );
+}
+
+inline AABB AABB::operator / ( const Vector& src ) const
+{
+	return AABB( min/src, max/src );
+}
+
 inline bool AABB::IsPointInsie( const Vector& p ) const
 {
 	if( p >= min )

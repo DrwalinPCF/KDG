@@ -9,12 +9,21 @@ class ActorStatic : public Actor
 {
 private:
 	
+	Vector bPossition;
+	Vector bSize;
+	Quat bRotation;
+	
+	bool colliderUpdateIsNeeded;
+	
 	PhysicsMesh * physicsMesh;
 	
 public:
 	
 	virtual void DrawDebug() const override;
 	virtual void UpdateAABB() override;
+	
+	inline void ColliderUpdated();
+	inline bool DoesColliderNeedUpdate() const;
 	
 	inline void SetPhysicsMesh( const PhysicsMesh * mesh );
 	inline PhysicsMesh * GetPhysicsMesh() const;

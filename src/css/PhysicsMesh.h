@@ -10,19 +10,17 @@ private:
 	
 	std::string name;
 	
-	Octtree < int > octree;
-	std::vector < Triangle > triangle;
 	AABB aabb;
-	
 	Collider < Triangle > collider;	// contains triangles id
 	
 public:
 	
+	inline AABB GetAABB() const;
+	
 	void SetName( const std::string& name );
 	
 	int LoadFromFile( const std::string& fileName, const int fileFormatVersion = -1 /*newest*/ );		// update collider
-	bool AccessTriangle( const int id, Triangle& dst );
-	void AccessTriangle( const AABB& aabb, std::vector < Triangle >& dst );
+	inline void AccessTriangle( const AABB& aabb, std::vector < Triangle >& dst ) const;
 	
 	PhysicsMesh();
 	~PhysicsMesh();

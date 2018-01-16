@@ -6,7 +6,7 @@
 
 void ActorOBB::DrawDebug() const
 {
-	printf( "\n Draw debug for ActorOBB must be written! " );
+	printf( "\n Error: ActorOBB::DrawDebug() is missing. " );
 }
 
 void ActorOBB::UpdateAABB()

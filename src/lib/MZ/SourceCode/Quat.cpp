@@ -103,6 +103,37 @@ inline Quat Quat::operator - () const
 	return Quat( -x, -y, -z, w );
 }
 
+inline bool Quat::operator == ( const Quat& src ) const
+{
+	return !memcmp( this, &src, sizeof(Quat) );
+}
+
+inline bool Quat::operator != ( const Quat& src ) const
+{
+	return memcmp( this, &src, sizeof(Quat) );
+}
+
+inline bool Quat::operator < ( const Quat& src ) const
+{
+	return memcmp( this, &src, sizeof(Quat) ) < 0;
+}
+
+inline bool Quat::operator > ( const Quat& src ) const
+{
+	return memcmp( this, &src, sizeof(Quat) ) > 0;
+}
+
+inline bool Quat::operator <= ( const Quat& src ) const
+{
+	return memcmp( this, &src, sizeof(Quat) ) <= 0;
+}
+
+inline bool Quat::operator >= ( const Quat& src ) const
+{
+	return memcmp( this, &src, sizeof(Quat) ) >= 0;
+}
+
+
 inline Vector Quat::GetAxis() const
 {
 	float val = 1.0f - w * w;

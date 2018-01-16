@@ -40,6 +40,13 @@ public:
 	inline Vector operator * ( const Vector& src ) const;
 	inline Quat operator - () const;
 	
+	inline bool operator == ( const Quat& src ) const;
+	inline bool operator != ( const Quat& src ) const;
+	inline bool operator < ( const Quat& src ) const;
+	inline bool operator > ( const Quat& src ) const;
+	inline bool operator <= ( const Quat& src ) const;
+	inline bool operator >= ( const Quat& src ) const;
+	
 	inline Vector GetAxis() const;
 	inline float GetAngle() const;
 	inline float Length() const;

@@ -40,6 +40,8 @@ public:
 	inline AABB operator + ( const AABB& src ) const;
 	inline AABB operator + ( const Vector& src ) const;
 	inline AABB operator - ( const Vector& src ) const;
+	inline AABB operator * ( const Vector& src ) const;
+	inline AABB operator / ( const Vector& src ) const;
 	
 	inline bool IsPointInsie( const Vector& p ) const;
 	
