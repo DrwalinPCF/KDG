@@ -78,9 +78,9 @@ public:
 	friend class NavMesh;
 	friend class NavMeshParent;
 	
-	bool operator < ( BaseNode src );
-	bool operator > ( BaseNode src );
-	bool operator == ( BaseNode src );
+	bool operator < ( const BaseNode& src ) const;
+	bool operator > ( const BaseNode& src ) const;
+	bool operator == ( const BaseNode& src ) const;
 	
 	BaseNode();
 	BaseNode( const Vector pos, const float scale );
@@ -164,7 +164,7 @@ private:
 	float maxConnectionLengthSquare;
 	
 	inline Node * GetNode( const BaseNode pos ) const;
-	inline Node * GetNode( const Vector pos ) const;				// create if not exist
+	inline Node * GetNode( const Vector pos );				// create if not exist
 	
 public:
 	

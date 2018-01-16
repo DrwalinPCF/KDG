@@ -68,17 +68,17 @@ Node::~Node()
 
 // BaseNode:
 
-bool BaseNode::operator < ( BaseNode src )
+bool BaseNode::operator < ( const BaseNode& src ) const
 {
 	return memcmp( this, &src, sizeof(BaseNode) ) < 0;
 }
 
-bool BaseNode::operator > ( BaseNode src )
+bool BaseNode::operator > ( const BaseNode& src ) const
 {
 	return memcmp( this, &src, sizeof(BaseNode) ) > 0;
 }
 
-bool BaseNode::operator == ( BaseNode src )
+bool BaseNode::operator == ( const BaseNode& src ) const
 {
 	return memcmp( this, &src, sizeof(BaseNode) ) == 0;
 }
@@ -227,7 +227,7 @@ inline Node * NavMeshParent::GetNode( const BaseNode pos ) const
 		return it->second;
 }
 
-inline Node * NavMeshParent::GetNode( const Vector pos ) const
+inline Node * NavMeshParent::GetNode( const Vector pos )
 {
 	BaseNode tempPos( pos, scale );
 	auto it = nodes.find( tempPos );
@@ -332,7 +332,7 @@ inline int NavMesh::IsNodeEnable( const Node * node ) const
 	}
 }
 */
-int NavMesh::UpdateIteration();////////////////
+int NavMesh::UpdateIteration()////////////////
 {
 	NavMeshVertexToCheck vertex;
 	if( GetNextNodeToCheck( vertex ) )
@@ -351,7 +351,7 @@ int NavMesh::UpdateIteration();////////////////
 					auto itCurrent = checkedVertices.find( it->first );
 					if( itCurrent != checkedVertices.end() )
 					{
-						float temp = ( node->pos - cameFrom->pos ).Length() + pathLength;
+						float temp = ( vertex.node->pos - vertex.cameFrom->pos ).Length() + vertex.pathLength;
 						if( itCurrent->second.pathLength > temp )
 						{
 							itCurrent->second.pathLength = temp;
@@ -379,13 +379,11 @@ int NavMesh::UpdateIteration();////////////////
 	return 0;
 }
 
-void NavMesh::CombinePath();//////////////////////////
+void NavMesh::CombinePath()//////////////////////////
 {
 	auto it = checkedVertices.find( endNode );
 	if( it == checkedVertices.end() )
 		return;
-	
-	length = it->second.pathLength;
 	
 	path.Clear( begin, end );
 	Node * currentNode = endNode;
@@ -402,10 +400,10 @@ void NavMesh::CombinePath();//////////////////////////
 	}
 }
 
-void NavMesh::DrawDebug() const;/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//void NavMesh::DrawDebug() const;/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-inline Node * NavMesh::GetClosestAvailableNode( const Vector pos ) const;////////////////////////////////////////////////////////////////////////////////////
-inline Node * NavMesh::GetClosestExcludedNode( const Vector pos ) const;/////////////////////////////////////////////////////////////////////////////////////
+//inline Node * NavMesh::GetClosestAvailableNode( const Vector pos ) const;////////////////////////////////////////////////////////////////////////////////////
+//inline Node * NavMesh::GetClosestExcludedNode( const Vector pos ) const;/////////////////////////////////////////////////////////////////////////////////////
 
 void NavMesh::ExcludeSpace( const AABB aabb )
 {
@@ -422,9 +420,10 @@ void NavMesh::BeginNewPath( const Vector a, const Vector b )
 	AddVertexToCheck( beginNode, beginNode, 0 );
 }
 
-int NavMesh::UpdatePath( const int count, int & pathExistement );
+int NavMesh::UpdatePath( const int count, int & pathExistement )
 {
-	for( int i = 0; i < count; ++i )
+	int i;
+	for( i = 0; i < count; ++i )
 			if( ( pathExistement = UpdateIteration() ) == 2 )
 				break;
 	return i;
@@ -450,9 +449,9 @@ NavMeshPath NavMesh::FindAnyPath()
 
 void NavMesh::Init( const NavMeshParent * parent, std::map < NavMeshLinkTypes, bool > & connectionAvailable, const Engine * engine )
 {
-	this->parent = parent;
+	this->parent = (NavMeshParent*)parent;
 	this->connectionAvailable = connectionAvailable;
-	this->engine = engine;
+	this->engine = (Engine*)engine;
 }
 
 void NavMesh::Destroy()
@@ -470,7 +469,7 @@ void NavMesh::Destroy()
 	path.Clear( begin, end );
 }
 
-NavMeshPath NavMesh::GetPath( bool & exist = false ) const
+NavMeshPath NavMesh::GetPath( bool & exist ) const////////////////////////////////////////////////
 {
 	return path;
 }
