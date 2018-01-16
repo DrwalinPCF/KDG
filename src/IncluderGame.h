@@ -1,6 +1,6 @@
 
-#ifndef GAME_INCLUDER_H
-#define GAME_INCLUDER_H
+#ifndef INCLUDER_GAME_H
+#define INCLUDER_GAME_H
 
 #include "Includer.h"
 

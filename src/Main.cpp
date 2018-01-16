@@ -2,7 +2,7 @@
 #ifndef MAIN_CPP
 #define MAIN_CPP
 
-#include "GameIncluder.h"
+#include "IncluderGame.h"
 
 int main( int argc, char ** argv )
 {
