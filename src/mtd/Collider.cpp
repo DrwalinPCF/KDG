@@ -173,6 +173,18 @@ void Collider<T>::GetObject( const AABB& aabb, std::vector < T* >& objects ) con
 }
 
 template < class T >
+void Collider<T>::GetAllObject( std::vector < T* >& objects ) const
+{
+	objects.resize( objectAABB.size() );
+	int i = 0;
+	auto it = objectAABB.begin();
+	for( ; it != objectAABB.end(); *it++, ++i )
+	{
+		objects[i] = it->first;
+	}
+}
+
+template < class T >
 void Collider<T>::Clear()
 {
 	octtree.Clear();

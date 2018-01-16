@@ -40,6 +40,7 @@ public:
 	void GetObject( const AABB& aabb, std::map < T *, bool >& objects ) const;		// std::map objects - must be empty
 	void GetObject( const AABB& aabb, std::map < T *, AABB >& objects ) const;		// std::map objects - must be empty
 	void GetObject( const AABB& aabb, std::vector < T* >& objects ) const;
+	void GetAllObject( std::vector < T* >& objects ) const;
 	
 	void Clear();
 	
