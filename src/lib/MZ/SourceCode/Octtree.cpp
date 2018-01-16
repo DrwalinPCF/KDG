@@ -82,7 +82,7 @@ inline void OcttreeNode<T>::Destroy()
 }
 
 template < class T >
-inline octtreePosDataType OcttreeNode<T>::GetNodeNumber()
+inline octtreePosDataType OcttreeNode<T>::GetNodeNumber() const
 {
 	int i = 1;
 	if( node[0][0][0] != NULL )
@@ -123,7 +123,7 @@ inline octtreePosDataType OcttreeNode<T>::GetNodeNumber()
 }
 
 template < class T >
-inline void OcttreeNode<T>::Print( const octtreePosDataType i )
+inline void OcttreeNode<T>::Print( const octtreePosDataType i ) const
 {
 	if( node[0][0][0] != NULL )
 	{
@@ -360,13 +360,13 @@ OcttreeNode<T>::~OcttreeNode()
 }
 
 template < class T >
-inline bool Octtree<T>::PosNotEnable( const octtreePosDataType _x, const octtreePosDataType _y, const octtreePosDataType _z )
+inline bool Octtree<T>::PosNotEnable( const octtreePosDataType _x, const octtreePosDataType _y, const octtreePosDataType _z ) const
 {
 	return _x < 0 || _x >= 1<<lvl || _y < 0 || _y >= 1<<lvl || _z < 0 || _z >= 1<<lvl;
 }
 
 template < class T >
-inline bool Octtree<T>::Exist( const octtreePosDataType _x, const octtreePosDataType _y, const octtreePosDataType _z )
+inline bool Octtree<T>::Exist( const octtreePosDataType _x, const octtreePosDataType _y, const octtreePosDataType _z ) const
 {
 	defaultValue = defaultValueCopy;
 	if( PosNotEnable( _x, _y, _z ) )
@@ -462,15 +462,14 @@ inline T& Octtree<T>::Get( const octtreePosDataType _x, const octtreePosDataType
 }
 
 template < class T >
-inline T& Octtree<T>::GetConst( const octtreePosDataType _x, const octtreePosDataType _y, const octtreePosDataType _z )
+inline T Octtree<T>::GetConst( const octtreePosDataType _x, const octtreePosDataType _y, const octtreePosDataType _z ) const
 {
-	defaultValue = defaultValueCopy;
 	if( PosNotEnable( _x, _y, _z ) )
 		return defaultValue;
 	
 	octtreePosDataType i, fx, fy, fz;
 	
-	OcttreeNode<T> * currentNode = &node;
+	OcttreeNode<T> * currentNode = (OcttreeNode<T>*)&node;
 	
 	for( i = 0; i < lvl; ++i )
 	{
@@ -555,20 +554,20 @@ inline void Octtree<T>::Erase( const octtreePosDataType _x, const octtreePosData
 }
 
 template < class T >
-inline octtreePosDataType Octtree<T>::GetNumberOfNodes()
+inline octtreePosDataType Octtree<T>::GetNumberOfNodes() const
 {
 	return node.GetNodeNumber();
 }
 
 template < class T >
-inline void Octtree<T>::Print()
+inline void Octtree<T>::Print() const
 {
 	printf( "\n" );
 	node.Print( 0 );
 }
 
 template < class T >
-inline octtreePosDataType Octtree<T>::GetSpaceSizeAxes()
+inline octtreePosDataType Octtree<T>::GetSpaceSizeAxes() const
 {
 	return ((octtreePosDataType)(1))<<lvl;
 }

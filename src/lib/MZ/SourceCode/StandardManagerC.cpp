@@ -129,7 +129,7 @@ void MapPushBack( std::map < T, T2 > & dst, std::map < T, T2 > & src )
 }
 
 template < class T, class T2 >
-void SumSortedVectorWithMapKeys( std::vector < T > & dst, std::map < T, T2 > & src )
+void SumSortedVectorWithMapKeys( std::vector < T > & dst, const std::map < T, T2 > & src )
 {
 	int srcS = src.size();
 	int i = 0, j = 0;

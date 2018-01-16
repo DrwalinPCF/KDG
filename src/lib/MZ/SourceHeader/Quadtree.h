@@ -24,8 +24,8 @@
 #include <cstdio>
 #include <vector>
 
-typedef unsigned long long int quadtreePosDataType;
-#define QUADTREE_PRINTF_SPECIFIER %LLd
+typedef int quadtreePosDataType;
+#define QUADTREE_PRINTF_SPECIFIER %d
 
 template < class T >
 class QuadtreeNode

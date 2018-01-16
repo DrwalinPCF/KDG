@@ -21,6 +21,7 @@
 #define COLLIDER_CPP
 
 #include "../css/Collider.h"
+#include "../lib/MZ/SourceCode/StandardManagerC.cpp"
 
 template < class T >
 void Collider<T>::AddObject( const T * object, const AABB& aabbObject )
@@ -30,19 +31,19 @@ void Collider<T>::AddObject( const T * object, const AABB& aabbObject )
 	
 	AABBint aabbi( aabbObject, this->aabb, octtree.GetSpaceSizeAxes() );
 	
-	auto it = objectAABB.find( object );
+	auto it = objectAABB.find( (T*)object );
 	if( it != objectAABB.end() )
 	{
-		if( it->second == aabb )
+		if( it->second == aabbi )
 			return;
-		RemoveObject( object );
+		RemoveObject( (T*)object );
 	}
 	
-	objectAABB[object] = aabbi;
+	objectAABB[(T*)object] = aabbi;
 	
 	if( octtree.PosNotEnable( aabbi.GetMinX(), aabbi.GetMinY(), aabbi.GetMinZ() ) || octtree.PosNotEnable( aabbi.GetMaxX(), aabbi.GetMaxY(), aabbi.GetMaxZ() ) )
 	{
-		outsideObject[object] = true;
+		outsideObject[(T*)object] = true;
 	}
 	else
 	{
@@ -53,7 +54,7 @@ void Collider<T>::AddObject( const T * object, const AABB& aabbObject )
 			{
 				for( pos[2] = aabbi.GetMinZ(); pos[2] <= aabbi.GetMaxZ(); ++pos[2] )
 				{
-					octtree.Get( pos[0], pos[1], pos[2] )[object] = true;
+					octtree.Get( pos[0], pos[1], pos[2] )[(T*)object] = true;
 				}
 			}
 		}
@@ -66,14 +67,14 @@ void Collider<T>::RemoveObject( const T * object )
 	if( object == NULL )
 		return;
 	
-	auto it = objectAABB.find( object );
+	auto it = objectAABB.find( (T*)object );
 	if( it != objectAABB.end() )
 	{
 		AABBint aabbi = it->second;
 		
 		if( octtree.PosNotEnable( aabbi.GetMinX(), aabbi.GetMinY(), aabbi.GetMinZ() ) || octtree.PosNotEnable( aabbi.GetMaxX(), aabbi.GetMaxY(), aabbi.GetMaxZ() ) )
 		{
-			outsideObject.erase( object );
+			outsideObject.erase( (T*)object );
 		}
 		else
 		{
@@ -84,7 +85,7 @@ void Collider<T>::RemoveObject( const T * object )
 				{
 					for( pos[2] = aabbi.GetMinZ(); pos[2] <= aabbi.GetMaxZ(); ++pos[2] )
 					{
-						octtree.Get( pos[0], pos[1], pos[2] ).erase( object );
+						octtree.Get( pos[0], pos[1], pos[2] ).erase( (T*)object );
 					}
 				}
 			}
@@ -151,7 +152,10 @@ void Collider<T>::GetObject( const AABB& aabbSrc, std::map < T *, AABB >& object
 template < class T >
 void Collider<T>::GetObject( const AABB& aabb, std::vector < T* >& objects ) const
 {
+	//std::vector<T*> &a = objects;
+	//std::map<T*,bool> &b = outsideObject;
 	if( outsideObject.size() > 0 )
+		//SumSortedVectorWithMapKeys < T*, bool > ( a, b );
 		SumSortedVectorWithMapKeys < T*, bool > ( objects, outsideObject );
 	
 	AABB dst;

@@ -32,9 +32,6 @@
 // Marek Zalewski's libraries:
 
 #include "lib/MZ/SourceHeader/GetSthFromString.h"
-#include "lib/MZ/SourceHeader/StandardManagerC.h"
-#include "lib/MZ/SourceHeader/Quadtree.h"
-#include "lib/MZ/SourceHeader/Octtree.h"
 #include "lib/MZ/SourceHeader/Math.h"
 #include "lib/MZ/SourceHeader/Vector.h"
 #include "lib/MZ/SourceHeader/VMatrix.h"
@@ -42,6 +39,9 @@
 #include "lib/MZ/SourceHeader/AABB.h"
 #include "lib/MZ/SourceHeader/Triangle.h"
 
+#include "lib/MZ/SourceCode/StandardManagerC.cpp"
+#include "lib/MZ/SourceCode/Quadtree.cpp"
+#include "lib/MZ/SourceCode/Octtree.cpp"
 
 // Game:
 
@@ -49,15 +49,12 @@
 #include "Declarator.h"
 #include "func/Debug.h"
 
-#include "css/Collider.h"
+#include "mtd/Collider.cpp"
 
 
 #include "css/PhysicsMesh.h"
 
 #include "css/Actor.h"
-//#include "css/ActorStatic.h"
-//#include "css/ActorDynamic.h"
-//#include "css/ActorOBB.h"
 
 #include "css/NavMesh.h"
 
@@ -65,6 +62,7 @@
 
 #include "css/CollisionManager.h"
 #include "css/Engine.h"
+
 
 
 

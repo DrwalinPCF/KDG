@@ -38,8 +38,8 @@ public:
 	
 	inline void Destroy();
 	
-	inline octtreePosDataType GetNodeNumber();
-	inline void Print( const octtreePosDataType i );
+	inline octtreePosDataType GetNodeNumber() const;
+	inline void Print( const octtreePosDataType i ) const;
 	inline void AddToVboEdges( std::vector < Vector > & points, Vector offset, Vector size );
 	
 	OcttreeNode();
@@ -55,18 +55,18 @@ public:
 	T defaultValueCopy;
 	octtreePosDataType lvl;
 	
-	inline bool PosNotEnable( const octtreePosDataType _x, const octtreePosDataType _y, const octtreePosDataType _z );
+	inline bool PosNotEnable( const octtreePosDataType _x, const octtreePosDataType _y, const octtreePosDataType _z ) const;
 	
-	inline bool Exist( const octtreePosDataType _x, const octtreePosDataType _y, const octtreePosDataType _z );
+	inline bool Exist( const octtreePosDataType _x, const octtreePosDataType _y, const octtreePosDataType _z ) const;
 	inline void Set( const octtreePosDataType _x, const octtreePosDataType _y, const octtreePosDataType _z, const T src );
 	inline T& Get( const octtreePosDataType _x, const octtreePosDataType _y, const octtreePosDataType _z );
-	inline T& GetConst( const octtreePosDataType _x, const octtreePosDataType _y, const octtreePosDataType _z );		// get only exist node
+	inline T GetConst( const octtreePosDataType _x, const octtreePosDataType _y, const octtreePosDataType _z ) const;		// get only exist node
 	inline void Erase( const octtreePosDataType _x, const octtreePosDataType _y, const octtreePosDataType _z );
 	
-	inline octtreePosDataType GetNumberOfNodes();
+	inline octtreePosDataType GetNumberOfNodes() const;
 	
-	inline void Print();
-	inline octtreePosDataType GetSpaceSizeAxes();
+	inline void Print() const;
+	inline octtreePosDataType GetSpaceSizeAxes() const;
 	
 	inline void Clear();
 	

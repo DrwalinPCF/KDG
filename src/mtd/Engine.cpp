@@ -3,8 +3,9 @@
 #define ENGINE_CPP
 
 #include "../css/Engine.h"
-#include "Collider.cpp"
-#include "../lib/MZ/SourceCode/Octtree.cpp"
+#include "../css/ActorStatic.h"
+#include "../css/ActorDynamic.h"
+#include "../css/ActorOBB.h"
 
 inline void Engine::SetTimeScale( const float value )
 {
