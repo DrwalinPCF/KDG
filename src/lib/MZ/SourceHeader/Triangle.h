@@ -42,8 +42,12 @@ public:
 	
 	inline AABB GetAABB() const;
 	
-	inline bool operator == ( const Triangle& other ) const;
-	inline bool operator != ( const Triangle& other ) const;
+	inline bool operator == ( const Triangle& src ) const;
+	inline bool operator != ( const Triangle& src ) const;
+	inline bool operator < ( const Triangle& src ) const;
+	inline bool operator > ( const Triangle& src ) const;
+	inline bool operator <= ( const Triangle& src ) const;
+	inline bool operator >= ( const Triangle& src ) const;
 	
 	inline bool IsTotalOutsideBox( const AABB& box ) const;
 	

@@ -37,19 +37,44 @@ inline VMatrix VMatrix::SetMatrix(
 
 inline VMatrix& VMatrix::operator = ( const VMatrix& src )
 {
-	m[0][0] = src.m[0][0]; m[0][1] = src.m[0][1]; m[0][2] = src.m[0][2]; m[0][3] = src.m[0][3];
-	m[1][0] = src.m[1][0]; m[1][1] = src.m[1][1]; m[1][2] = src.m[1][2]; m[1][3] = src.m[1][3];
-	m[2][0] = src.m[2][0]; m[2][1] = src.m[2][1]; m[2][2] = src.m[2][2]; m[2][3] = src.m[2][3];
-	m[3][0] = src.m[3][0]; m[3][1] = src.m[3][1]; m[3][2] = src.m[3][2]; m[3][3] = src.m[3][3];
+	memcpy( this, &src, sizeof(VMatrix) );
 	return *this;
 }
 
+inline bool VMatrix::operator == ( const VMatrix& src ) const
+{
+	return !memcmp( this, &src, sizeof(VMatrix) );
+}
+
+inline bool VMatrix::operator != ( const VMatrix& src ) const
+{
+	return memcmp( this, &src, sizeof(VMatrix) );
+}
+
+inline bool VMatrix::operator < ( const VMatrix& src ) const
+{
+	return memcmp( this, &src, sizeof(VMatrix) ) < 0;
+}
+
+inline bool VMatrix::operator > ( const VMatrix& src ) const
+{
+	return memcmp( this, &src, sizeof(VMatrix) ) > 0;
+}
+
+inline bool VMatrix::operator <= ( const VMatrix& src ) const
+{
+	return memcmp( this, &src, sizeof(VMatrix) ) <= 0;
+}
+
+inline bool VMatrix::operator >= ( const VMatrix& src ) const
+{
+	return memcmp( this, &src, sizeof(VMatrix) ) >= 0;
+}
+
+
 inline VMatrix VMatrix::SetMatrix( const VMatrix& src )
 {
-	m[0][0] = src.m[0][0]; m[0][1] = src.m[0][1]; m[0][2] = src.m[0][2]; m[0][3] = src.m[0][3];
-	m[1][0] = src.m[1][0]; m[1][1] = src.m[1][1]; m[1][2] = src.m[1][2]; m[1][3] = src.m[1][3];
-	m[2][0] = src.m[2][0]; m[2][1] = src.m[2][1]; m[2][2] = src.m[2][2]; m[2][3] = src.m[2][3];
-	m[3][0] = src.m[3][0]; m[3][1] = src.m[3][1]; m[3][2] = src.m[3][2]; m[3][3] = src.m[3][3];
+	memcpy( this, &src, sizeof(VMatrix) );
 	return *this;
 }
 

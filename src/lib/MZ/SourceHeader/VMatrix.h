@@ -42,6 +42,13 @@ public:
 	
 	inline VMatrix& operator = ( const VMatrix& src );
 	
+	inline bool operator == ( const VMatrix& src ) const;
+	inline bool operator != ( const VMatrix& src ) const;
+	inline bool operator < ( const VMatrix& src ) const;
+	inline bool operator > ( const VMatrix& src ) const;
+	inline bool operator <= ( const VMatrix& src ) const;
+	inline bool operator >= ( const VMatrix& src ) const;
+	
 	inline VMatrix& operator += ( const Vector& src );
 	inline VMatrix operator * ( const VMatrix& src ) const;
 	inline VMatrix& operator *= ( const VMatrix& src );

@@ -45,15 +45,36 @@ inline AABB Triangle::GetAABB() const
 	return aabb;
 }
 
-inline bool Triangle::operator == ( const Triangle& other ) const
+inline bool Triangle::operator == ( const Triangle& src ) const
 {
-	return (pointA==other.pointA) && (pointB==other.pointB) && (pointC==other.pointC);
+	return !memcmp( this, &src, sizeof(Triangle) );
 }
 
-inline bool Triangle::operator != ( const Triangle& other ) const
+inline bool Triangle::operator != ( const Triangle& src ) const
 {
-	return (pointA!=other.pointA) || (pointB!=other.pointB) || (pointC!=other.pointC);
+	return memcmp( this, &src, sizeof(Triangle) );
 }
+
+inline bool Triangle::operator < ( const Triangle& src ) const
+{
+	return memcmp( this, &src, sizeof(Triangle) ) < 0;
+}
+
+inline bool Triangle::operator > ( const Triangle& src ) const
+{
+	return memcmp( this, &src, sizeof(Triangle) ) > 0;
+}
+
+inline bool Triangle::operator <= ( const Triangle& src ) const
+{
+	return memcmp( this, &src, sizeof(Triangle) ) <= 0;
+}
+
+inline bool Triangle::operator >= ( const Triangle& src ) const
+{
+	return memcmp( this, &src, sizeof(Triangle) ) >= 0;
+}
+
 
 inline bool Triangle::IsTotalOutsideBox( const AABB& box ) const
 {

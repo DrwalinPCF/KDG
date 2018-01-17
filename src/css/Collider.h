@@ -27,20 +27,20 @@ class Collider
 {
 private:
 	
-	Octtree < std::map < T*, bool > > octtree;
-	std::map < T*, bool > outsideObject;
-	std::map < T*, AABBint > objectAABB;
+	Octtree < std::map < T, bool > > octtree;
+	std::map < T, bool > outsideObject;
+	std::map < T, AABBint > objectAABB;
 	
 	AABB aabb;
 	
 public:
 	
-	void AddObject( const T * object, const AABB& aabbObject );
-	void RemoveObject( const T * object );
-	void GetObject( const AABB& aabb, std::map < T *, bool >& objects ) const;		// std::map objects - must be empty
-	void GetObject( const AABB& aabb, std::map < T *, AABB >& objects ) const;		// std::map objects - must be empty
-	void GetObject( const AABB& aabb, std::vector < T* >& objects ) const;
-	void GetAllObject( std::vector < T* >& objects ) const;
+	void AddObject( const T object, const AABB& aabbObject );
+	void RemoveObject( const T object );
+	void GetObject( const AABB& aabb, std::map < T, bool >& objects ) const;		// std::map objects - must be empty
+	void GetObject( const AABB& aabb, std::map < T, AABB >& objects ) const;		// std::map objects - must be empty
+	void GetObject( const AABB& aabb, std::vector < T >& objects ) const;
+	void GetAllObject( std::vector < T >& objects ) const;
 	
 	void Clear();
 	

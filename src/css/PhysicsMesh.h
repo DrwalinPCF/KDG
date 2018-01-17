@@ -10,9 +10,9 @@ private:
 	
 	std::string name;
 	
-	std::vector < Triangle * > triangles;
+	std::vector < Triangle > triangles;
 	AABB aabb;
-	Collider < Triangle > collider;
+	Collider < int > collider;
 	
 public:
 	
@@ -21,6 +21,7 @@ public:
 	void SetName( const std::string& name );
 	
 	int LoadFromFile( const std::string& fileName, const int fileFormatVersion );		// update collider
+	inline bool AccessTriangle( const int id, Triangle& dst );
 	inline void AccessTriangle( const AABB& aabb, std::vector < Triangle >& dst ) const;
 	inline void AccessAllTriangle( std::vector < Triangle >& dst ) const;
 	

@@ -13,7 +13,7 @@ private:
 	std::map < std::string, PhysicsMesh* > physicsMesh;
 	std::map < std::string, Actor* > actors;
 	
-	Collider < Actor > colliderActor;
+	Collider < Actor* > colliderActor;
 	
 	float timeScale;
 	float deltaTime;	// deltaTime = real_deltaTime * timeScale

@@ -24,47 +24,46 @@ int PhysicsMesh::LoadFromFile( const std::string& fileName, const int fileFormat
 	*/
 }
 
+inline bool PhysicsMesh::AccessTriangle( const int id, Triangle& dst )
+{
+	if( id < 0 )
+		return false;
+	if( id < triangles.size() )
+	{
+		dst = triangles[id];
+		return true;
+	}
+	return false;
+	
+}
+
 inline void PhysicsMesh::AccessTriangle( const AABB& aabb, std::vector < Triangle >& dst ) const
 {
 	if( triangles.size() )
 	{
-		std::vector < Triangle* > temp;
+		std::vector < int > temp;
 		collider.GetObject( aabb, temp );
 		
 		if( temp.size() )
 		{
 			dst.resize( temp.size() );
-			Triangle* dstp = &(dst[0]);
-			Triangle** srcp = &(temp[0]);
-			for( ; dstp <= (temp.back()); ++dstp, ++srcp )
-			{
-				memcpy( dstp, *srcp, sizeof(Triangle) );
-			}
+			int i;
+			for( i = 0; i < temp.size(); ++i )
+				dst[i] = triangles[temp[i]];
 		}
 	}
 }
 
 inline void PhysicsMesh::AccessAllTriangle( std::vector < Triangle >& dst ) const
 {
-	if( triangles.size() )
-	{
-		dst.resize( triangles.size() );
-		Triangle* dstp = &(dst[0]);
-		Triangle** srcp = (Triangle**)(&(triangles[0]));
-		for( ; dstp <= (triangles.back()); ++dstp, ++srcp )
-		{
-			memcpy( dstp, *srcp, sizeof(Triangle) );
-		}
-	}
+	dst.resize( triangles.size() );
+	memcpy( &(dst.front()), &(triangles.front()), triangles.size() * sizeof(Triangle) );
+	//dst = triangles;
 }
 
 PhysicsMesh::~PhysicsMesh()
 {
 	collider.Clear();
-	for( int i = 0; i < triangles.size(); ++i )
-	{
-		delete triangles[i];
-	}
 	triangles.clear();
 }
 

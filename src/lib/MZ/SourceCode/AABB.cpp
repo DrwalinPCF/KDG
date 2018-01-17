@@ -74,6 +74,37 @@ inline AABB AABB::operator / ( const Vector& src ) const
 	return AABB( min/src, max/src );
 }
 
+inline bool AABB::operator == ( const AABB& src ) const
+{
+	return !memcmp( this, &src, sizeof(AABB) );
+}
+
+inline bool AABB::operator != ( const AABB& src ) const
+{
+	return memcmp( this, &src, sizeof(AABB) );
+}
+
+inline bool AABB::operator < ( const AABB& src ) const
+{
+	return memcmp( this, &src, sizeof(AABB) ) < 0;
+}
+
+inline bool AABB::operator > ( const AABB& src ) const
+{
+	return memcmp( this, &src, sizeof(AABB) ) > 0;
+}
+
+inline bool AABB::operator <= ( const AABB& src ) const
+{
+	return memcmp( this, &src, sizeof(AABB) ) <= 0;
+}
+
+inline bool AABB::operator >= ( const AABB& src ) const
+{
+	return memcmp( this, &src, sizeof(AABB) ) >= 0;
+}
+
+
 inline bool AABB::IsPointInsie( const Vector& p ) const
 {
 	if( p >= min )

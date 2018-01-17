@@ -43,6 +43,13 @@ public:
 	inline AABB operator * ( const Vector& src ) const;
 	inline AABB operator / ( const Vector& src ) const;
 	
+	inline bool operator == ( const AABB& src ) const;
+	inline bool operator != ( const AABB& src ) const;
+	inline bool operator < ( const AABB& src ) const;
+	inline bool operator > ( const AABB& src ) const;
+	inline bool operator <= ( const AABB& src ) const;
+	inline bool operator >= ( const AABB& src ) const;
+	
 	inline bool IsPointInsie( const Vector& p ) const;
 	
 	inline static bool SharedPart( const AABB& a, const AABB& b, AABB& dst );
