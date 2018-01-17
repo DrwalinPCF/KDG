@@ -50,7 +50,7 @@ inline void ActorStatic::GetTriangles( const AABB& aabb, std::vector < Triangle 
 
 void ActorStatic::Update( const float deltaTime )
 {
-	printf( "\n Error: ActorStatic::Update() is not done. " );
+	printf( "\n Error: ActorStatic::Update() is not done yet. " );
 	if( bPossition != possition || bSize != size || bRotation != rotation )
 	{
 		UpdateAABB();

@@ -206,7 +206,7 @@ private:
 	inline void AddVertexToCheck( const Node * node, const Node * cameFrom, const float pathLength );
 	inline bool GetNextNodeToCheck( NavMeshVertexToCheck & dst );
 	
-	inline int IsNodeEnable( const Node * node ) const;					// returns diferent: is in [ excludedSpace ? lastResortSpace ]
+	inline int IsNodeDisable( const Node * node ) const;					// return 0 if enable; -1 if not enable; /* 1 if last resorted */
 	
 	int UpdateIteration();		// return: 0 - path not exist, 1 - exist any path (probably not the best), 2 - exist best path
 	

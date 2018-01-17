@@ -323,15 +323,20 @@ inline bool NavMesh::GetNextNodeToCheck( NavMeshVertexToCheck & dst )
 	}
 	return false;
 }
-/*
-inline int NavMesh::IsNodeEnable( const Node * node ) const
+
+inline int NavMesh::IsNodeDisable( const Node * node ) const
 {
 	for( int i = 0; i < excludeSpace.size(); ++i )
-	{
 		if( excludeSpace[i].IsPointInsie( node->pos ) )
-	}
+			return -1;
+	/*
+	for( int i = 0; i < lastResortSpace.size(); ++i )
+		if( lastResortSpace[i].IsPointInsie( node->pos ) )
+			return 1;
+	*/
+	return 0;
 }
-*/
+
 int NavMesh::UpdateIteration()////////////////
 {
 	NavMeshVertexToCheck vertex;
