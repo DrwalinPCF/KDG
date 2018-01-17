@@ -8,7 +8,10 @@ int main( int argc, char ** argv )
 {
 	Game * game = new Game;
 	game->Init( &argc, &argv );
-	game->MainLoop();
+	while( true )
+	{
+		
+	}
 	delete game;
 	return 0;
 }

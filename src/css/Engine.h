@@ -26,6 +26,10 @@ private:
 	int framesCounter;
 	int timeFromLastResetFrameCounter;
 	
+#ifdef ERROR_MESSAGES
+	std::vector < Error > errors;
+#endif
+	
 public:
 	
 	inline void SetTimeScale( const float value );
@@ -36,7 +40,7 @@ public:
 	void DrawMapDebug() const;
 	void DrawDebug() const;
 	
-	void Renderer();
+	void Draw();
 	
 	
 	inline void GetActor( const AABB& aabb, std::vector < Actor* >& objects ) const;
@@ -55,8 +59,10 @@ public:
 	
 	bool RayTrace( const Vector& begin, const Vector& end, const int rayTraceChannel, Actor** dst, Vector& point, float& distance, Vector& normal ) const;		// dstDynamic = NULL || dstStatic = NULL
 	
-	
-	
+#ifdef ERROR_MESSAGES
+	int GetError( Error & error );	// return number of errors
+	void AddError( const Error error );
+#endif
 	
 	void UpdateColliderActorStatic( Actor * object );
 	void UpdateNavMesh();
@@ -65,10 +71,10 @@ public:
 	
 	
 	void Update();
+	void UpdateClock();
 	
 	
 	void Init( int * argc, char *** argv );
-	void MainLoop();
 	
 	Engine();
 	~Engine();
