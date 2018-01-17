@@ -168,6 +168,8 @@ private:
 	
 public:
 	
+	static inline std::string GetClassName();
+	
 	friend class NavMesh;
 	
 	void DrawDebug() const;
@@ -211,6 +213,8 @@ private:
 	int UpdateIteration();		// return: 0 - path not exist, 1 - exist any path (probably not the best), 2 - exist best path
 	
 public:
+	
+	static inline std::string GetClassName();
 	
 	void CombinePath();
 	

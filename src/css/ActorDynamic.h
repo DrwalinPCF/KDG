@@ -31,6 +31,8 @@ protected:
 	
 public:
 	
+	virtual inline std::string GetClassName() override;
+	
 	
 	inline void SetLinearVelocity( const Vector& val );
 	inline void SetAngularVelocity( const Quat& val );

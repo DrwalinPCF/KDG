@@ -23,8 +23,12 @@ protected:
 	
 public:
 	
+	virtual inline std::string GetClassName()=0;
+	
 	virtual void DrawDebug() const=0;
 	virtual void UpdateAABB()=0;
+	
+	inline std::string GetName() const;
 	
 	inline AABB GetAABB() const;
 	

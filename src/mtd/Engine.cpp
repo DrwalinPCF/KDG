@@ -7,6 +7,12 @@
 #include "../css/ActorDynamic.h"
 #include "../css/ActorOBB.h"
 
+
+inline std::string Engine::GetClassName()
+{
+	return std::string( "Engine" );
+}
+
 inline void Engine::SetTimeScale( const float value )
 {
 	if( value > 0.0001f && value < 1000.0f )
@@ -27,19 +33,21 @@ inline void Engine::GetActor( const AABB& aabb, std::vector < Actor* >& objects 
 }
 
 
-int Engine::SpawnActor( const Actor* object, const std::string& name )
+int Engine::SpawnActor( const Actor* object )
 {
 	if( object )
 	{
-		auto it = actors.find( name );
+		auto it = actors.find( object->GetName() );
 		if( it == actors.end() )
 		{
-			((Actor*)object)->Init( this, name );
-			actors[name] = (Actor*)object;
+			((Actor*)object)->Init( this, object->GetName() );
+			actors[object->GetName()] = (Actor*)object;
 			return 0;
 		}
+		MAKE_ERROR( this, ErrorMessages::pointerActorNotExist, GetClassName(), std::string("Object with name: \"") + object->GetName() + "\" already exist", "SpawnActor()" );
 		return 1;	// object with this name already exist
 	}
+	MAKE_ERROR( this, ErrorMessages::pointerActorNotExist, GetClassName(), std::string("Object sourced do not exist"), "SpawnActor()" );
 	return -1;		// given object does not exist
 }
 
@@ -108,30 +116,67 @@ inline void Engine::DestroyActor( const std::string& name )
 
 
 
-void Engine::UpdateColliderActorStatic( Actor * object )
+int Engine::GetNextError( Error & error )
 {
-	if( !object )
-		return;
-	if( !(dynamic_cast < ActorStatic * > ( object )) )
-		return;
+	if( errors.size() )
+	{
+		error = errors.front();
+		errors.erase( errors.begin(), errors.begin() + 1 );
+	}
+	return errors.size();
+}
+
+void Engine::AddError( const Error error )
+{
+	errors.push_back( error );
+}
+
+
+
+
+void Engine::UpdateColliderActorStatic( ActorStatic * object )
+{
 	colliderActor.AddObject( object, object->GetAABB() );
 }
 
-void Engine::UpdateColliderActorDynamic()
+void Engine::UpdateColliderActor()
 {
-	//Vector vtemp;
-	//float ftemp;
-	//ActorDynamic * object;
+	ActorStatic * object;
 	for( auto it = actors.begin(); it != actors.end(); *it++ )
 	{
-		//object = dynamic_cast < ActorDynamic* >( it->second );
-		if( dynamic_cast < ActorDynamic* >( it->second ) )
+		if( it->second )
 		{
-			colliderActor.AddObject( it->second, it->second->GetAABB() );
+			if( dynamic_cast < ActorDynamic* >( it->second ) )
+			{
+				colliderActor.AddObject( it->second, it->second->GetAABB() );
+			}
+			else if( object = dynamic_cast < ActorStatic* >( it->second ) )
+			{
+				if( object->DoesColliderNeedUpdate() )
+				{
+					UpdateColliderActorStatic( object );
+					object->ColliderUpdated();
+				}
+			}
+			else
+			{
+				MAKE_ERROR( this, ErrorMessages::castingActorIsNotStaticOrDynamic, GetClassName(), it->first, "UpdateColliderActor()" );
+			}
+		}
+		else
+		{
+			MAKE_ERROR( this, ErrorMessages::pointerActorNotExist, GetClassName(), it->first, "UpdateColliderActor()" );
 		}
 	}
 }
 
+
+
+void Engine::Init( int * argc, char *** argv )
+{
+	Error::PrepareErrorLogFile( "error.log" );
+	printf( "\n Error: Engine::Init() is missing. " );
+}
 
 
 

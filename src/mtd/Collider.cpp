@@ -24,6 +24,12 @@
 #include "../lib/MZ/SourceCode/StandardManagerC.cpp"
 
 template < class T >
+inline std::string Collider<T>::GetClassName()
+{
+	return std::string( "Collider" );
+}
+
+template < class T >
 void Collider<T>::AddObject( const T object, const AABB& aabbObject )
 {
 	if( object == NULL )

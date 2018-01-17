@@ -19,6 +19,8 @@ private:
 	
 public:
 	
+	virtual inline std::string GetClassName() override;
+	
 	virtual void DrawDebug() const override;
 	virtual void UpdateAABB() override;
 	

@@ -4,6 +4,11 @@
 
 #include "../css/Actor.h"
 
+inline std::string Actor::GetName() const
+{
+	return name;
+}
+
 inline AABB Actor::GetAABB() const
 {
 	return aabb;

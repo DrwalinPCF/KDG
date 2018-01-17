@@ -35,6 +35,8 @@ private:
 	
 public:
 	
+	static inline std::string GetClassName();
+	
 	void AddObject( const T object, const AABB& aabbObject );
 	void RemoveObject( const T object );
 	void GetObject( const AABB& aabb, std::map < T, bool >& objects ) const;		// std::map objects - must be empty

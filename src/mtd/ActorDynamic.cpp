@@ -4,6 +4,11 @@
 
 #include "../css/ActorDynamic.h"
 
+inline std::string ActorDynamic::GetClassName()
+{
+	return std::string( "ActorDynamic" );
+}
+
 inline void ActorDynamic::SetLinearVelocity( const Vector& val )
 {
 	linearVelocity = val;

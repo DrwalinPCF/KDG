@@ -4,6 +4,11 @@
 
 #include "../css/PhysicsMesh.h"
 
+inline std::string PhysicsMesh::GetClassName()
+{
+	return std::string( "PhysicsMesh" );
+}
+
 inline AABB PhysicsMesh::GetAABB() const
 {
 	return aabb;

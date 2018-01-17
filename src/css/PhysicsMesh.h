@@ -16,6 +16,8 @@ private:
 	
 public:
 	
+	static inline std::string GetClassName();
+	
 	inline AABB GetAABB() const;
 	
 	void SetName( const std::string& name );

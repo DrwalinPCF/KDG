@@ -26,11 +26,11 @@ private:
 	int framesCounter;
 	int timeFromLastResetFrameCounter;
 	
-#ifdef ERROR_MESSAGES
 	std::vector < Error > errors;
-#endif
 	
 public:
+	
+	static inline std::string GetClassName();
 	
 	inline void SetTimeScale( const float value );
 	inline float GetDeltaTime() const;
@@ -46,7 +46,7 @@ public:
 	inline void GetActor( const AABB& aabb, std::vector < Actor* >& objects ) const;
 	
 	PhysicsMesh * LoadPhysicsMesh( const std::string& name, const std::string& fileName, const int fileFormatVersion );
-	int SpawnActor( const Actor* object, const std::string& name );
+	int SpawnActor( const Actor* object );
 	
 	inline PhysicsMesh * GetPhysicsMesh( const std::string& name ) const;
 	inline Actor * GetActor( const std::string& name ) const;
@@ -59,14 +59,14 @@ public:
 	
 	bool RayTrace( const Vector& begin, const Vector& end, const int rayTraceChannel, Actor** dst, Vector& point, float& distance, Vector& normal ) const;		// dstDynamic = NULL || dstStatic = NULL
 	
-#ifdef ERROR_MESSAGES
-	int GetError( Error & error );	// return number of errors
-	void AddError( const Error error );
-#endif
 	
-	void UpdateColliderActorStatic( Actor * object );
+	int GetNextError( Error & error );	// return number of errors
+	void AddError( const Error error );
+	
+	
+	void UpdateColliderActorStatic( ActorStatic * object );
 	void UpdateNavMesh();
-	void UpdateColliderActorDynamic();
+	void UpdateColliderActor();
 	void UpdatePhysics();		// collision and physics
 	
 	

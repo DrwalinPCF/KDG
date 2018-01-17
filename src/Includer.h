@@ -49,6 +49,8 @@
 #include "Declarator.h"
 #include "func/Debug.h"
 
+#include "css/Error.h"
+
 #include "mtd/Collider.cpp"
 
 

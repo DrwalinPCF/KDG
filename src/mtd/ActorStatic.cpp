@@ -4,6 +4,11 @@
 
 #include "../css/ActorStatic.h"
 
+inline std::string ActorStatic::GetClassName()
+{
+	return std::string( "ActorStatic" );
+}
+
 void ActorStatic::DrawDebug() const
 {
 	printf( "\n Error: ActorStatic::DrawDebug() is missing. " );

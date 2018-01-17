@@ -4,6 +4,11 @@
 
 #include "../css/ActorOBB.h"
 
+inline std::string ActorOBB::GetClassName()
+{
+	return std::string( "ActorOBB" );
+}
+
 void ActorOBB::DrawDebug() const
 {
 	printf( "\n Error: ActorOBB::DrawDebug() is missing. " );

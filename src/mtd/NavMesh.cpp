@@ -22,6 +22,16 @@
 
 #include "../css/NavMesh.h"
 
+inline std::string NavMeshParent::GetClassName()
+{
+	return std::string( "NavMeshParent" );
+}
+
+inline std::string NavMesh::GetClassName()
+{
+	return std::string( "NavMesh" );
+}
+
 // Node:
 
 void Node::RemoveNode( Node * src )

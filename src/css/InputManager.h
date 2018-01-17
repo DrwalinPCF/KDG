@@ -16,6 +16,8 @@ private:
 	
 public:
 	
+	static inline std::string GetClassName();
+	
 	static const int IsDown = 1;
 	static const int IsUp = 2;
 	static const int IsPressed = 3;
