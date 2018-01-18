@@ -2,8 +2,15 @@
 #ifndef ACTOR_OBB_H
 #define ACTOR_OBB_H
 
+class ActorDynamic;
+
+#include <string>
+
+#include "../lib/MZ/SourceHeader/Vector.h"
+#include "../lib/MZ/SourceHeader/VMatrix.h"
+#include "../lib/MZ/SourceHeader/Quat.h"
+#include "../lib/MZ/SourceHeader/AABB.h"
 #include "ActorDynamic.h"
-#include "../Includer.h"
 
 class ActorOBB : public ActorDynamic
 {

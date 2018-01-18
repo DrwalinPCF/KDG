@@ -20,7 +20,15 @@
 #ifndef NAV_MESH_H
 #define NAV_MESH_H
 
-#include "../Includer.h"
+class Engine;
+
+#include <map>
+#include <vector>
+#include <algorithm>
+
+#include "../lib/MZ/SourceHeader/Vector.h"
+
+#include "Engine.h"
 
 enum NavMeshLinkTypes
 {

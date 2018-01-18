@@ -2,7 +2,15 @@
 #ifndef ACTOR_H
 #define ACTOR_H
 
-#include "../Includer.h"
+class Engine;
+
+#include <string>
+
+#include "Engine.h"
+#include "../lib/MZ/SourceHeader/Vector.h"
+#include "../lib/MZ/SourceHeader/VMatrix.h"
+#include "../lib/MZ/SourceHeader/Quat.h"
+#include "../lib/MZ/SourceHeader/AABB.h"
 
 class Actor
 {

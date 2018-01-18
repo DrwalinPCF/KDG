@@ -2,7 +2,11 @@
 #ifndef PHYSICS_MESH_H
 #define PHYSICS_MESH_H
 
-#include "../Includer.h"
+#include <vector>
+
+#include "Types.h"
+#include "../lib/MZ/SourceHeader/Vector.h"
+#include "../mtd/Collider.cpp"
 
 class PhysicsMesh
 {

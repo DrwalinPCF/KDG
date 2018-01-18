@@ -2,8 +2,19 @@
 #ifndef ACTOR_STATIC_H
 #define ACTOR_STATIC_H
 
-#include "../Includer.h"
+class Actor;
+
+#include <string>
+#include <vector>
+
+#include "../lib/MZ/SourceHeader/Vector.h"
+#include "../lib/MZ/SourceHeader/VMatrix.h"
+#include "../lib/MZ/SourceHeader/Quat.h"
+#include "../lib/MZ/SourceHeader/AABB.h"
+#include "../lib/MZ/SourceHeader/Triangle.h"
+
 #include "Actor.h"
+#include "PhysicsMesh.h"
 
 class ActorStatic : public Actor
 {

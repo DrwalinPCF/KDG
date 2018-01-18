@@ -2,7 +2,14 @@
 #ifndef ACTOR_DYNAMIC_H
 #define ACTOR_DYNAMIC_H
 
-#include "../Includer.h"
+class Actor;
+
+#include <string>
+
+#include "../lib/MZ/SourceHeader/Vector.h"
+#include "../lib/MZ/SourceHeader/VMatrix.h"
+#include "../lib/MZ/SourceHeader/Quat.h"
+#include "../lib/MZ/SourceHeader/AABB.h"
 #include "Actor.h"
 
 class ActorDynamic : public Actor

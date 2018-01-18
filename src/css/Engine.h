@@ -2,7 +2,22 @@
 #ifndef ENGINE_H
 #define ENGINE_H
 
-#include "../Includer.h"
+class Actor;
+class ActorStatic;
+class ActorDynamic;
+class ActorOBB;
+
+#include <map>
+#include <string>
+#include <vector>
+
+#include "Error.h"
+#include "Collider.h"
+#include "Actor.h"
+#include "PhysicsMesh.h"
+
+#include "../lib/MZ/SourceHeader/Vector.h"
+#include "../lib/MZ/SourceHeader/AABB.h"
 
 class Engine
 {

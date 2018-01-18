@@ -2,6 +2,8 @@
 #ifndef ERROR_H
 #define ERROR_H
 
+class Actor;
+
 #include <string>
 #include <fstream>
 #include <cstdio>

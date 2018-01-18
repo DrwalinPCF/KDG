@@ -2,8 +2,6 @@
 #ifndef COLLISION_MANAGER_H
 #define COLLISION_MANAGER_H
 
-#include "../Includer.h"
-
 namespace CollisionManager
 {
 // private:

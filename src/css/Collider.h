@@ -20,7 +20,12 @@
 #ifndef COLLIDER_H
 #define COLLIDER_H
 
-#include "../Includer.h"
+#include <map>
+#include <vector>
+#include <string>
+
+#include "../lib/MZ/SourceCode/Octtree.cpp"
+#include "../lib/MZ/SourceHeader/AABB.h"
 
 template < class T >
 class Collider
