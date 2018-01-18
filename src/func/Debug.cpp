@@ -1,4 +1,8 @@
 
+/*
+	Copyright (c) 2018 Marek Zalewski and Kacper Orzeszko
+*/
+
 #ifndef DEBUG_CPP
 #define DEBUG_CPP
 

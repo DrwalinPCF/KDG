@@ -1,4 +1,8 @@
 
+/*
+	Copyright (c) 2018 Marek Zalewski and Kacper Orzeszko
+*/
+
 #ifndef DECLARATOR_H
 #define DECLARATOR_H
 

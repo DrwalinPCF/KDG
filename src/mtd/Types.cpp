@@ -1,4 +1,8 @@
 
+/*
+	Copyright (c) 2018 Marek Zalewski and Kacper Orzeszko
+*/
+
 #ifndef TYPES_CPP
 #define TYPES_CPP
 

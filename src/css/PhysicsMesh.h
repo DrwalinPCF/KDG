@@ -1,4 +1,8 @@
 
+/*
+	Copyright (c) 2018 Marek Zalewski and Kacper Orzeszko
+*/
+
 #ifndef PHYSICS_MESH_H
 #define PHYSICS_MESH_H
 

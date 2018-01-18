@@ -1,4 +1,8 @@
 
+/*
+	Copyright (c) 2018 Marek Zalewski and Kacper Orzeszko
+*/
+
 #ifndef INCLUDER_GRAPHIC_H
 #define INCLUDER_GRAPHIC_H
 

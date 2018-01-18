@@ -1,4 +1,8 @@
 
+/*
+	Copyright (c) 2018 Marek Zalewski and Kacper Orzeszko
+*/
+
 #ifndef COLLISION_MANAGER_H
 #define COLLISION_MANAGER_H
 

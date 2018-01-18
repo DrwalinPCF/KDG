@@ -1,4 +1,8 @@
 
+/*
+	Copyright (c) 2018 Marek Zalewski and Kacper Orzeszko
+*/
+
 #ifndef ACTOR_DYNAMIC_CPP
 #define ACTOR_DYNAMIC_CPP
 

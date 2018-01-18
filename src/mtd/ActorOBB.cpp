@@ -1,4 +1,8 @@
 
+/*
+	Copyright (c) 2018 Marek Zalewski and Kacper Orzeszko
+*/
+
 #ifndef ACTOR_OBB_CPP
 #define ACTOR_OBB_CPP
 

@@ -1,4 +1,8 @@
 
+/*
+	Copyright (c) 2018 Marek Zalewski and Kacper Orzeszko
+*/
+
 #ifndef INPUT_MANAGER_H
 #define INPUT_MANAGER_H
 
