@@ -29,47 +29,46 @@ int PhysicsMesh::LoadFromFile( const std::string& fileName, const int fileFormat
 	*/
 }
 
-inline bool PhysicsMesh::AccessTriangle( const int id, Triangle& dst )
+inline void PhysicsMesh::AccessTriangle( const AABB& aabb, std::vector < int >& dst ) const
 {
-	if( id < 0 )
-		return false;
-	if( id < triangles.size() )
+	if( triangles->size() )
 	{
-		dst = triangles[id];
-		return true;
-	}
-	return false;
-	
-}
-
-inline void PhysicsMesh::AccessTriangle( const AABB& aabb, std::vector < Triangle >& dst ) const
-{
-	if( triangles.size() )
-	{
-		std::vector < int > temp;
-		collider.GetObject( aabb, temp );
-		
-		if( temp.size() )
-		{
-			dst.resize( temp.size() );
-			int i;
-			for( i = 0; i < temp.size(); ++i )
-				dst[i] = triangles[temp[i]];
-		}
+		collider.GetObject( aabb, dst );
 	}
 }
 
-inline void PhysicsMesh::AccessAllTriangle( std::vector < Triangle >& dst ) const
+inline void PhysicsMesh::GetVertices( std::vector < Vector >& dst ) const
 {
-	dst.resize( triangles.size() );
-	memcpy( &(dst.front()), &(triangles.front()), triangles.size() * sizeof(Triangle) );
-	//dst = triangles;
+	dst.resize( vertices.size() );
+	if( vertices.size() )
+	{
+		memcpy( &(dst.front()), &(vertices.front()), sizeof(Vector) * vertices.size() );
+	}
+}
+
+inline void PhysicsMesh::GetTriangle( const int id, Int3& dst ) const
+{
+	dst = triangles->at(id);
+}
+
+void PhysicsMesh::Clear()
+{
+	name = "";
+	vertices.clear();
+	triangles->clear();
+	collider.Clear();
+	aabb = AABB( Vector(), Vector() );
+}
+
+PhysicsMesh::PhysicsMesh()
+{
+	triangles = new std::vector < Int3 >;
 }
 
 PhysicsMesh::~PhysicsMesh()
 {
-	collider.Clear();
-	triangles.clear();
+	Clear();
+	delete triangles;
 }
 
 #endif

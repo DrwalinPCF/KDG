@@ -18,15 +18,30 @@ void ActorStatic::UpdateAABB()
 {
 	if( physicsMesh )
 	{
-		aabb = (physicsMesh->GetAABB().GetRotated( rotation )*size) + possition;
+		aabb = ( (physicsMesh->GetAABB()*size).GetRotated( rotation )) + possition;
 	}
 }
 
 inline void ActorStatic::ColliderUpdated()
 {
+	colliderUpdateIsNeeded = false;
 	if( physicsMesh )
 	{
-		colliderUpdateIsNeeded = false;
+		physicsMesh->GetVertices( vertices );
+		for( int i = 0; i < vertices.size(); ++i )
+		{
+			vertices[i] = ( rotation * ( vertices[i] * size ) ) + possition;
+		}
+	}
+}
+
+inline void ActorStatic::GetTriangle( const int id, Triangle& triangle ) const
+{
+	if( physicsMesh )
+	{
+		Int3 temp;
+		physicsMesh->GetTriangle( id, temp );
+		triangle.Set( vertices[temp[0]], vertices[temp[1]], vertices[temp[2]] );
 	}
 }
 
@@ -45,11 +60,11 @@ inline PhysicsMesh * ActorStatic::GetPhysicsMesh() const
 	return physicsMesh;
 }
 
-inline void ActorStatic::GetTriangles( const AABB& aabb, std::vector < Triangle >& triangles ) const
+inline void ActorStatic::GetTriangles( const AABB& aabb, std::vector < int >& triangles ) const
 {
 	if( physicsMesh )
 	{
-		physicsMesh->AccessTriangle( ((aabb-possition)/size).GetRotated( rotation.Inversed() ), triangles );
+		physicsMesh->AccessTriangle( (aabb-possition).GetRotated( rotation.Inversed() ) / size, triangles );
 	}
 }
 

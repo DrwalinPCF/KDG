@@ -1,6 +1,7 @@
 
 :: g++: -w    - to ignore warnings
 
+g++ %1 -c "src/mtd/Types.cpp" -std=c++11 -m32 -Ofast -o "bin/Types.o"
 g++ %1 -c "src/mtd/Error.cpp" -std=c++11 -m32 -Ofast -o "bin/Error.o"
 
 g++ %1 -c "src/Main.cpp" -std=c++11 -m32 -Ofast -o "bin/Main.o"

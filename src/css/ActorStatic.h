@@ -15,6 +15,7 @@ private:
 	
 	bool colliderUpdateIsNeeded;
 	
+	std::vector < Vector > vertices;
 	PhysicsMesh * physicsMesh;
 	
 public:
@@ -30,7 +31,8 @@ public:
 	inline void SetPhysicsMesh( const PhysicsMesh * mesh );
 	inline PhysicsMesh * GetPhysicsMesh() const;
 	
-	inline void GetTriangles( const AABB& aabb, std::vector < Triangle >& triangles ) const;
+	inline void GetTriangles( const AABB& aabb, std::vector < int >& triangles ) const;
+	inline void GetTriangle( const int id, Triangle& triangle ) const;
 	
 	virtual void Update( const float deltaTime ) override;
 	

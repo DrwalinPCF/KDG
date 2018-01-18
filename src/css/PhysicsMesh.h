@@ -10,7 +10,9 @@ private:
 	
 	std::string name;
 	
-	std::vector < Triangle > triangles;
+	std::vector < Vector > vertices;
+	std::vector < Int3 > * triangles;
+	
 	AABB aabb;
 	Collider < int > collider;
 	
@@ -23,9 +25,12 @@ public:
 	void SetName( const std::string& name );
 	
 	int LoadFromFile( const std::string& fileName, const int fileFormatVersion );		// update collider
-	inline bool AccessTriangle( const int id, Triangle& dst );
-	inline void AccessTriangle( const AABB& aabb, std::vector < Triangle >& dst ) const;
-	inline void AccessAllTriangle( std::vector < Triangle >& dst ) const;
+	
+	inline void AccessTriangle( const AABB& aabb, std::vector < int >& dst /*trianges id*/ ) const;
+	inline void GetTriangle( const int id, Int3& dst ) const;
+	inline void GetVertices( std::vector < Vector >& dst ) const;
+	
+	void Clear();
 	
 	PhysicsMesh();
 	~PhysicsMesh();
