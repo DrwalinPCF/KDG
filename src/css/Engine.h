@@ -15,6 +15,7 @@ class ActorOBB;
 #include <string>
 #include <vector>
 
+#include "CollisionManager.h"
 #include "Error.h"
 #include "Collider.h"
 #include "Actor.h"

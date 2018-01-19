@@ -13,6 +13,11 @@ inline std::string Actor::GetName() const
 	return name;
 }
 
+inline Engine * Actor::GetEngine() const
+{
+	return engine;
+}
+
 inline AABB Actor::GetAABB() const
 {
 	return aabb;

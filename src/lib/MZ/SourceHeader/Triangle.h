@@ -38,7 +38,10 @@ public:
 	
 	inline Triangle GetRotated( const Quat& rotation ) const;
 	inline Triangle GetMoved( const Vector& possition ) const;
-	inline Triangle GetTranslated( const Vector& possition, const Quat& rotation ) const;
+	inline Triangle GetScaled( const Vector& scale ) const;
+	inline Triangle& Rotate( const Quat& rotation );
+	inline Triangle& Move( const Vector& possition );
+	inline Triangle& Scale( const Vector& scale );
 	
 	inline AABB GetAABB() const;
 	

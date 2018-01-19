@@ -176,6 +176,20 @@ void Engine::UpdateColliderActor()
 
 
 
+
+void Engine::UpdatePhysics()
+{
+	for( auto it = actors.begin(); it != actors.end(); *it++ )
+	{
+		CollisionManager::CollisionActor( it->second );
+	}
+}
+
+
+
+
+
+
 void Engine::Init( int * argc, char *** argv )
 {
 	Error::PrepareErrorLogFile( "error.log" );

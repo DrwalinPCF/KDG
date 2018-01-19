@@ -54,6 +54,7 @@ public:
 	
 	inline static bool SharedPart( const AABB& a, const AABB& b, AABB& dst );
 	inline bool SharedPart( const AABB& src, AABB& dst ) const;
+	inline bool IsSharedPart( const AABB& src ) const;
 	
 	inline Vector GetMin() const;
 	inline Vector GetMax() const;

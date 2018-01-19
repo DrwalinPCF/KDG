@@ -32,9 +32,33 @@ inline Triangle Triangle::GetMoved( const Vector& possition ) const
 	return Triangle( possition+pointA, possition+pointB, possition+pointC );
 }
 
-inline Triangle Triangle::GetTranslated( const Vector& possition, const Quat& rotation ) const
+inline Triangle Triangle::GetScaled( const Vector& scale ) const
 {
-	return Triangle( possition+rotation*pointA, possition+rotation*pointB, possition+rotation*pointC );
+	return Triangle( pointA*scale, pointB*scale, pointC*scale );
+}
+
+inline Triangle& Triangle::Rotate( const Quat& rotation )
+{
+	pointA = rotation * pointA;
+	pointB = rotation * pointB;
+	pointC = rotation * pointC;
+	return *this;
+}
+
+inline Triangle& Triangle::Move( const Vector& possition )
+{
+	pointA += possition;
+	pointB += possition;
+	pointC += possition;
+	return *this;
+}
+
+inline Triangle& Triangle::Scale( const Vector& scale )
+{
+	pointA *= scale;
+	pointB *= scale;
+	pointC *= scale;
+	return *this;
 }
 
 inline AABB Triangle::GetAABB() const

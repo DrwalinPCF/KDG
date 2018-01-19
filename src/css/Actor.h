@@ -41,6 +41,7 @@ public:
 	virtual void UpdateAABB()=0;
 	
 	inline std::string GetName() const;
+	inline Engine * GetEngine() const;
 	
 	inline AABB GetAABB() const;
 	

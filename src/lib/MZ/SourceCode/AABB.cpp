@@ -141,6 +141,18 @@ inline bool AABB::SharedPart( const AABB& src, AABB& dst ) const
 	return false;
 }
 
+inline bool AABB::IsSharedPart( const AABB& src ) const
+{
+	if( max > src.min )
+	{
+		if( min < src.max )
+		{
+			return true;
+		}
+	}
+	return false;
+}
+
 inline Vector AABB::GetMin() const
 {
 	return min;

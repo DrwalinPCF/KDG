@@ -6,21 +6,33 @@
 #ifndef COLLISION_MANAGER_H
 #define COLLISION_MANAGER_H
 
+#include "../lib/MZ/SourceHeader/Vector.h"
+#include "../lib/MZ/SourceHeader/VMatrix.h"
+#include "../lib/MZ/SourceHeader/Quat.h"
+#include "../lib/MZ/SourceHeader/Triangle.h"
+#include "../lib/MZ/SourceHeader/AABB.h"
+
+#include "PhysicsBody.h"
+#include "Engine.h"
+#include "ActorStatic.h"
+#include "ActorDynamic.h"
+#include "ActorOBB.h"
+
 namespace CollisionManager
 {
-// private:
+	// ActorOBB:
+	void CollisionOBBOBB( ActorOBB * actorA, ActorOBB * actorB );
+	void CollisionOBBStatic( ActorOBB * actorA, ActorStatic * actorB );
 	
-	Engine * engine = NULL;
 	
-	void Collision( ActorDynamic * actorA, ActorDynamic * actorB );
-	void Collision( ActorDynamic * actor, ActorStatic * terrain );
-	inline void Collision( Actor * actorA, Actor * actorB );
 	
-// public:
+	inline void CollisionOBBActor( ActorOBB * actorA, Actor * actorB );
 	
-	inline void SetEngine( Engine * Engine );
-	inline void Collision( Actor * actor );
+	inline void CollisionDynamicActor( ActorDynamic * actorA, Actor * actorB );
 	
+	inline void CollisionDynamic( ActorDynamic * actor );
+	
+	inline void CollisionActor( Actor * actor );
 };
 
 #endif
