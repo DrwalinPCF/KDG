@@ -60,6 +60,8 @@ public:
 	inline bool GetIntersectionWithLine( const Vector& begin, const Vector& end, Vector& intersection ) const;
 	inline bool GetIntersectionOfPlaneWithLine( const Vector& begin, const Vector& end, Vector& intersection ) const;		// using unnormalized vectors
 	
+	inline void GetMaxMinWithVector( const Vector& dir, float& ta, float& tb ) const;
+	
 	inline Vector GetNormal() const;
 	inline Vector GetNormalFast() const;
 	inline bool IsFrontFacing( const Vector& direction ) const;

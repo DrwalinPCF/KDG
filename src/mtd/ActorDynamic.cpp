@@ -145,7 +145,7 @@ inline float ActorDynamic::GetAngularDamping() const
 
 void ActorDynamic::AddForce( const Vector& point, const Vector& force )
 {
-	Vector r = point - this->possition;
+	Vector r = point - this->position;
 	float r_length = r.Length();
 	if( r_length <= 0.01f )
 	{
@@ -161,9 +161,14 @@ void ActorDynamic::AddForce( const Vector& point, const Vector& force )
 	AddAngularVelocity( Quat( r && force, angle > 85.0f ? 85.0f : angle ) );
 }
 
+inline Vector ActorDynamic::GetPointFromPreviousFrame( const Vector& src ) const
+{
+	return (bRotation * (rotation.GetInversed() * (src-position))) + bPosition;
+}
+
 void ActorDynamic::Update( const float deltaTime )
 {
-	bPossition = possition;
+	bPosition = position;
 	bSize = size;
 	bRotation = rotation;
 	bLinearVelocity = linearVelocity;
@@ -184,7 +189,7 @@ void ActorDynamic::Update( const float deltaTime )
 				linearVelocity = linearVelocity * ( ( linear_velocity_length - linear_damping_vel ) / linear_velocity_length );
 		}
 		
-		possition += linearVelocity * deltaTime;
+		position += linearVelocity * deltaTime;
 		if( rotationAbility )
 		{
 			float angle_velocity = angularVelocity.GetAngle();

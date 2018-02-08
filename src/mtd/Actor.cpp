@@ -24,9 +24,9 @@ inline AABB Actor::GetAABB() const
 }
 
 
-inline Vector Actor::GetPossition() const
+inline Vector Actor::GetPosition() const
 {
-	return possition;
+	return position;
 }
 
 inline Vector Actor::GetSize() const
@@ -41,7 +41,7 @@ inline Quat Actor::GetRotation() const
 
 inline void Actor::Move( const Vector& val )
 {
-	possition += val;
+	position += val;
 }
 
 inline void Actor::Rotate( const Quat& val )
@@ -49,9 +49,9 @@ inline void Actor::Rotate( const Quat& val )
 	rotation *= val;
 }
 
-inline void Actor::SetPossition( const Vector& val )
+inline void Actor::SetPosition( const Vector& val )
 {
-	possition = val;
+	position = val;
 }
 
 inline void Actor::SetSize( const Vector& val )

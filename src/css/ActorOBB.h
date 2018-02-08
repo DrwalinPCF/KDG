@@ -27,8 +27,6 @@ public:
 	virtual void DrawDebug() const override;
 	virtual void UpdateAABB() override;
 	
-	void GetMaxMinWithVector( float& ta, float& tb );
-	
 	
 	virtual void Update( const float deltaTime ) override;
 	

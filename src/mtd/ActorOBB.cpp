@@ -22,15 +22,15 @@ void ActorOBB::UpdateAABB()
 {
 	Vector x, y, z;
 	GetAxes( x, y, z );
-	aabb = AABB( possition, possition );
-	aabb.AddPoint( possition - x - y - z );
-	aabb.AddPoint( possition - x - y + z );
-	aabb.AddPoint( possition - x + y - z );
-	aabb.AddPoint( possition - x + y + z );
-	aabb.AddPoint( possition + x - y - z );
-	aabb.AddPoint( possition + x - y + z );
-	aabb.AddPoint( possition + x + y - z );
-	aabb.AddPoint( possition + x + y + z );
+	aabb = AABB( position, position );
+	aabb.AddPoint( position - x - y - z );
+	aabb.AddPoint( position - x - y + z );
+	aabb.AddPoint( position - x + y - z );
+	aabb.AddPoint( position - x + y + z );
+	aabb.AddPoint( position + x - y - z );
+	aabb.AddPoint( position + x - y + z );
+	aabb.AddPoint( position + x + y - z );
+	aabb.AddPoint( position + x + y + z );
 }
 
 void ActorOBB::Update( const float deltaTime )

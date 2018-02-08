@@ -14,29 +14,55 @@ namespace CollisionManager
 	
 	void CollisionOBBStatic( ActorOBB * actorA, ActorStatic * actorB )
 	{
-		inline void GetTriangles( const AABB& aabb, std::vector < int >& triangles ) const;
-		inline void GetTriangle( const int id, Triangle& triangle ) const;
+		Array < Vector, 4 > intersections;
+		int i;
 		
-		Triangle triangle;
-		std::vector < int > triangles;
-		actorB->GetTriangles( actorA->GetAABB(), triangles );
-		for( int i = 0; i < triangles.size(); ++i )
 		{
-			actorB->GetTriangle( triangles[i], triangle );
-			triangle.Move( - actorA->GetPossition() );
-			triangle.Rotate( actorA->GetRotation().Inversed() );
-			triangle.Scale( 1.0f / actorA->GetSize() );
-			
-			
-			
-			{	// collision actorA with triangle
+			Array < int > triangles;
+			actorB->GetTriangles( actorA->GetAABB(), triangles );
+			for( i = 0; i < triangles.size(); ++i )
+			{
+				Vector point;			// current point
+				Triangle triangle;
+				Vector ray;
+				Vector normal = triangle.GetNormal();
 				
+				actorB->GetTriangle( triangles[i], triangle );
+				triangle.Move( - actorA->GetPosition() );
+				triangle.Rotate( actorA->GetRotation().Inversed() );
+				triangle.Scale( 1.0f / actorA->GetSize() );
 				
+				{	// collision actorA with triangle
+					for( ... )
+					{
+						
+						
+						
+						if( #collide# )
+						{
+							intersections.push_back( ( actorA->GetRotation() * point ) * actorA->GetSize() );
+						}
+					}
+				}
 				
-				
-				
-				
-				
+				if( intersections.size() > 0 )
+				{
+					Vector barycenter = intersections[0];
+					for( i = 1; i < intersections.size(); ++i )
+					{
+						barycenter += intersections[i];
+					}
+					barycenter /= (float)intersections.size();
+					
+					Vector stepIn = actorA->GetPointFromPreviousFrame(barycenter) - barycenter;
+					
+					float force = stepIn.Length() * pushingOutFactor * actorA->GetMass();
+					
+					if( normal.Dot(stepIn) < 0.0f )
+						actorA->AddForce( normal * -force );
+					else
+						actorA->AddForce( normal * force );
+				}
 			}
 		}
 	}

@@ -11,6 +11,8 @@
 #include "../lib/MZ/SourceHeader/Quat.h"
 #include "../lib/MZ/SourceHeader/Triangle.h"
 #include "../lib/MZ/SourceHeader/AABB.h"
+#include "../lib/MZ/SourceCode/Map.cpp"
+#include "../lib/MZ/SourceCode/Array.cpp"
 
 #include "PhysicsBody.h"
 #include "Engine.h"
@@ -20,6 +22,8 @@
 
 namespace CollisionManager
 {
+	float pushingOutFactor = 10.0f;					//////////////////////
+	
 	// ActorOBB:
 	void CollisionOBBOBB( ActorOBB * actorA, ActorOBB * actorB );
 	void CollisionOBBStatic( ActorOBB * actorA, ActorStatic * actorB );

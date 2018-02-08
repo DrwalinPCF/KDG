@@ -24,7 +24,7 @@ class ActorStatic : public Actor
 {
 private:
 	
-	Vector bPossition;
+	Vector bPosition;
 	Vector bSize;
 	Quat bRotation;
 	

@@ -22,7 +22,7 @@ protected:
 	Quat angularVelocity;
 	Vector force;
 	
-	Vector bPossition;
+	Vector bPosition;
 	Vector bSize;
 	Quat bRotation;
 	
@@ -55,6 +55,7 @@ public:
 	inline Quat GetAngularVelocity() const;
 	inline Vector GetForce() const;
 	
+	inline Vector GetPointFromPreviousFrame( const Vector& src ) const;
 	
 	inline void GetAxes( Vector& x, Vector& y, Vector& z ) const;
 	

@@ -22,7 +22,7 @@ void ActorStatic::UpdateAABB()
 {
 	if( physicsMesh )
 	{
-		aabb = ( (physicsMesh->GetAABB()*size).GetRotated( rotation )) + possition;
+		aabb = ( (physicsMesh->GetAABB()*size).GetRotated( rotation )) + position;
 	}
 }
 
@@ -34,7 +34,7 @@ inline void ActorStatic::ColliderUpdated()
 		physicsMesh->GetVertices( vertices );
 		for( int i = 0; i < vertices.size(); ++i )
 		{
-			vertices[i] = ( rotation * ( vertices[i] * size ) ) + possition;
+			vertices[i] = ( rotation * ( vertices[i] * size ) ) + position;
 		}
 	}
 }
@@ -68,18 +68,18 @@ inline void ActorStatic::GetTriangles( const AABB& aabb, std::vector < int >& tr
 {
 	if( physicsMesh )
 	{
-		physicsMesh->AccessTriangle( (aabb-possition).GetRotated( rotation.Inversed() ) / size, triangles );
+		physicsMesh->AccessTriangle( (aabb-position).GetRotated( rotation.Inversed() ) / size, triangles );
 	}
 }
 
 void ActorStatic::Update( const float deltaTime )
 {
 	printf( "\n Error: ActorStatic::Update() is not done yet. " );
-	if( bPossition != possition || bSize != size || bRotation != rotation )
+	if( bPosition != position || bSize != size || bRotation != rotation )
 	{
 		UpdateAABB();
 		colliderUpdateIsNeeded = true;
-		bPossition = possition;
+		bPosition = position;
 		bSize = size;
 		bRotation = rotation;
 	}

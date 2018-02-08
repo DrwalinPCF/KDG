@@ -23,7 +23,7 @@ protected:
 	Engine * engine;
 	String name;
 	
-	Vector possition;
+	Vector position;
 	Quat rotation;
 	Vector size;
 	
@@ -46,14 +46,14 @@ public:
 	inline AABB GetAABB() const;
 	
 	
-	inline Vector GetPossition() const;
+	inline Vector GetPosition() const;
 	inline Vector GetSize() const;
 	inline Quat GetRotation() const;
 	
 	inline void Move( const Vector& val );
 	inline void Rotate( const Quat& val );
 	
-	inline void SetPossition( const Vector& val );
+	inline void SetPosition( const Vector& val );
 	inline void SetSize( const Vector& val );
 	inline void SetRotation( const Quat& val );
 	

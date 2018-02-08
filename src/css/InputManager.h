@@ -24,8 +24,8 @@ public:
 	static const int IsUp = 2;
 	static const int IsPressed = 3;
 	static const int IsReleased = 4;
-	static const int Possition = 5;
-	static const int DeltaPossition = 6;
+	static const int Position = 5;
+	static const int DeltaPosition = 6;
 	
 	static void Update();
 	
