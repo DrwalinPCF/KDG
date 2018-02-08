@@ -50,22 +50,22 @@ class Error
 {
 private:
 	
-	std::string className;
-	std::string functionName;
-	std::string message;
+	String className;
+	String functionName;
+	String message;
 	long long int timeSignature;
 	
-	static std::ofstream file;
+	static File file;
 	
 public:
 	
-	inline std::string GetClassName() const;
-	inline std::string GetFunctionName() const;
-	inline std::string GetMessage() const;
-	inline std::string GetFullMessage() const;
+	inline String GetClassName() const;
+	inline String GetFunctionName() const;
+	inline String GetMessage() const;
+	inline String GetFullMessage() const;
 	
-	static inline Error Make( const int errorId, const std::string& errorMessage, const std::string& classType, const std::string& functionName );
-	static inline void PrepareErrorLogFile( const std::string& name );
+	static inline Error Make( const int errorId, const String& errorMessage, const String& classType, const String& functionName );
+	static inline void PrepareErrorLogFile( const String& name );
 	
 	Error();
 };

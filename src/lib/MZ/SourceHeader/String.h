@@ -26,14 +26,14 @@ freely, subject to the following restrictions:
 #ifndef STRING_H
 #define STRING_H
 
-#include "Array.cpp"
+#include "../SourceCode/Array.cpp"
 #include <cstdio>
 
 class String
 {
 private:
 	
-	Array < char, 8 > data;
+	Array < char > data;
 	
 public:
 	
@@ -54,7 +54,7 @@ public:
 	inline String& operator += ( const String& src );
 	inline String& operator += ( const char src );
 	
-	inline String add( const char * src, const unsigned long long int size ) const;;
+	inline String add( const char * src, const unsigned long long int size ) const;
 	inline String operator + ( const char * src );
 	inline String operator + ( const String& src );
 	inline String operator + ( const char src ) const;

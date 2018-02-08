@@ -12,9 +12,9 @@
 #include "../css/ActorOBB.h"
 
 
-inline std::string Engine::GetClassName()
+inline String Engine::GetClassName()
 {
-	return std::string( "Engine" );
+	return String( "Engine" );
 }
 
 inline void Engine::SetTimeScale( const float value )
@@ -31,11 +31,6 @@ inline float Engine::GetDeltaTime() const
 }
 
 
-inline void Engine::GetActor( const AABB& aabb, std::vector < Actor* >& objects ) const
-{
-	colliderActor.GetObject( aabb, objects );
-}
-
 
 int Engine::SpawnActor( const Actor* object )
 {
@@ -48,14 +43,14 @@ int Engine::SpawnActor( const Actor* object )
 			actors[object->GetName()] = (Actor*)object;
 			return 0;
 		}
-		MAKE_ERROR( this, ErrorMessages::pointerActorNotExist, GetClassName(), std::string("Object with name: \"") + object->GetName() + "\" already exist", "SpawnActor()" );
+		MAKE_ERROR( this, ErrorMessages::pointerActorNotExist, GetClassName(), String("Object with name: \"") + object->GetName() + "\" already exist", "SpawnActor()" );
 		return 1;	// object with this name already exist
 	}
-	MAKE_ERROR( this, ErrorMessages::pointerActorNotExist, GetClassName(), std::string("Object sourced do not exist"), "SpawnActor()" );
+	MAKE_ERROR( this, ErrorMessages::pointerActorNotExist, GetClassName(), String("Object sourced do not exist"), "SpawnActor()" );
 	return -1;		// given object does not exist
 }
 
-PhysicsMesh * Engine::LoadPhysicsMesh( const std::string& name, const std::string& fileName, const int fileFormatVersion )
+PhysicsMesh * Engine::LoadPhysicsMesh( const String& name, const String& fileName, const int fileFormatVersion )
 {
 	auto it = physicsMesh.find( name );
 	if( it == physicsMesh.end() )
@@ -75,54 +70,69 @@ PhysicsMesh * Engine::LoadPhysicsMesh( const std::string& name, const std::strin
 		}
 		return NULL;
 	}
-	return NULL;	// 	it->second;
+	return NULL;	// 	it->val;
 }
 
 
-inline PhysicsMesh * Engine::GetPhysicsMesh( const std::string& name ) const
+inline PhysicsMesh * Engine::GetPhysicsMesh( const String& name ) const
 {
 	auto it = physicsMesh.find( name );
 	if( it != physicsMesh.end() )
-		return it->second;
+		return it->val;
 	return NULL;
 }
 
-inline Actor * Engine::GetActor( const std::string& name ) const
+inline Actor * Engine::GetActor( const String& name ) const
 {
 	auto it = actors.find( name );
 	if( it != actors.end() )
-		return it->second;
+		return it->val;
 	return NULL;
 }
 
 
-inline void Engine::DestroyPhysicsMesh( const std::string& name )
+inline void Engine::DestroyPhysicsMesh( const String& name )
 {
 	auto it = physicsMesh.find( name );
 	if( it != physicsMesh.end() )
 	{
-		delete it->second;
+		delete it->val;
 		physicsMesh.erase( it );
 	}
 }
 
-inline void Engine::DestroyActor( const std::string& name )
+inline void Engine::DestroyActor( const String& name )
 {
 	auto it = actors.find( name );
 	if( it != actors.end() )
 	{
-		colliderActor.RemoveObject( it->second );
-		delete it->second;
+		colliderActor.RemoveObject( it->val );
+		delete it->val;
 		actors.erase( it );
 	}
 }
 
-
-
-
-int Engine::GetNextError( Error & error )
+inline void Engine::GetActor( const AABB& aabb, Map < Actor*, bool >& objects ) const
 {
-	if( errors.size() )
+	colliderActor.GetObject( aabb, objects );
+}
+
+inline void Engine::GetActor( const AABB& aabb, Array < Actor* >& objects ) const
+{
+	Map < Actor*, bool > temp;
+	colliderActor.GetObject( aabb, temp );
+	objects.resize( temp.size() );
+	unsigned long long int i = 0;
+	for( auto it = temp.begin(); it < temp.end(); ++it, ++i )
+	{
+		objects[i] = it->key;
+	}
+}
+
+
+int Engine::GetNextError( Error& error )
+{
+	if( errors.size() > 0 )
 	{
 		error = errors.front();
 		errors.erase( errors.begin(), errors.begin() + 1 );
@@ -148,13 +158,13 @@ void Engine::UpdateColliderActor()
 	ActorStatic * object;
 	for( auto it = actors.begin(); it != actors.end(); *it++ )
 	{
-		if( it->second )
+		if( it->val )
 		{
-			if( dynamic_cast < ActorDynamic* >( it->second ) )
+			if( dynamic_cast < ActorDynamic* >( it->val ) )
 			{
-				colliderActor.AddObject( it->second, it->second->GetAABB() );
+				colliderActor.AddObject( it->val, it->val->GetAABB() );
 			}
-			else if( object = dynamic_cast < ActorStatic* >( it->second ) )
+			else if( object = dynamic_cast < ActorStatic* >( it->val ) )
 			{
 				if( object->DoesColliderNeedUpdate() )
 				{
@@ -164,12 +174,12 @@ void Engine::UpdateColliderActor()
 			}
 			else
 			{
-				MAKE_ERROR( this, ErrorMessages::castingActorIsNotStaticOrDynamic, GetClassName(), it->first, "UpdateColliderActor()" );
+				MAKE_ERROR( this, ErrorMessages::castingActorIsNotStaticOrDynamic, GetClassName(), it->key, "UpdateColliderActor()" );
 			}
 		}
 		else
 		{
-			MAKE_ERROR( this, ErrorMessages::pointerActorNotExist, GetClassName(), it->first, "UpdateColliderActor()" );
+			MAKE_ERROR( this, ErrorMessages::pointerActorNotExist, GetClassName(), it->key, "UpdateColliderActor()" );
 		}
 	}
 }
@@ -181,7 +191,7 @@ void Engine::UpdatePhysics()
 {
 	for( auto it = actors.begin(); it != actors.end(); *it++ )
 	{
-		CollisionManager::CollisionActor( it->second );
+		CollisionManager::CollisionActor( it->val );
 	}
 }
 

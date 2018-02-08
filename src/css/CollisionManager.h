@@ -14,11 +14,9 @@
 #include "../lib/MZ/SourceCode/Map.cpp"
 #include "../lib/MZ/SourceCode/Array.cpp"
 
-#include "PhysicsBody.h"
+#include "Actor.h"
+#include "PhysicsMesh.h"
 #include "Engine.h"
-#include "ActorStatic.h"
-#include "ActorDynamic.h"
-#include "ActorOBB.h"
 
 namespace CollisionManager
 {

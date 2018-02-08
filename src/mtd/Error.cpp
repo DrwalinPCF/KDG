@@ -9,34 +9,34 @@
 #include "../css/Error.h"
 
 
-inline std::string Error::GetClassName() const
+inline String Error::GetClassName() const
 {
 	return className;
 }
 
-inline std::string Error::GetFunctionName() const
+inline String Error::GetFunctionName() const
 {
 	return functionName;
 }
 
-inline std::string Error::GetMessage() const
+inline String Error::GetMessage() const
 {
 	return message;
 }
 
-inline std::string Error::GetFullMessage() const
+inline String Error::GetFullMessage() const
 {
 	if( className != "" )
 	{
-		return std::string("Error: method: ") + className + "::" + functionName + "() with message: \"" + message + "\" at time: " + std::to_string(timeSignature);
+		return String("Error: method: ") + className + "::" + functionName + "() with message: \"" + message + "\" at time: " + String(timeSignature);
 	}
 	else
 	{
-		return std::string("Error: function: ") + functionName + "() with message: < "  + message + " > at time: " + std::to_string(timeSignature);
+		return String("Error: function: ") + functionName + "() with message: < "  + message + " > at time: " + String(timeSignature);
 	}
 }
 
-inline Error Error::Make( const int errorId, const std::string& errorMessage, const std::string& classType, const std::string& functionName )
+inline Error Error::Make( const int errorId, const String& errorMessage, const String& classType, const String& functionName )
 {
 	Error error;
 	
@@ -95,16 +95,16 @@ inline Error Error::Make( const int errorId, const std::string& errorMessage, co
 	}
 	
 	if( errorMessage != "" )
-		error.message += " - " + errorMessage;
+		error.message += String(" - ") + errorMessage;
 	
-	file << "\n " << error.GetFullMessage();
+	file.write( String("\n") + error.GetFullMessage() );
 	
 	return error;
 }
 
-inline void Error::PrepareErrorLogFile( const std::string& name )
+inline void Error::PrepareErrorLogFile( const String& name )
 {
-	file.open( name );
+	file.open( name.c_str(), "w" );
 	if( !file.good() )
 	{
 		printf( "\ Error log file can not be opened: \"%s\" ", name.c_str() );

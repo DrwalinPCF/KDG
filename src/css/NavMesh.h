@@ -139,15 +139,15 @@ class NavMeshVertexToCheck
 {
 private:
 	
-	float distanceToDestiny;	// quadratic
 	float pathLength;
 	Node * node;
 	Node * cameFrom;
+	float distanceToDestiny;	// quadratic
 	
 public:
 	
 	friend class NavMesh;
-	friend bool NavMeshVertexToCheckCompare( NavMeshVertexToCheck a, NavMeshVertexToCheck b );
+	friend int NavMeshVertexToCheckCompare( const void * a, const void * b );
 	
 	NavMeshVertexToCheck();
 	~NavMeshVertexToCheck();
@@ -161,7 +161,7 @@ public:
 	
 private:
 	
-	std::string name;
+	String name;
 	Engine * engine;
 	
 	Map < BaseNode, Node* > nodes;
@@ -175,7 +175,7 @@ private:
 	
 public:
 	
-	static inline std::string GetClassName();
+	static inline String GetClassName();
 	
 	friend class NavMesh;
 	
@@ -184,7 +184,7 @@ public:
 	void AddNode( const Vector point );
 	void Update( const int count );
 	
-	void Init( const float acceptableDistanceAsOneNode, const float maxConnectionLength, const Engine * engine, const std::string name );
+	void Init( const float acceptableDistanceAsOneNode, const float maxConnectionLength, const Engine * engine, const String name );
 	void Destroy();
 	
 	NavMeshParent();
@@ -195,7 +195,7 @@ class NavMesh
 {
 private:
 	
-	std::string name;
+	String name;
 	Engine * engine;
 	NavMeshParent * parent;
 	
@@ -221,7 +221,7 @@ private:
 	
 public:
 	
-	static inline std::string GetClassName();
+	static inline String GetClassName();
 	
 	void CombinePath();
 	

@@ -29,13 +29,14 @@ freely, subject to the following restrictions:
 #include <cstring>
 #include <cstdlib>
 
-template < class T, int ARRAY_SHIFT_BIT_FULL_SIZE >
+template < class T >
 class Array
 {
 private:
 	T * ptr;
 	unsigned long long int ptrsize;
 	unsigned long long int fullsize;		// includes reserved memory
+	int ARRAY_SHIFT_BIT_FULL_SIZE;
 	
 public:
 	
@@ -44,8 +45,7 @@ public:
 		return ptrsize;
 	}
 	
-	template < int shift_bit >
-	inline void operator = ( const Array < T, shift_bit > & src )
+	inline void operator = ( const Array < T > & src )
 	{
 		resize( src.size() );
 		memcpy( ptr, src.ptr, ptrsize*sizeof(T) );
@@ -61,12 +61,17 @@ public:
 		return ptr+ptrsize;
 	}
 	
-	inline T & operator[]( const unsigned long long int id )
+	inline T& operator[]( const unsigned long long int id )
 	{
 		return *(ptr+id);
 	}
 	
-	inline T & at( const unsigned long long int id )
+	inline T operator[]( const unsigned long long int id ) const
+	{
+		return *(ptr+id);
+	}
+	
+	inline T& at( const unsigned long long int id )
 	{
 		return *(ptr+id);
 	}
@@ -199,6 +204,15 @@ public:
 	
 	Array()
 	{
+		ARRAY_SHIFT_BIT_FULL_SIZE = 10;
+		ptr = (T*) malloc( ( 1 << ARRAY_SHIFT_BIT_FULL_SIZE ) * sizeof(T) );
+		ptrsize = 0;
+		fullsize = 1 << ARRAY_SHIFT_BIT_FULL_SIZE;
+	}
+	
+	Array( const int src )
+	{
+		ARRAY_SHIFT_BIT_FULL_SIZE = src;
 		ptr = (T*) malloc( ( 1 << ARRAY_SHIFT_BIT_FULL_SIZE ) * sizeof(T) );
 		ptrsize = 0;
 		fullsize = 1 << ARRAY_SHIFT_BIT_FULL_SIZE;
@@ -213,9 +227,6 @@ public:
 		fullsize = 0;
 	}
 };
-
-template < class T >
-using vector = Array< T, 12 >;
 
 #endif
 

@@ -8,9 +8,9 @@
 
 #include "../css/PhysicsMesh.h"
 
-inline std::string PhysicsMesh::GetClassName()
+inline String PhysicsMesh::GetClassName()
 {
-	return std::string( "PhysicsMesh" );
+	return String( "PhysicsMesh" );
 }
 
 inline AABB PhysicsMesh::GetAABB() const
@@ -18,22 +18,22 @@ inline AABB PhysicsMesh::GetAABB() const
 	return aabb;
 }
 
-void PhysicsMesh::SetName( const std::string& name )
+void PhysicsMesh::SetName( const String& name )
 {
 	this->name = name;
 }
 
-int PhysicsMesh::LoadFromFile( const std::string& fileName, const int fileFormatVersion )
+int PhysicsMesh::LoadFromFile( const String& fileName, const int fileFormatVersion )
 {
 	printf( "\n Error: PhysicsMesh::LoadFromFile() is missing. " );
 	/*
-		Load from file to std::vector<Triangle*> triangles
+		Load from file to Array<Triangle*> triangles
 		Update AABB aabb
 		Update Collider<Triangle> collider
 	*/
 }
 
-inline void PhysicsMesh::AccessTriangle( const AABB& aabb, std::vector < int >& dst ) const
+inline void PhysicsMesh::AccessTriangle( const AABB& aabb, Map < int, bool >& dst ) const
 {
 	if( triangles->size() )
 	{
@@ -41,13 +41,9 @@ inline void PhysicsMesh::AccessTriangle( const AABB& aabb, std::vector < int >& 
 	}
 }
 
-inline void PhysicsMesh::GetVertices( std::vector < Vector >& dst ) const
+inline void PhysicsMesh::GetVertices( Array < Vector >& dst ) const
 {
-	dst.resize( vertices.size() );
-	if( vertices.size() )
-	{
-		memcpy( &(dst.front()), &(vertices.front()), sizeof(Vector) * vertices.size() );
-	}
+	dst = vertices;
 }
 
 inline void PhysicsMesh::GetTriangle( const int id, Int3& dst ) const
@@ -66,7 +62,7 @@ void PhysicsMesh::Clear()
 
 PhysicsMesh::PhysicsMesh()
 {
-	triangles = new std::vector < Int3 >;
+	triangles = new Array < Int3 >;
 }
 
 PhysicsMesh::~PhysicsMesh()

@@ -22,14 +22,14 @@
 
 #include "../css/NavMesh.h"
 
-inline std::string NavMeshParent::GetClassName()
+inline String NavMeshParent::GetClassName()
 {
-	return std::string( "NavMeshParent" );
+	return String( "NavMeshParent" );
 }
 
-inline std::string NavMesh::GetClassName()
+inline String NavMesh::GetClassName()
 {
-	return std::string( "NavMesh" );
+	return String( "NavMesh" );
 }
 
 // Node:
@@ -39,13 +39,13 @@ void Node::RemoveNode( Node * src )
 	auto nodeByPointer = nodesByPointer.find( src );
 	if( nodeByPointer != nodesByPointer.end() )
 	{
-		auto nodeByType = nodesByType.find( nodeByPointer->second );
+		auto nodeByType = nodesByType.find( nodeByPointer->val );
 		if( nodeByType != nodesByType.end() )
 		{
-			nodeByType->second.erase( src );
-			if( nodeByType->second.size() == 0 )
+			nodeByType->val.erase( src );
+			if( nodeByType->val.size() == 0 )
 			{
-				nodesByType.erase( nodeByPointer->second );
+				nodesByType.erase( nodeByPointer->val );
 			}
 		}
 		nodesByPointer.erase( src );
@@ -56,9 +56,9 @@ void Node::RemoveNode( Node * src )
 void Node::Destroy()
 {
 	for( auto it = cameFrom.begin(); it != cameFrom.end(); *it++ )
-		it->first->RemoveNode( this );
+		it->key->RemoveNode( this );
 	for( auto it = nodesByPointer.begin(); it != nodesByPointer.end(); *it++ )
-		it->first->RemoveNode( this );
+		it->key->RemoveNode( this );
 	nodesByPointer.clear();
 	nodesByType.clear();
 	cameFrom.clear();
@@ -219,10 +219,10 @@ NavMeshVertexToCheck::~NavMeshVertexToCheck()
 	cameFrom = NULL;
 }
 
-bool NavMeshVertexToCheckCompare( const void * a, NavMeshVertexToCheck b )
+int NavMeshVertexToCheckCompare( const void * a, const void * b )
 {
-	if ( (NavMeshVertexToCheck*)a->distanceToDestiny <  (NavMeshVertexToCheck*)b->distanceToDestiny ) return -1;
-	if ( (NavMeshVertexToCheck*)a->distanceToDestiny == (NavMeshVertexToCheck*)b->distanceToDestiny ) return 0;
+	if ( ((NavMeshVertexToCheck*)a)->distanceToDestiny <  ((NavMeshVertexToCheck*)b)->distanceToDestiny ) return -1;
+	if ( ((NavMeshVertexToCheck*)a)->distanceToDestiny == ((NavMeshVertexToCheck*)b)->distanceToDestiny ) return 0;
 	return 1;
 	//if ( (NavMeshVertexToCheck*)a >  (NavMeshVertexToCheck*)b ) return 1;
 }
@@ -237,7 +237,7 @@ inline Node * NavMeshParent::GetNode( const BaseNode pos ) const
 {
 	auto it = nodes.find( pos );
 	if( it != nodes.end() )
-		return it->second;
+		return it->val;
 }
 
 inline Node * NavMeshParent::GetNode( const Vector pos )
@@ -245,7 +245,7 @@ inline Node * NavMeshParent::GetNode( const Vector pos )
 	BaseNode tempPos( pos, scale );
 	auto it = nodes.find( tempPos );
 	if( it != nodes.end() )
-		return it->second;
+		return it->val;
 	Node * temp = new Node;
 	temp->pos = pos;
 	nodes[tempPos] = temp;
@@ -266,7 +266,7 @@ void NavMeshParent::AddNode( const Vector point )
 
 //void NavMeshParent::Update( const int count );/////////////////////////////////////////////////////////////////////////////////////////////////////
 
-void NavMeshParent::Init( const float acceptableDistanceAsOneNode, const float maximumDistanceNodeConnection, const Engine * engine, const std::string name )
+void NavMeshParent::Init( const float acceptableDistanceAsOneNode, const float maximumDistanceNodeConnection, const Engine * engine, const String name )
 {
 	this->engine = (Engine*)engine;
 	this->name = name;
@@ -286,7 +286,7 @@ void NavMeshParent::Destroy()
 	maxConnectionLength = 0.f;
 	maxConnectionLengthSquare = 0.0f;
 	for( auto it = nodes.begin(); it != nodes.end(); *it++ )
-		delete it->second;
+		delete it->val;
 	nodes.clear();
 }
 
@@ -361,24 +361,24 @@ int NavMesh::UpdateIteration()////////////////
 		
 		for( auto type = connectionAvailable.begin(); type != connectionAvailable.end(); *type++ )
 		{
-			auto vertices = vertex.node->nodesByType.find( type->first );
+			auto vertices = vertex.node->nodesByType.find( type->key );
 			if( vertices != vertex.node->nodesByType.end() )
 			{
-				for( auto it = vertices->second.begin(); it != vertices->second.end(); *it++ )
+				for( auto it = vertices->val.begin(); it != vertices->val.end(); *it++ )
 				{
-					auto itCurrent = checkedVertices.find( it->first );
+					auto itCurrent = checkedVertices.find( it->key );
 					if( itCurrent != checkedVertices.end() )
 					{
 						float temp = ( vertex.node->pos - vertex.cameFrom->pos ).Length() + vertex.pathLength;
-						if( itCurrent->second.pathLength > temp )
+						if( itCurrent->val.pathLength > temp )
 						{
-							itCurrent->second.pathLength = temp;
-							itCurrent->second.cameFrom = vertex.node;
+							itCurrent->val.pathLength = temp;
+							itCurrent->val.cameFrom = vertex.node;
 						}
 					}
 					else
 					{
-						AddVertexToCheck( it->first, vertex.node, vertex.pathLength );
+						AddVertexToCheck( it->key, vertex.node, vertex.pathLength );
 					}
 				}
 			}
@@ -410,8 +410,8 @@ void NavMesh::CombinePath()//////////////////////////
 	{
 		if( temp != 0 )
 			++temp;
-		path.path.insert( path.path.begin(), currentNode->pos );
-		currentNode = it->second.cameFrom;
+		path.path.insert( 0, &(currentNode->pos), &(currentNode->pos)+1 );
+		currentNode = it->val.cameFrom;
 		it = checkedVertices.find( currentNode );
 		if( currentNode == beginNode )
 			temp = 1;
@@ -465,7 +465,7 @@ NavMeshPath NavMesh::FindAnyPath()
 	return path;
 }
 
-void NavMesh::Init( const NavMeshParent * parent, std::map < NavMeshLinkTypes, bool > & connectionAvailable, const Engine * engine )
+void NavMesh::Init( const NavMeshParent * parent, Map < NavMeshLinkTypes, bool > & connectionAvailable, const Engine * engine )
 {
 	this->parent = (NavMeshParent*)parent;
 	this->connectionAvailable = connectionAvailable;

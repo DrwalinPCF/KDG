@@ -19,7 +19,7 @@ class PhysicsMesh
 {
 private:
 	
-	std::string name;
+	String name;
 	
 	Array < Vector > vertices;
 	Array < Int3 > * triangles;
@@ -29,17 +29,18 @@ private:
 	
 public:
 	
-	static inline std::string GetClassName();
+	static inline String GetClassName();
 	
 	inline AABB GetAABB() const;
 	
-	void SetName( const std::string& name );
+	void SetName( const String& name );
 	
-	int LoadFromFile( const std::string& fileName, const int fileFormatVersion );		// update collider
+	int LoadFromFile( const String& fileName, const int fileFormatVersion );		// update collider
 	
-	inline void AccessTriangle( const AABB& aabb, Array < int >& dst /*trianges id*/ ) const;
-	inline void GetTriangle( const int id, Int3& dst ) const;
+	inline void AccessTriangle( const AABB& aabb, Map < int, bool >& dst  ) const;
 	inline void GetVertices( Array < Vector >& dst ) const;
+	
+	inline void GetTriangle( const int id, Int3& dst ) const;
 	
 	void Clear();
 	

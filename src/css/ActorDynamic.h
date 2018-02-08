@@ -6,8 +6,6 @@
 #ifndef ACTOR_DYNAMIC_H
 #define ACTOR_DYNAMIC_H
 
-class Actor;
-
 #include "../lib/MZ/SourceHeader/Vector.h"
 #include "../lib/MZ/SourceHeader/VMatrix.h"
 #include "../lib/MZ/SourceHeader/Quat.h"

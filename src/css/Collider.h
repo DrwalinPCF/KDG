@@ -40,13 +40,13 @@ private:
 	
 public:
 	
-	static inline std::string GetClassName();
+	static inline String GetClassName();
 	
 	void AddObject( const T object, const AABB& aabbObject );
 	void RemoveObject( const T object );
-	void GetObject( const AABB& aabb, Map < T, bool >& objects ) const;		// std::map objects - must be empty
-	void GetObject( const AABB& aabb, Map < T, AABB >& objects ) const;		// std::map objects - must be empty
-	void GetObject( const AABB& aabb, Array < T >& objects ) const;
+	
+	void GetObject( const AABB& aabbSrc, Map < T, bool >& objects ) const;
+	void GetObject( const AABB& aabbSrc, Map < T, AABB >& objects ) const;
 	void GetAllObject( Array < T >& objects ) const;
 	
 	void Clear();

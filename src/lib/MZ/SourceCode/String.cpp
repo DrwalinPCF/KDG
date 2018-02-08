@@ -26,7 +26,7 @@ freely, subject to the following restrictions:
 #ifndef STRING_CPP
 #define STRING_CPP
 
-#include "String.h"
+#include "../SourceHeader/String.h"
 
 inline char* String::c_str() const
 {

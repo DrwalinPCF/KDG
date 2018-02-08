@@ -28,7 +28,7 @@ freely, subject to the following restrictions:
 
 #include "Array.cpp"
 
-template < class Tkey, class Tval, int ARRAY_SHIFT_BIT_FULL_SIZE >
+template < class Tkey, class Tval >
 class Map
 {
 private:
@@ -55,7 +55,7 @@ private:
 		}
 	};
 	
-	Array < KeyValPair, ARRAY_SHIFT_BIT_FULL_SIZE > data;
+	Array < KeyValPair > data;
 	KeyValPair defaultPair;
 	
 public:
@@ -73,6 +73,12 @@ public:
 	inline KeyValPair * end() const
 	{
 		return data.end();
+	}
+	
+	inline Map& operator = ( const Map < Tkey, Tval > & src )
+	{
+		defaultPair = src.defaultPair;
+		data = src.data;
 	}
 	
 	inline KeyValPair * find( const Tkey& key ) const
@@ -218,6 +224,64 @@ public:
 		}
 	}
 	
+	void insert( const Map < Tkey, Tval > & src )		// if keys are equal - left this->...->key
+	{
+		if( data.size() == 0 )
+		{
+			data = src.data;
+			return;
+		}
+		
+		int i = 0, j = 0, k = 0;
+		
+		while( true )
+		{
+			if( j >= src.data.size() )
+				return;
+			if( src.data[j].key < data[i].key )
+			{
+				k = j;
+				while( true )
+				{
+					if( j > src.data.size() )
+						return;
+					if( j == src.data.size() )
+						break;
+					if( src.data[j].key >= data[i].key )
+						break;
+					++j;
+				}
+				if( k < j )
+					data.insert( i, src.data.begin()+k, src.data.begin()+j );
+			}
+			else if( src.data[j].key == data[i].key )
+			{
+				while( j < src.data.size() && i < data.size() )
+				{
+					if( src.data[j].key != data[i].key )
+						break;
+					++i;
+					++j;
+				}
+			}
+			else if( i < data.size() )
+			{
+				++i;
+				while( i < data.size() )
+				{
+					if( src.data[j].key <= data[i].key )
+						break;
+					++i;
+				}
+			}
+			else
+			{
+				data.insert( data.size(), src.data.begin()+j, src.data.end() );
+				return;
+			}
+		}
+	}
+	
 	inline Tval& operator [] ( const Tkey& key )
 	{
 		if( data.size() == 0 )
@@ -336,6 +400,11 @@ public:
 	{
 		data.clear();
 		defaultPair = KeyValPair();
+	}
+	
+	Map( const int src )
+		: data(src)
+	{
 	}
 };
 

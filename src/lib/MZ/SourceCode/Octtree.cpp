@@ -191,154 +191,6 @@ inline void OcttreeNode<T>::Print( const octtreePosDataType i ) const
 	}
 }
 
-
-template < class T >
-inline void OcttreeNode<T>::AddToVboEdges( std::vector < Vector > & points, Vector offset, Vector size )
-{
-	if( data )
-	{
-		std::vector < Vector > vertices;
-		vertices.resize( 8 );
-		int i;
-		for( i = 0; i < vertices.size(); ++i )
-		{
-			vertices[i] = offset;
-		}
-		vertices[0];
-		vertices[1] += Vector( size[0], 0.0f, 		0.0f );
-		vertices[2] += Vector( 0.0f, 	size[1], 	0.0f );
-		vertices[3] += Vector( 0.0f, 	0.0f, 		size[2] );
-		vertices[4] += Vector( size[0], size[1], 	0.0f );
-		vertices[5] += Vector( size[0], 0.0f, 		size[2] );
-		vertices[6] += Vector( 0.0f, 	size[1], 	size[2] );
-		vertices[7] += Vector( size[0], size[1], 	size[2] );
-		
-		points.push_back( vertices[0] );
-		points.push_back( vertices[1] );
-		
-		points.push_back( vertices[0] );
-		points.push_back( vertices[2] );
-		
-		points.push_back( vertices[0] );
-		points.push_back( vertices[3] );
-		
-		points.push_back( vertices[1] );
-		points.push_back( vertices[4] );
-		
-		points.push_back( vertices[2] );
-		points.push_back( vertices[6] );
-		
-		points.push_back( vertices[3] );
-		points.push_back( vertices[5] );
-		
-		points.push_back( vertices[7] );
-		points.push_back( vertices[4] );
-		
-		points.push_back( vertices[7] );
-		points.push_back( vertices[5] );
-		
-		points.push_back( vertices[7] );
-		points.push_back( vertices[6] );
-		
-		points.push_back( vertices[1] );
-		points.push_back( vertices[5] );
-		
-		points.push_back( vertices[2] );
-		points.push_back( vertices[4] );
-		
-		points.push_back( vertices[3] );
-		points.push_back( vertices[6] );
-		
-		vertices.clear();
-	}
-	else if( node )
-	{
-		int i, j, k;
-		for( i = 0; i < 2; ++i )
-		{
-			for( j = 0; j < 2; ++j )
-			{
-				for( k = 0; k < 2; ++k )
-				{
-					if( node[i][j][k] )
-					{
-						node[i][j][k]->AddToVboEdges( points, offset + Vector( i?(size[0]*0.5f):0.0f, j?(size[1]*0.5f):0.0f, k?(size[2]*0.5f):0.0f ), size*0.5f );
-					}
-				}
-			}
-		}
-		std::vector < Vector > vertices;
-		vertices.resize( 18 );
-		for( i = 0; i < vertices.size(); ++i )
-		{
-			vertices[i] = offset;
-		}
-		vertices[0] += Vector(	size[0]*0.5f,			0.0f,			0.0f );
-		vertices[1] += Vector(			0.0f,	size[1]*0.5f,			0.0f );
-		vertices[2] += Vector(			0.0f, 			0.0f,	size[2]*0.5f );
-		
-		vertices[3] += Vector(	size[0]*0.5f,	size[1]+0.0f,			0.0f );
-		vertices[4] += Vector(			0.0f,	size[1]*0.5f,	size[2]		 );
-		vertices[5] += Vector(	size[0],	 			0.0f,	size[2]*0.5f );
-		
-		vertices[6] += Vector(	size[0]*0.5f,			0.0f,	size[2]+0.0f );
-		vertices[7] += Vector(	size[0],		size[1]*0.5f,			0.0f );
-		vertices[8] += Vector(			0.0f, 	size[1],		size[2]*0.5f );
-		
-		vertices[9]  += Vector(	size[0]*0.5f,	size[1],		size[2]		 );
-		vertices[10] += Vector(	size[0],		size[1]*0.5f,	size[2]		 );
-		vertices[11] += Vector(	size[0],	 	size[1],		size[2]*0.5f );
-		
-		vertices[12] += Vector(	size[0]*0.5f,	size[1]*0.5f,			0.0f );
-		vertices[13] += Vector(			0.0f,	size[1]*0.5f,	size[2]*0.5f );
-		vertices[14] += Vector(	size[0]*0.5f, 			0.0f,	size[2]*0.5f );
-		vertices[15] += Vector(	size[0]*0.5f,	size[1]*0.5f,	size[2]*1.0f );
-		vertices[16] += Vector(	size[0]*1.0f,	size[1]*0.5f,	size[2]*0.5f );
-		vertices[17] += Vector(	size[0]*0.5f, 	size[1]*1.0f,	size[2]*0.5f );
-		
-		
-		points.push_back( vertices[0] );
-		points.push_back( vertices[3] );
-		points.push_back( vertices[1] );
-		points.push_back( vertices[4] );
-		points.push_back( vertices[2] );
-		points.push_back( vertices[5] );
-		
-		points.push_back( vertices[0] );
-		points.push_back( vertices[6] );
-		points.push_back( vertices[1] );
-		points.push_back( vertices[7] );
-		points.push_back( vertices[2] );
-		points.push_back( vertices[8] );
-		
-		points.push_back( vertices[9] );
-		points.push_back( vertices[3] );
-		points.push_back( vertices[10] );
-		points.push_back( vertices[4] );
-		points.push_back( vertices[11] );
-		points.push_back( vertices[5] );
-		
-		points.push_back( vertices[9] );
-		points.push_back( vertices[6] );
-		points.push_back( vertices[10] );
-		points.push_back( vertices[7] );
-		points.push_back( vertices[11] );
-		points.push_back( vertices[8] );
-		
-		
-		points.push_back( vertices[13] );
-		points.push_back( vertices[16] );
-		points.push_back( vertices[12] );
-		points.push_back( vertices[15] );
-		points.push_back( vertices[14] );
-		points.push_back( vertices[17] );
-		
-		vertices.clear();
-	}
-	return;
-}
-
-
 template < class T >
 OcttreeNode<T>::OcttreeNode()
 {
@@ -462,10 +314,10 @@ inline T& Octtree<T>::Get( const octtreePosDataType _x, const octtreePosDataType
 }
 
 template < class T >
-inline T Octtree<T>::GetConst( const octtreePosDataType _x, const octtreePosDataType _y, const octtreePosDataType _z ) const
+inline bool Octtree<T>::Get( const octtreePosDataType _x, const octtreePosDataType _y, const octtreePosDataType _z, T& dst ) const
 {
 	if( PosNotEnable( _x, _y, _z ) )
-		return defaultValue;
+		return false;
 	
 	octtreePosDataType i, fx, fy, fz;
 	
@@ -482,16 +334,17 @@ inline T Octtree<T>::GetConst( const octtreePosDataType _x, const octtreePosData
 		}
 		else
 		{
-			return defaultValue;
+			return false;
 		}
 	}
 	
 	if( currentNode -> data == NULL )
 	{
-		return defaultValue;
+		return false;
 	}
 	
-	return *(currentNode -> data);
+	dst = *(currentNode -> data);
+	return true;
 }
 
 template < class T >

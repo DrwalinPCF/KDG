@@ -6,14 +6,14 @@
 #ifndef ENGINE_H
 #define ENGINE_H
 
+#include "../lib/MZ/SourceCode/Map.cpp"
+#include "../lib/MZ/SourceCode/Array.cpp"
+#include "../lib/MZ/SourceHeader/String.h"
+
 class Actor;
 class ActorStatic;
 class ActorDynamic;
 class ActorOBB;
-
-#include "../lib/MZ/SourceCode/Map.cpp"
-#include "../lib/MZ/SourceCode/Array.cpp"
-#include "../lib/MZ/SourceHeader/String.h"
 
 #include "CollisionManager.h"
 #include "Error.h"
@@ -62,7 +62,7 @@ public:
 	
 	void Draw();
 	
-	
+	inline void GetActor( const AABB& aabb, Map < Actor*, bool >& objects ) const;
 	inline void GetActor( const AABB& aabb, Array < Actor* >& objects ) const;
 	
 	PhysicsMesh * LoadPhysicsMesh( const String& name, const String& fileName, const int fileFormatVersion );
@@ -79,8 +79,7 @@ public:
 	
 	bool RayTrace( const Vector& begin, const Vector& end, const int rayTraceChannel, Actor** dst, Vector& point, float& distance, Vector& normal ) const;		// dstDynamic = NULL || dstStatic = NULL
 	
-	
-	int GetNextError( Error & error );	// return number of errors
+	int GetNextError( Error& error );	// return number of errors
 	void AddError( const Error error );
 	
 	

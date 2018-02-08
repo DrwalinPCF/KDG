@@ -28,13 +28,14 @@ freely, subject to the following restrictions:
 
 #include "Array.cpp"
 
-template < class T, int ARRAY_SHIFT_BIT_FULL_SIZE, int BEGIN_POINT_MAX_OFFSET_SHIFT_BIT >
+template < class T >
 class Queue
 {
 private:
 	
-	Array < T, ARRAY_SHIFT_BIT_FULL_SIZE > data;
+	Array < T > data;
 	unsigned long long int curoffset;
+	int BEGIN_POINT_MAX_OFFSET_SHIFT_BIT;
 	
 public:
 	
@@ -53,8 +54,7 @@ public:
 		return data.size()-curoffset;
 	}
 	
-	template < int a__, int b__ >
-	inline T& operator = ( const Queue < T, a__, b__ > & src )
+	inline T& operator = ( const Queue < T > & src )
 	{
 		curoffset = 0;
 		data.resize( src.data.size()-src.curoffset );
@@ -110,7 +110,19 @@ public:
 	
 	Queue()
 	{
-		data.clear();
+		curoffset = 0;
+	}
+	
+	Queue( const int src1, const int src2 )
+		: data(src1)
+	{
+		BEGIN_POINT_MAX_OFFSET_SHIFT_BIT = src2;
+		curoffset = 0;
+	}
+	
+	~Queue()
+	{
+		BEGIN_POINT_MAX_OFFSET_SHIFT_BIT = 0;
 		curoffset = 0;
 	}
 };

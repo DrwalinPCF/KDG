@@ -1,4 +1,4 @@
-
+#define inline
 /*
 	Copyright (c) 2018 Marek Zalewski and Kacper Orzeszko
 */
@@ -7,6 +7,10 @@
 #define COLLISION_MANAGER_CPP
 
 #include "../css/CollisionManager.h"
+#include "../css/ActorStatic.h"
+#include "../css/ActorDynamic.h"
+#include "../css/ActorOBB.h"
+#include "../css/Actor.h"
 
 namespace CollisionManager
 {
@@ -14,7 +18,7 @@ namespace CollisionManager
 	
 	void CollisionOBBStatic( ActorOBB * actorA, ActorStatic * actorB )
 	{
-		Array < Vector, 4 > intersections;
+		Array < Vector > intersections;
 		int i;
 		
 		{
@@ -28,12 +32,12 @@ namespace CollisionManager
 				Vector normal = triangle.GetNormal();
 				
 				actorB->GetTriangle( triangles[i], triangle );
-				triangle.Move( - actorA->GetPosition() );
+				triangle.Move( actorA->GetPosition()*(-1.0f) );
 				triangle.Rotate( actorA->GetRotation().Inversed() );
-				triangle.Scale( 1.0f / actorA->GetSize() );
+				triangle.Scale( Vector(1.0f) / actorA->GetSize() );
 				
 				{	// collision actorA with triangle
-					for( ... )
+					/*for( ... )
 					{
 						
 						
@@ -42,7 +46,7 @@ namespace CollisionManager
 						{
 							intersections.push_back( ( actorA->GetRotation() * point ) * actorA->GetSize() );
 						}
-					}
+					}*/
 				}
 				
 				if( intersections.size() > 0 )
@@ -94,16 +98,16 @@ namespace CollisionManager
 	
 	inline void CollisionDynamic( ActorDynamic * actor )
 	{
-		std::vector < Actor * > objects;
+		Array < Actor* > objects;
 		actor->GetEngine()->GetActor( actor->GetAABB(), objects );
 		int i;
 		for( i = 0; i < objects.size(); ++i )
 		{
 			if( objects[i] > actor )
 			{
-				if( IsCollisionChannelsOverlap( actor, objects[i] ) )
+				if( Actor::IsCollisionChannelsOverlap( actor, objects[i] ) )
 				{
-					if( actor->GetAABB().IsSharedPart( object[i]->GetAABB() ) )
+					if( actor->GetAABB().IsSharedPart( objects[i]->GetAABB() ) )
 					{
 						CollisionDynamicActor( actor, objects[i] );
 					}

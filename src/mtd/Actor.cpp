@@ -8,7 +8,7 @@
 
 #include "../css/Actor.h"
 
-inline std::string Actor::GetName() const
+inline String Actor::GetName() const
 {
 	return name;
 }
@@ -111,7 +111,7 @@ inline bool Actor::IsCollisionChannelsOverlap( const Actor * actorA, const Actor
 }
 
 
-inline void Actor::Init( const Engine * engine, const std::string & name )
+inline void Actor::Init( const Engine * engine, const String & name )
 {
 	this->engine = (Engine*)engine;
 	this->name = name;

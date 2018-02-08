@@ -13,12 +13,13 @@ class Debug
 {
 private:
 	
-	static std::ifstream file;
+	static File file;
+	static String fileName;
 	
 public:
 	
-	inline void Send( const std::string& msg );
-	static InitFile( const std::string& fileName );
+	inline void Send( const String& msg );
+	static void InitFile( const String& fileName );
 };
 
 #endif

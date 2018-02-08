@@ -28,12 +28,12 @@ freely, subject to the following restrictions:
 
 #include "Array.cpp"
 
-template < class T, int ARRAY_SHIFT_BIT_FULL_SIZE >
+template < class T >
 class Stack
 {
 private:
 	
-	Array < T, ARRAY_SHIFT_BIT_FULL_SIZE > data;
+	Array < T > data;
 	
 public:
 	
@@ -52,8 +52,7 @@ public:
 		return data.size();
 	}
 	
-	template < int a__ >
-	inline T& operator = ( const Stack < T, a__ > & src )
+	inline T& operator = ( const Stack < T > & src )
 	{
 		data = src.data;
 	}
@@ -105,6 +104,11 @@ public:
 	Stack()
 	{
 		data.clear();
+	}
+	
+	Stack( const int src )
+		: data(src)
+	{
 	}
 };
 

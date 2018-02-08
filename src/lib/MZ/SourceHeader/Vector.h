@@ -73,6 +73,7 @@ public:
 	
 	Vector();
 	Vector( const float x, const float y, const float z );
+	Vector(  const float val );
 };
 
 #endif

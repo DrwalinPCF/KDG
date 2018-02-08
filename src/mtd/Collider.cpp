@@ -21,12 +21,11 @@
 #define COLLIDER_CPP
 
 #include "../css/Collider.h"
-#include "../lib/MZ/SourceCode/StandardManagerC.cpp"
 
 template < class T >
-inline std::string Collider<T>::GetClassName()
+inline String Collider<T>::GetClassName()
 {
-	return std::string( "Collider" );
+	return String( "Collider" );
 }
 
 template < class T >
@@ -40,7 +39,7 @@ void Collider<T>::AddObject( const T object, const AABB& aabbObject )
 	auto it = objectAABB.find( (T)object );
 	if( it != objectAABB.end() )
 	{
-		if( it->second == aabbi )
+		if( it->val == aabbi )
 			return;
 		RemoveObject( (T)object );
 	}
@@ -76,7 +75,7 @@ void Collider<T>::RemoveObject( const T object )
 	auto it = objectAABB.find( (T)object );
 	if( it != objectAABB.end() )
 	{
-		AABBint aabbi = it->second;
+		AABBint aabbi = it->val;
 		
 		if( octtree.PosNotEnable( aabbi.GetMinX(), aabbi.GetMinY(), aabbi.GetMinZ() ) || octtree.PosNotEnable( aabbi.GetMaxX(), aabbi.GetMaxY(), aabbi.GetMaxZ() ) )
 		{
@@ -100,11 +99,12 @@ void Collider<T>::RemoveObject( const T object )
 }
 
 template < class T >
-void Collider<T>::GetObject( const AABB& aabbSrc, std::map < T, bool >& objects ) const
+void Collider<T>::GetObject( const AABB& aabbSrc, Map < T, bool >& objects ) const
 {
 	if( outsideObject.size() > 0 )
 		objects.insert( outsideObject );
 	
+	Map < T, bool > temp;
 	AABB dst;
 	if( AABB::SharedPart( this->aabb, aabbSrc, dst ) )
 	{
@@ -117,7 +117,10 @@ void Collider<T>::GetObject( const AABB& aabbSrc, std::map < T, bool >& objects 
 			{
 				for( pos[2] = aabbi.GetMinZ(); pos[2] <= aabbi.GetMaxZ(); ++pos[2] )
 				{
-					objects.insert( octtree.GetConst( pos[0], pos[1], pos[2] ) );
+					if( octtree.Get( pos[0], pos[1], pos[2], temp ) )
+					{
+						objects.insert( temp );
+					}
 				}
 			}
 		}
@@ -125,12 +128,12 @@ void Collider<T>::GetObject( const AABB& aabbSrc, std::map < T, bool >& objects 
 }
 
 template < class T >
-void Collider<T>::GetObject( const AABB& aabbSrc, std::map < T, AABB >& objects ) const
+void Collider<T>::GetObject( const AABB& aabbSrc, Map < T, AABB >& objects ) const
 {
 	if( outsideObject.size() > 0 )
 	{
 		for( auto it = outsideObject.begin(); it != outsideObject.end(); *it++ )
-			objects.insert[it->first] = objectAABB.find[it->first];
+			objects.insert[it->key] = objectAABB.find[it->key];
 	}
 	
 	AABB dst;
@@ -148,7 +151,7 @@ void Collider<T>::GetObject( const AABB& aabbSrc, std::map < T, AABB >& objects 
 				{
 					auto map = octtree.GetConst( pos[0], pos[1], pos[2] );
 					for( auto it = map.begin(); it != map.end(); *it++ )
-						objects.insert[it->first] = objectAABB.find[it->first];
+						objects.insert[it->key] = objectAABB.find[it->key];
 				}
 			}
 		}
@@ -156,34 +159,14 @@ void Collider<T>::GetObject( const AABB& aabbSrc, std::map < T, AABB >& objects 
 }
 
 template < class T >
-void Collider<T>::GetObject( const AABB& aabb, std::vector < T >& objects ) const
-{
-	if( outsideObject.size() > 0 )
-		SumSortedVectorWithMapKeys < T, bool > ( objects, outsideObject );
-	
-	AABB dst;
-	
-	if( AABB::SharedPart( this->aabb, aabb, dst ) )
-	{
-		AABBint aabbi( dst, this->aabb, octtree.GetSpaceSizeAxes() );
-		
-		long long int pos[3];
-		for( pos[0] = aabbi.GetMinX(); pos[0] <= aabbi.GetMaxX(); ++pos[0] )
-			for( pos[1] = aabbi.GetMinY(); pos[1] <= aabbi.GetMaxY(); ++pos[1] )
-				for( pos[2] = aabbi.GetMinZ(); pos[2] <= aabbi.GetMaxZ(); ++pos[2] )
-					SumSortedVectorWithMapKeys < T, bool > ( objects, octtree.GetConst( pos[0], pos[1], pos[2] ) );
-	}
-}
-
-template < class T >
-void Collider<T>::GetAllObject( std::vector < T >& objects ) const
+void Collider<T>::GetAllObject( Array < T >& objects ) const
 {
 	objects.resize( objectAABB.size() );
 	int i = 0;
 	auto it = objectAABB.begin();
 	for( ; it != objectAABB.end(); *it++, ++i )
 	{
-		objects[i] = it->first;
+		objects[i] = it->key;
 	}
 }
 
@@ -211,7 +194,7 @@ template < class T >
 void Collider<T>::Init( const AABB& aabb, const int levels )
 {
 	this->aabb = aabb;
-	octtree.Init( levels, std::map < T, bool >() );
+	octtree.Init( levels, Map < T, bool >() );
 }
 
 template < class T >

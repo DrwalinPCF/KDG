@@ -8,9 +8,9 @@
 
 #include "../css/ActorStatic.h"
 
-inline std::string ActorStatic::GetClassName()
+inline String ActorStatic::GetClassName()
 {
-	return std::string( "ActorStatic" );
+	return String( "ActorStatic" );
 }
 
 void ActorStatic::DrawDebug() const
@@ -64,7 +64,7 @@ inline PhysicsMesh * ActorStatic::GetPhysicsMesh() const
 	return physicsMesh;
 }
 
-inline void ActorStatic::GetTriangles( const AABB& aabb, std::vector < int >& triangles ) const
+inline void ActorStatic::GetTriangles( const AABB& aabb, Array < int >& triangles ) const
 {
 	if( physicsMesh )
 	{

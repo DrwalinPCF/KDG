@@ -275,5 +275,10 @@ Vector::Vector( const float x, const float y, const float z )
 	this->z = z;
 }
 
+Vector::Vector(  const float val )
+{
+	x = y = z = val;
+}
+
 #endif
 

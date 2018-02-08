@@ -8,9 +8,9 @@
 
 #include "../css/ActorOBB.h"
 
-inline std::string ActorOBB::GetClassName()
+inline String ActorOBB::GetClassName()
 {
-	return std::string( "ActorOBB" );
+	return String( "ActorOBB" );
 }
 
 void ActorOBB::DrawDebug() const

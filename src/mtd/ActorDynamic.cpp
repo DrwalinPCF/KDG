@@ -8,9 +8,9 @@
 
 #include "../css/ActorDynamic.h"
 
-inline std::string ActorDynamic::GetClassName()
+inline String ActorDynamic::GetClassName()
 {
-	return std::string( "ActorDynamic" );
+	return String( "ActorDynamic" );
 }
 
 inline void ActorDynamic::SetLinearVelocity( const Vector& val )
@@ -163,7 +163,7 @@ void ActorDynamic::AddForce( const Vector& point, const Vector& force )
 
 inline Vector ActorDynamic::GetPointFromPreviousFrame( const Vector& src ) const
 {
-	return (bRotation * (rotation.GetInversed() * (src-position))) + bPosition;
+	return (bRotation * (rotation.Inversed() * (src-position))) + bPosition;
 }
 
 void ActorDynamic::Update( const float deltaTime )
