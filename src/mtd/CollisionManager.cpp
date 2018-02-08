@@ -17,20 +17,26 @@ namespace CollisionManager
 		inline void GetTriangles( const AABB& aabb, std::vector < int >& triangles ) const;
 		inline void GetTriangle( const int id, Triangle& triangle ) const;
 		
+		Triangle triangle;
 		std::vector < int > triangles;
 		actorB->GetTriangles( actorA->GetAABB(), triangles );
 		for( int i = 0; i < triangles.size(); ++i )
 		{
-			Triangle triangle;
 			actorB->GetTriangle( triangles[i], triangle );
 			triangle.Move( - actorA->GetPossition() );
 			triangle.Rotate( actorA->GetRotation().Inversed() );
 			triangle.Scale( 1.0f / actorA->GetSize() );
 			
+			
+			
 			{	// collision actorA with triangle
-			
-			
-			
+				
+				
+				
+				
+				
+				
+				
 			}
 		}
 	}

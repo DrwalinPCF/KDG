@@ -8,8 +8,6 @@
 
 class ActorDynamic;
 
-#include <string>
-
 #include "../lib/MZ/SourceHeader/Vector.h"
 #include "../lib/MZ/SourceHeader/VMatrix.h"
 #include "../lib/MZ/SourceHeader/Quat.h"
@@ -24,12 +22,12 @@ private:
 	
 public:
 	
-	virtual inline std::string GetClassName() override;
+	virtual inline String GetClassName() override;
 	
 	virtual void DrawDebug() const override;
 	virtual void UpdateAABB() override;
 	
-	
+	void GetMaxMinWithVector( float& ta, float& tb );
 	
 	
 	virtual void Update( const float deltaTime ) override;

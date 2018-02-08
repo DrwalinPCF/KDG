@@ -8,8 +8,8 @@
 
 class Actor;
 
-#include <string>
-#include <vector>
+#include "../lib/MZ/SourceCode/Array.cpp"
+#include "../lib/MZ/SourceHeader/String.h"
 
 #include "../lib/MZ/SourceHeader/Vector.h"
 #include "../lib/MZ/SourceHeader/VMatrix.h"

@@ -8,7 +8,7 @@
 
 class Engine;
 
-#include <string>
+#include "../lib/MZ/SourceHeader/String.h"
 
 #include "Engine.h"
 #include "../lib/MZ/SourceHeader/Vector.h"
@@ -21,7 +21,7 @@ class Actor
 protected:
 	
 	Engine * engine;
-	std::string name;
+	String name;
 	
 	Vector possition;
 	Quat rotation;
@@ -35,12 +35,12 @@ protected:
 	
 public:
 	
-	virtual inline std::string GetClassName()=0;
+	virtual inline String GetClassName()=0;
 	
 	virtual void DrawDebug() const=0;
 	virtual void UpdateAABB()=0;
 	
-	inline std::string GetName() const;
+	inline String GetName() const;
 	inline Engine * GetEngine() const;
 	
 	inline AABB GetAABB() const;
@@ -74,7 +74,7 @@ public:
 	
 	virtual void Update( const float deltaTime )=0;
 	
-	inline void Init( const Engine * engine, const std::string & name );
+	inline void Init( const Engine * engine, const String& name );
 	
 	Actor();
 	virtual ~Actor();

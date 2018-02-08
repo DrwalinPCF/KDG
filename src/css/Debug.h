@@ -7,7 +7,7 @@
 #define DEBUG_H
 
 #include <cstdio>
-#include <fstream>
+#include "../lib/MZ/SourceHeader/File.h"
 
 class Debug
 {

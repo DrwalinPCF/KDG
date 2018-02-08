@@ -8,8 +8,8 @@
 
 class Actor;
 
-#include <string>
-#include <fstream>
+#include "../lib/MZ/SourceHeader/File.h"
+#include "../lib/MZ/SourceHeader/String.h"
 #include <cstdio>
 #include <ctime>
 

@@ -6,7 +6,10 @@
 #ifndef PHYSICS_MESH_H
 #define PHYSICS_MESH_H
 
-#include <vector>
+
+#include "../lib/MZ/SourceCode/Array.cpp"
+#include "../lib/MZ/SourceHeader/String.h"
+#include "../lib/MZ/SourceHeader/File.h"
 
 #include "Types.h"
 #include "../lib/MZ/SourceHeader/Vector.h"
@@ -18,8 +21,8 @@ private:
 	
 	std::string name;
 	
-	std::vector < Vector > vertices;
-	std::vector < Int3 > * triangles;
+	Array < Vector > vertices;
+	Array < Int3 > * triangles;
 	
 	AABB aabb;
 	Collider < int > collider;
@@ -34,9 +37,9 @@ public:
 	
 	int LoadFromFile( const std::string& fileName, const int fileFormatVersion );		// update collider
 	
-	inline void AccessTriangle( const AABB& aabb, std::vector < int >& dst /*trianges id*/ ) const;
+	inline void AccessTriangle( const AABB& aabb, Array < int >& dst /*trianges id*/ ) const;
 	inline void GetTriangle( const int id, Int3& dst ) const;
-	inline void GetVertices( std::vector < Vector >& dst ) const;
+	inline void GetVertices( Array < Vector >& dst ) const;
 	
 	void Clear();
 	

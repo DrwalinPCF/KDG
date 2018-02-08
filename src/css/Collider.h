@@ -20,9 +20,9 @@
 #ifndef COLLIDER_H
 #define COLLIDER_H
 
-#include <map>
-#include <vector>
-#include <string>
+#include "../lib/MZ/SourceCode/Map.cpp"
+#include "../lib/MZ/SourceCode/Array.cpp"
+#include "../lib/MZ/SourceHeader/String.h"
 
 #include "../lib/MZ/SourceCode/Octtree.cpp"
 #include "../lib/MZ/SourceHeader/AABB.h"
@@ -32,9 +32,9 @@ class Collider
 {
 private:
 	
-	Octtree < std::map < T, bool > > octtree;
-	std::map < T, bool > outsideObject;
-	std::map < T, AABBint > objectAABB;
+	Octtree < Map < T, bool > > octtree;
+	Map < T, bool > outsideObject;
+	Map < T, AABBint > objectAABB;
 	
 	AABB aabb;
 	
@@ -44,10 +44,10 @@ public:
 	
 	void AddObject( const T object, const AABB& aabbObject );
 	void RemoveObject( const T object );
-	void GetObject( const AABB& aabb, std::map < T, bool >& objects ) const;		// std::map objects - must be empty
-	void GetObject( const AABB& aabb, std::map < T, AABB >& objects ) const;		// std::map objects - must be empty
-	void GetObject( const AABB& aabb, std::vector < T >& objects ) const;
-	void GetAllObject( std::vector < T >& objects ) const;
+	void GetObject( const AABB& aabb, Map < T, bool >& objects ) const;		// std::map objects - must be empty
+	void GetObject( const AABB& aabb, Map < T, AABB >& objects ) const;		// std::map objects - must be empty
+	void GetObject( const AABB& aabb, Array < T >& objects ) const;
+	void GetAllObject( Array < T >& objects ) const;
 	
 	void Clear();
 	

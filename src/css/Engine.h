@@ -11,9 +11,9 @@ class ActorStatic;
 class ActorDynamic;
 class ActorOBB;
 
-#include <map>
-#include <string>
-#include <vector>
+#include "../lib/MZ/SourceCode/Map.cpp"
+#include "../lib/MZ/SourceCode/Array.cpp"
+#include "../lib/MZ/SourceHeader/String.h"
 
 #include "CollisionManager.h"
 #include "Error.h"
@@ -28,10 +28,10 @@ class Engine
 {
 private:
 	
-	std::string name;
+	String name;
 	
-	std::map < std::string, PhysicsMesh* > physicsMesh;
-	std::map < std::string, Actor* > actors;
+	Map < String, PhysicsMesh* > physicsMesh;
+	Map < String, Actor* > actors;
 	
 	Collider < Actor* > colliderActor;
 	
@@ -46,11 +46,11 @@ private:
 	int framesCounter;
 	int timeFromLastResetFrameCounter;
 	
-	std::vector < Error > errors;
+	Array < Error > errors;
 	
 public:
 	
-	static inline std::string GetClassName();
+	static inline String GetClassName();
 	
 	inline void SetTimeScale( const float value );
 	inline float GetDeltaTime() const;
@@ -63,16 +63,16 @@ public:
 	void Draw();
 	
 	
-	inline void GetActor( const AABB& aabb, std::vector < Actor* >& objects ) const;
+	inline void GetActor( const AABB& aabb, Array < Actor* >& objects ) const;
 	
-	PhysicsMesh * LoadPhysicsMesh( const std::string& name, const std::string& fileName, const int fileFormatVersion );
+	PhysicsMesh * LoadPhysicsMesh( const String& name, const String& fileName, const int fileFormatVersion );
 	int SpawnActor( const Actor* object );
 	
-	inline PhysicsMesh * GetPhysicsMesh( const std::string& name ) const;
-	inline Actor * GetActor( const std::string& name ) const;
+	inline PhysicsMesh * GetPhysicsMesh( const String& name ) const;
+	inline Actor * GetActor( const String& name ) const;
 	
-	inline void DestroyPhysicsMesh( const std::string& name );
-	inline void DestroyActor( const std::string& name );
+	inline void DestroyPhysicsMesh( const String& name );
+	inline void DestroyActor( const String& name );
 	
 	
 	

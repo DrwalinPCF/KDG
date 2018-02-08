@@ -22,9 +22,8 @@
 
 class Engine;
 
-#include <map>
-#include <vector>
-#include <algorithm>
+#include "../lib/MZ/SourceCode/Map.cpp"
+#include "../lib/MZ/SourceCode/Array.cpp"
 
 #include "../lib/MZ/SourceHeader/Vector.h"
 
@@ -56,10 +55,10 @@ private:
 	
 	Vector pos;				// real pos
 	
-	std::map < Node*, NavMeshLinkTypes > nodesByPointer;
-	std::map < NavMeshLinkTypes, std::map < Node*, bool > > nodesByType;
+	Map < Node*, NavMeshLinkTypes > nodesByPointer;
+	Map < NavMeshLinkTypes, Map < Node*, bool > > nodesByType;
 	
-	std::map < Node*, NavMeshLinkTypes > cameFrom;
+	Map < Node*, NavMeshLinkTypes > cameFrom;
 	
 public:
 	
@@ -99,7 +98,7 @@ class NavMeshPath
 private:
 	
 	Vector begin, end;
-	std::vector < Vector > path;
+	Array < Vector > path;
 	int currentNode;
 	float length;
 	
@@ -158,14 +157,14 @@ class NavMeshParent
 {
 public:
 	
-	static std::map < NavMeshLinkTypes, bool > connectionTypes;
+	static Map < NavMeshLinkTypes, bool > connectionTypes;
 	
 private:
 	
 	std::string name;
 	Engine * engine;
 	
-	std::map < BaseNode, Node* > nodes;
+	Map < BaseNode, Node* > nodes;
 	
 	float scale;
 	float maxConnectionLength;
@@ -200,13 +199,13 @@ private:
 	Engine * engine;
 	NavMeshParent * parent;
 	
-	std::map < NavMeshLinkTypes, bool > connectionAvailable;		// types
+	Map < NavMeshLinkTypes, bool > connectionAvailable;		// types
 	
-	std::vector < AABB > excludeSpace;
-	//std::vector < AABB > lastResortSpace;									// can use graph node from these space only if there are no other path
-	//std::vector < NavMeshVertexToCheck > lastResortVerticesToCheck;		// must be sorted before taking vertex, use only: if( verticesToCheck.size() == 0 ){...}
-	std::vector < NavMeshVertexToCheck > verticesToCheck;					// must be sorted before taking vertex
-	std::map < Node *, NavMeshPathFinderVetrtex > checkedVertices;			// on the path
+	Array < AABB > excludeSpace;
+	//Array < AABB > lastResortSpace;									// can use graph node from these space only if there are no other path
+	//Array < NavMeshVertexToCheck > lastResortVerticesToCheck;		// must be sorted before taking vertex, use only: if( verticesToCheck.size() == 0 ){...}
+	Array < NavMeshVertexToCheck > verticesToCheck;					// must be sorted before taking vertex
+	Map < Node *, NavMeshPathFinderVetrtex > checkedVertices;			// on the path
 	
 	Vector begin, end;
 	Node * beginNode, * endNode;
@@ -240,7 +239,7 @@ public:
 	NavMeshPath FindBestPath();
 	NavMeshPath FindAnyPath();
 	
-	void Init( const NavMeshParent * parent, std::map < NavMeshLinkTypes, bool > & connectionAvailable, const Engine * engine );
+	void Init( const NavMeshParent * parent, Map < NavMeshLinkTypes, bool > & connectionAvailable, const Engine * engine );
 	
 	void Destroy();
 	

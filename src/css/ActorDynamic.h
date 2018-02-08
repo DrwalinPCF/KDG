@@ -8,8 +8,6 @@
 
 class Actor;
 
-#include <string>
-
 #include "../lib/MZ/SourceHeader/Vector.h"
 #include "../lib/MZ/SourceHeader/VMatrix.h"
 #include "../lib/MZ/SourceHeader/Quat.h"
@@ -42,7 +40,7 @@ protected:
 	
 public:
 	
-	virtual inline std::string GetClassName() override;
+	virtual inline String GetClassName() override;
 	
 	
 	inline void SetLinearVelocity( const Vector& val );

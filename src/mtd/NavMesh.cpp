@@ -219,9 +219,12 @@ NavMeshVertexToCheck::~NavMeshVertexToCheck()
 	cameFrom = NULL;
 }
 
-bool NavMeshVertexToCheckCompare( NavMeshVertexToCheck a, NavMeshVertexToCheck b )
+bool NavMeshVertexToCheckCompare( const void * a, NavMeshVertexToCheck b )
 {
-	return a.distanceToDestiny > b.distanceToDestiny;
+	if ( (NavMeshVertexToCheck*)a->distanceToDestiny <  (NavMeshVertexToCheck*)b->distanceToDestiny ) return -1;
+	if ( (NavMeshVertexToCheck*)a->distanceToDestiny == (NavMeshVertexToCheck*)b->distanceToDestiny ) return 0;
+	return 1;
+	//if ( (NavMeshVertexToCheck*)a >  (NavMeshVertexToCheck*)b ) return 1;
 }
 
 
@@ -324,7 +327,7 @@ inline bool NavMesh::GetNextNodeToCheck( NavMeshVertexToCheck & dst )
 	{
 		if( verticesToCheck.size() > 1 )
 		{
-			std::sort( verticesToCheck.begin(), verticesToCheck.end(), NavMeshVertexToCheckCompare );
+			qsort( verticesToCheck.begin(), verticesToCheck.size(), sizeof(NavMeshVertexToCheck), NavMeshVertexToCheckCompare );
 		}
 		
 		NavMeshVertexToCheck temp = verticesToCheck.back();
