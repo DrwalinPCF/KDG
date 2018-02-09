@@ -26,7 +26,6 @@ freely, subject to the following restrictions:
 #ifndef FILE_CPP
 #define FILE_CPP
 
-#include <cstdio>
 #include "../SourceHeader/File.h"
 	
 inline bool File::open( const char * filename, const char * format )

@@ -250,21 +250,28 @@ inline bool Triangle::GetIntersectionOfPlaneWithLine( const Vector& begin, const
 	return true;
 }
 
-inline void Triangle::GetMaxMinWithVector( const Vector& dir, float& ta, float& tb ) const
+inline void Triangle::GetMaxMinWithVector( const Vector& dir, float& tmin, float& tmax ) const
 {
 	float temp;
-	ta = dir.Dot(pointA);
-	tb = ta;
+	tmin = dir.Dot(pointA);
+	tmax = tmin;
 	temp = dir.Dot(pointB);
-	if( temp < ta )
-		ta = temp;
-	else if( temp > tb )
-		tb = temp;
+	if( temp < tmin )
+		tmin = temp;
+	else if( temp > tmax )
+		tmax = temp;
 	temp = dir.Dot(pointC);
-	if( temp < ta )
-		ta = temp;
-	else if( temp > tb )
-		tb = temp;
+	if( temp < tmin )
+		tmin = temp;
+	else if( temp > tax )
+		tmax = temp;
+}
+
+inline void Triangle::EdgesDirection( Vector& ab, Vector& bc, Vector& ca ) const
+{
+	ab = b-a;
+	bc = c-b;
+	ca = a-c;
 }
 
 inline Vector Triangle::GetNormal() const
