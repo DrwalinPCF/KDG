@@ -34,7 +34,7 @@ namespace CollisionManager
 			actorB->GetTriangles( actorA->GetAABB(), triangles );
 			for( i = 0; i < triangles.size(); ++i )
 			{
-				Vector point;			// any point in shared space
+				Vector point;			// random point in shared space
 				Triangle triangle;
 				Vector normal = triangle.GetNormal();
 				Vector ab, bc, ca;
@@ -110,7 +110,7 @@ namespace CollisionManager
 				// apply force
 				{
 					Vector pointMove = actorA->GetPointFromPreviousFrame(point) - point;
-					float force = ( actorA->GetPointFromPreviousFrame(point) - point ).dot(normal) * pushingOutFactor * actorA->GetMass();
+					float force = pointMove.dot(normal) * pushingOutFactor * actorA->GetMass();
 					
 					actorA->AddForce( normal * force );
 				}
